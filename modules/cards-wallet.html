@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Cards Wallet & Sharing · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="home.html">← Previous</a>
+      <a href="scan.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Cards Wallet & Sharing</div>
+      <div class="head-row rv">
+        <span class="badge">Module 06</span>
+        <h1>Cards Wallet & Sharing</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Every card you make lives here — spin through them on the pedestal, flip one over, and
+        its back carries a real QR code that opens fullscreen for scanning across a table.
+        Sharing goes well past the code: send the link through any app, copy it, pass a contact
+        file, duplicate a design, or write your card onto a physical NFC tag.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="65" style="width:0"></i></div><b>65%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="70" style="width:0"></i></div><b>70%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="35" style="width:0"></i></div><b>35%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Flip through your cards</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">Swipe through every card you own, flip the one in focus, and show its QR big enough to scan from across a table.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  TAB([My Cards tab]):::screen --> CAR[Swipe the carousel<br/>cards loop around]:::action
+  CAR --> TAPC[Tap the focused card]:::action
+  TAPC --> BACK([Card back<br/>with a real QR]):::screen
+  BACK --> TAPQ[Tap the QR]:::action
+  TAPQ --> FULL([Fullscreen QR<br/>bright on dark]):::screen
+  FULL --> SCN([Their phone reads the link]):::state
+  SCN -.-> PUBP[Page the link opens<br/>still to be built]:::pending
+  FULL -.->|tap anywhere closes| BACK
+  BACK -.->|swipe on flips it back| CAR
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>Share your card</h3><span class="pill partial">Built · Wallet passes deferred</span></div>
+          <p class="f-note">Every solid box on the sheet works today — the tag writer really writes, with a 20-second window and an honest outcome either way. The two dashed boxes explain themselves when tapped.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  SHEET([Share sheet<br/>QR up top]):::screen --> LNK[Share the link<br/>any app on the phone]:::action
+  SHEET --> CPY[Copy the link]:::action
+  SHEET --> VCF[Send a contact file<br/>vCard format]:::action
+  SHEET --> DUP[Duplicate this card<br/>copy joins the wallet]:::action
+  SHEET --> SOC[Social strip<br/>WhatsApp LinkedIn X Instagram]:::action
+  SHEET --> NFC[Write to an NFC tag]:::action
+  NFC --> QN{Phone has NFC<br/>switched on?}:::decision
+  QN -->|No| NONFC([Friendly message<br/>nothing hangs]):::state
+  QN -->|Yes| WIN[20-second window<br/>hold a tag to the phone]:::action
+  WIN --> QT{Tag touched<br/>in time?}:::decision
+  QT -->|Yes| TAGOK([Your link is written<br/>onto the tag]):::state
+  TAGOK -.-> PUBT[Page the tag opens<br/>still to be built]:::pending
+  QT -.->|No · times out with advice| SHEET
+  SHEET --> WAL[Wallet pass<br/>iPhone only · deferred]:::pending
+  SHEET --> HS[Add to home screen<br/>launcher phase]:::pending
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>Manage the wallet</h3><span class="pill done">Built · saves to the cloud</span></div>
+          <p class="f-note">Any number of cards can be active at once — pausing one keeps its data but takes it out of circulation, and a paused card politely refuses to share.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  WALLET([My Cards tab]):::screen --> CHIP[Tap the chip<br/>under the card]:::action
+  CHIP --> QA{Active right now?}:::decision
+  QA -->|Yes| PAUSE([Paused · data kept<br/>sharing stops]):::state
+  QA -->|No| ACT([Active again<br/>several can be at once]):::state
+  PAUSE --> TRY[Tap Share while paused]:::action
+  TRY --> NUDGE([Gentle nudge<br/>set it active first]):::state
+  WALLET --> EDT[Tap Edit]:::action
+  EDT --> BLD([Builder opens pre-filled]):::screen
+  BLD -.->|save brings you back| WALLET
+  WALLET --> NEWB[Tap New card]:::action
+  NEWB --> PICK([Design picker]):::screen
+  WALLET --> DELB[Tap Delete<br/>on the card back]:::action
+  DELB --> QD{Delete this card?}:::decision
+  QD -->|Keep card| WALLET
+  QD -->|Delete| GONE([Card and its QR<br/>stop working at once]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How the wallet is wired</h3><span class="pill done">Live today</span></div>
+          <p class="f-note">Your cards live in the cloud and come back on any phone you sign in on — the link, the QR and the tag writer all read from the same saved card. Pictures are the one part still kept on the phone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SCR([Wallet · card back · share sheet]):::screen
+    LNK[Link maker<br/>one web address per card]:::action
+    QRG[QR drawing<br/>rendered on the phone]:::action
+    NFCW[NFC writer<br/>stamps the link on a tag]:::action
+  end
+  subgraph CLOUD [Supabase cloud]
+    DB[(PostgreSQL<br/>cards table · live)]:::backend
+    MED[[Cloudflare R2<br/>picture storage]]:::backend
+  end
+  SCR -->|create · edit · pause · delete| DB
+  DB -.->|your cards on every launch| SCR
+  SCR --> MED
+  SCR --> LNK
+  LNK --> QRG
+  QRG -.->|shown on the card back| SCR
+  LNK --> NFCW
+  NFCW --> TAG([A physical tag<br/>carries your link]):::state
+  LNK --> PUB[[Public card page<br/>not built yet]]:::pending
+  LNK --> WALP[[Wallet pass service<br/>iPhone only · deferred]]:::pending
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · STATES ═══ -->
+      <div class="tabpanel" id="tab-states">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">S</span><h3>A card's two lifecycles</h3><span class="pill done">Built</span></div>
+          <p class="f-note">Two independent lifecycles: how the focused card is displayed on screen, and whether it circulates out in the world.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+stateDiagram-v2
+  state "How the card is shown" as View {
+    [*] --> Front
+    Front --> Back: tap the card
+    Back --> Front: tap again or swipe on
+    Back --> FullscreenQR: tap the QR
+    FullscreenQR --> Back: tap anywhere or back gesture
+  }
+  state "Whether it circulates" as Standing {
+    [*] --> Active: your first card
+    [*] --> Paused: later cards start paused
+    Active --> Paused: chip tapped
+    Paused --> Active: chip tapped
+    Paused --> Paused: share tap refused
+    Active --> Deleted: delete confirmed
+    Paused --> Deleted: delete confirmed
+    Deleted --> [*]
+  }
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Wallet & card flip</b><span>Reanimated circular carousel — cards loop around the pedestal · tap-to-flip card backs on the same animation stack</span></li>
+            <li><b>QR code</b><span>react-native-qrcode-svg (pure JS) rendering the card's public link — on the card back and blown up fullscreen for scanning</span></li>
+            <li><b>Share sheet</b><span>@gorhom/bottom-sheet modal · native share sheet for the link · clipboard copy · vCard 3.0 contact-file export built in-app</span></li>
+            <li><b>NFC tag writing</b><span>react-native-nfc-manager — a real NDEF URI write, 20-second tag window, graceful timeout and off-state detection</span></li>
+            <li><b>Card storage</b><span>Live Supabase cards table (PostgreSQL) with owner-scoped access rules — create, edit, duplicate, pause and delete all save to your account today, and only you can read your own cards</span></li>
+            <li><b>Card pictures</b><span>Supabase Storage card-media bucket exists, but the app still saves photos, logos and covers as device file paths — real uploads are the next backend job, and are required before the iPhone build</span></li>
+            <li><b>Save reliability</b><span>A native crash when saving a card — a text field still focused while the screen was torn down — was found and fixed, and the same guard now covers every form screen</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">What is left on this module, grouped by the kind of work it is — the honest list.</p>
+
+          <h4 class="cat">Backend <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>The public card page — the big one</b><span>Every QR and every shared link points at a web address with no page behind it yet, so a scan leads nowhere outside the app · it is a separate web build and is the last thing standing between this module and real-world sharing</span></li>
+            
+          </ul></div>
+
+          <h4 class="cat">Integrations <span class="n">3 items</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Wallet passes</b><span>Google states its Wallet API is unavailable to India-registered businesses, so a pass can only be an iPhone one through Apple Wallet — needs an Apple developer account and a signing certificate · the share sheet's button says so honestly today</span></li>
+            <li><b>NFC tag writing on iPhone</b><span>One Xcode capability switch — Near Field Communication tag reading under Signing and Capabilities · Android writes real tags today, iPhone shows a graceful message until then</span></li>
+            <li><b>Add-to-home-screen shortcut</b><span>Android ShortcutManager / iOS widget — native module work slated for the launcher phase</span></li>
+          </ul></div>
+
+          <h4 class="cat">Decisions <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Share analytics<span class="tag-undecided">scope undecided</span></b><span>Whether and how to count scans, link opens and saves — the call waits on the public card page landing first, since that is where a scan would be counted</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="home.html"><span>← Previous</span><b>Home</b></a>
+        <a class="next" href="scan.html"><span>Next →</span><b>Scan</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

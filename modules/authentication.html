@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Authentication · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="splash-boot.html">← Previous</a>
+      <a href="select-canvas.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Authentication</div>
+      <div class="head-row rv">
+        <span class="badge">Module 02</span>
+        <h1>Authentication</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Getting in takes an email and thirty seconds — a six-digit code in a branded email, or a
+        password for returning members, live on the cloud today. The one-phone-per-account lock is
+        now active: signing in on a new phone quietly retires the old one, so two people can never
+        share an account. Apple and Google sign-in and the SMS / WhatsApp channels join later.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="75" style="width:0"></i></div><b>75%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="25" style="width:0"></i></div><b>25%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Signing in</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">From a cold open to being inside the app — both the email-code path and the password path, with every retry loop.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  START[Open the app]:::action --> SPL([Splash]):::screen
+  SPL --> SESS[[Restore saved session]]:::backend
+  SESS --> Q1{Already<br/>signed in?}:::decision
+  Q1 -->|Yes| INA([Straight in<br/>via first-card gate]):::state
+  Q1 -->|No| WEL([Welcome<br/>enter your email]):::screen
+  WEL --> Q2{How do you<br/>prove it is you?}:::decision
+  Q2 -->|Email code| SEND[[Send 6-digit code<br/>branded email]]:::backend
+  SEND --> OTP([Enter the code<br/>auto-advance boxes]):::screen
+  OTP --> Q3{Code<br/>correct?}:::decision
+  Q3 -->|No · retry or resend| OTP
+  Q3 -->|Yes| SETP([Set a password<br/>so next time is instant]):::screen
+  SETP --> INB([You are in]):::state
+  Q2 -->|Password| PWD([Enter password]):::screen
+  PWD --> VER[[Verify]]:::backend
+  VER --> Q4{Correct?}:::decision
+  Q4 -->|No| PWD
+  Q4 -->|Forgot · email me a code| SEND
+  Q4 -->|Yes| INB
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>One phone at a time</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">Two people can never share one account — this is switched on and working today.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  NEW([Sign in on a<br/>new phone]):::screen --> CLAIM[[This phone stamps its ID<br/>on the account]]:::backend
+  CLAIM --> OLD[The old phone<br/>opens the app]:::action
+  OLD --> Q{Still the account's<br/>phone?}:::decision
+  Q -->|Yes| OK([Carries on<br/>normally]):::state
+  Q -->|No| OUT([Signed out gracefully<br/>with an explanation]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>Signing out</h3><span class="pill done">Built</span></div>
+          <p class="f-note">Leaving cleanly — nothing personal stays on the phone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  PRO([Profile screen]):::screen --> TAP[Tap Sign out]:::action
+  TAP --> CONF{Sure?}:::decision
+  CONF -->|Cancel| PRO
+  CONF -->|Sign out| WIPE[Everything local is wiped<br/>cards · contacts · chats]:::action
+  WIPE --> WEL([Back to Welcome]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How sign-in is wired</h3><span class="pill done">Live today</span></div>
+          <p class="f-note">The high-level pieces, all live on the cloud — no passwords or codes are ever stored on the phone itself.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SCR([Welcome · Code · Password screens]):::screen
+    AL[Auth layer<br/>one switchboard for every sign-in]:::action
+    SS[Encrypted session storage]:::action
+  end
+  subgraph CLOUD [Supabase cloud]
+    GA[[Supabase Auth]]:::backend
+    MAIL[[Branded email sender<br/>custom SMTP]]:::backend
+    DB[(PostgreSQL<br/>profiles · device lock)]:::backend
+  end
+  SCR --> AL
+  AL --> GA
+  GA --> MAIL
+  MAIL -.->|6-digit code lands in the inbox| SCR
+  GA --> DB
+  GA -->|session token| SS
+  SS -->|restores on every launch| AL
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · STATES ═══ -->
+      <div class="tabpanel" id="tab-states">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">S</span><h3>Session lifecycle</h3><span class="pill done">Built</span></div>
+          <p class="f-note">Every state an account can be in on this phone, and what moves it between them.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+stateDiagram-v2
+  [*] --> Splash
+  Splash --> SignedOut: no saved session
+  Splash --> SignedIn: session restored
+  SignedOut --> AwaitingCode: email submitted
+  AwaitingCode --> AwaitingCode: wrong code · retry
+  AwaitingCode --> SettingPassword: code verified
+  SettingPassword --> SignedIn: password saved
+  SignedOut --> SignedIn: password accepted
+  SignedIn --> SignedOut: sign out
+  SignedIn --> SignedOut: signed in on another phone
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Email code + password sign-in</b><span>Supabase Auth (GoTrue) · six-digit OTP over custom SMTP (branded sender) · password grant for returning members</span></li>
+            <li><b>Auth screens</b><span>React Native 0.80 (New Architecture) + TypeScript · React Navigation native-stack · theme tokens</span></li>
+            <li><b>Session lifecycle</b><span>Supabase session persisted in MMKV on the device · restored on launch by the Splash gate · Zustand auth store drives the navigator</span></li>
+            <li><b>First-card gate</b><span>TanStack Query wallet check + navigationKey-swapped route sets in RootNavigator</span></li>
+            <li><b>One-phone-per-account lock</b><span>profiles.current_device_id claimed at sign-in and re-checked on every session restore — live since migration 0004 was applied on 27 July</span></li>
+            <li><b>Account data security</b><span>PostgreSQL row-level security, owner-scoped, on all eight tables — 17 policies live; separation between two signed-in accounts verified against the real project on 27 July</span></li>
+            <li><b>Sign-out wipe</b><span>queryClient.clear() + store reset — no personal data left on the phone</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">The honest list, grouped by the kind of work. The backend side of sign-in is finished — everything below waits on an outside account, a choice, or a hardening pass.</p>
+
+          <h4 class="cat">Integrations <span class="n">2 items</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Apple sign-in</b><span>Required before the app can ship on the App Store at all. Needs an Apple Developer account and the Sign in with Apple capability — not started, and nothing else can unblock it.</span></li>
+            <li><b>Google sign-in</b><span>Needs a Google Cloud OAuth client. The button is already in the app marked as coming later, and the same setup also unlocks importing contacts from Google.</span></li>
+          </ul></div>
+
+          <h4 class="cat">Decisions <span class="n">2 items</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Codes by SMS<span class="tag-undecided">provider undecided</span></b><span>MSG91, Twilio or another sender — the choice waits on comparing price and real Indian delivery rates, and Indian rules also require registering the sender before the first message can go out.</span></li>
+            <li><b>Codes over WhatsApp<span class="tag-undecided">approach undecided</span></b><span>Would use the WhatsApp Business API for codes and alerts. Needs a business account decision before any work starts.</span></li>
+          </ul></div>
+
+          <h4 class="cat">Polish <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Harden where the sign-in token is kept</b><span>The token that keeps you signed in currently sits in the app's fast on-device store. Before public release it moves into the phone's own secure vault — Keychain on iPhone, Keystore on Android.</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="splash-boot.html"><span>← Previous</span><b>Splash & App Boot</b></a>
+        <a class="next" href="select-canvas.html"><span>Next →</span><b>Select Your Canvas</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

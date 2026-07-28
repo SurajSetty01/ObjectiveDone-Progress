@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Profile &amp; Account · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="notifications.html">← Previous</a>
+      <a href="../index.html#timeline" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Profile &amp; Account</div>
+      <div class="head-row rv">
+        <span class="badge">Module 11</span>
+        <h1>Profile &amp; Account</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Your name, photo and company details live in one place, next to your data, your invites and
+        the door out. Edit them once and every new card starts from the right information — cards
+        you have already made stay exactly as you designed them.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="85" style="width:0"></i></div><b>85%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="85" style="width:0"></i></div><b>85%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="60" style="width:0"></i></div><b>60%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>The hub</h3><span class="pill done">Built</span></div>
+          <p class="f-note">Your photo in the top corner opens the hub — export, invites, support and the door out, with every row doing exactly what it says. The FAQ and legal rows open tidy coming-soon pages until the copy is written.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  HOME([Home screen]):::screen -->|tap your profile circle| PRO([Profile hub]):::screen
+  PRO -->|hero card up top| ACC([Account details]):::screen
+  PRO --> EXP[Export contacts]:::action
+  EXP --> Q1{Any contacts<br/>saved yet?}:::decision
+  Q1 -->|Yes · all of them as CSV| SHEET([Phone share sheet]):::state
+  Q1 -->|No · row waits greyed out| PRO
+  PRO --> INV[Invite friends]:::action
+  INV -->|ready-made invite message| SHEET
+  PRO --> SUP[Contact support]:::action
+  SUP --> MAIL([Pre-addressed support email]):::state
+  PRO --> LEG([FAQs · Privacy · Terms<br/>tidy coming-soon pages]):::pending
+  PRO --> SO[Tap Sign out]:::action
+  SO --> Q2{Sure?}:::decision
+  Q2 -->|Cancel| PRO
+  Q2 -->|Sign out| WIPE[Wipe everything on this phone]:::action
+  WIPE --> WEL([Back to Welcome]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>Account details</h3><span class="pill done">Built</span></div>
+          <p class="f-note">One identity form feeds every card you make next — photo changes and the logo auto-detect choice save on the spot, text fields wait for an explicit Save so half-typed details are never kept.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  ACC([Account details]):::screen --> PH[Tap your photo]:::action
+  PH --> Q1{Change or remove<br/>the photo?}:::decision
+  Q1 -->|Choose from gallery| GAL[Pick from your photos]:::action
+  Q1 -->|Delete photo| CLR[Back to your initials]:::action
+  GAL --> INST([Saved on the spot]):::state
+  CLR --> INST
+  ACC --> CHK[Logo auto-detect<br/>tick on or off]:::action
+  CHK -->|card builder can then<br/>fetch it from your website| INST
+  ACC --> FRM[Edit your details<br/>name · designation · company · website]:::action
+  FRM --> SAVE[Tap Save changes]:::action
+  SAVE --> Q2{Everything<br/>checks out?}:::decision
+  Q2 -->|Not yet · fields highlight| FRM
+  Q2 -->|Yes| DONE([Saved · back to the hub]):::state
+  DONE -.->|next card you build| NEWC([New cards start<br/>from these details]):::state
+  DONE -.->|nothing is rewritten| OLDC[Existing cards keep<br/>their own copy]:::action
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>Where your details live</h3><span class="pill partial">Live · photo upload next</span></div>
+          <p class="f-note">Your details now save to your account in the cloud, locked to you alone, and come back on whichever phone you sign in on — only the picture files themselves are still held on this phone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SCR([Profile and Account screens]):::screen
+    PL[Profile layer<br/>one plug for any store]:::action
+    PICK[Photo and logo pickers<br/>gallery on the phone]:::action
+    IMG[(Picture files<br/>kept on this phone)]:::backend
+  end
+  subgraph CLOUD [Supabase cloud · live]
+    DB[(PostgreSQL profiles table<br/>live · locked to your account)]:::backend
+    BUC[[Cloudflare R2<br/>cloud picture storage]]:::backend
+  end
+  SCR --> PL
+  SCR --> PICK
+  PICK -->|picked picture saved instantly| PL
+  PICK -->|the image file itself| IMG
+  PL -->|saves your details| DB
+  DB -.->|comes back on any phone<br/>you sign in on| SCR
+  IMG -.->|next milestone| BUC
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Profile hub</b><span>React Native 0.80 (New Architecture) + TypeScript · React Navigation native-stack · rows for account details, data export, invites, support and sign out</span></li>
+            <li><b>CSV export</b><span>Contacts serialised to CSV in-app, then handed to the native share sheet via React Native's Share API — mail, Drive and Notes all accept it</span></li>
+            <li><b>Invite friends</b><span>Ready-made invite message through the same native Share API sheet</span></li>
+            <li><b>Contact support</b><span>Linking opens a pre-addressed mailto with the subject line already filled in</span></li>
+            <li><b>Sign out</b><span>Confirm dialog → Supabase session ends, every local store wiped</span></li>
+            <li><b>Identity form</b><span>react-hook-form + zod (blur-validated) · TanStack Query · avatar picked with react-native-image-picker and saved instantly · fields release the keyboard before the screen closes, which is what fixed the native save crash found on 27 July</span></li>
+            <li><b>Company-logo auto-detect</b><span>Opt-in checkbox that saves on the spot — stored in profiles.logo_autodetect since 27 July — and unlocks "find it from your website" in the card builder (logo.dev with Google-favicon fallback)</span></li>
+            <li><b>Profile storage</b><span>LIVE on the Supabase PostgreSQL profiles table since 27 July, via supabaseProfileRepository — every row is locked to its owner by database security rules, proven with two separate signed-in sessions. The on-phone MMKV version is now only a fallback for offline development</span></li>
+            <li><b>Picture files</b><span>Your photo and any company logo are still saved as file paths on the phone itself · the Supabase card-media bucket that will hold them exists and is owner-scoped, but the uploads are the next milestone's work</span></li>
+            <li><b>One phone at a time</b><span>profiles.current_device_id — signing in on a new phone claims the account and signs the previous one out. Active since 27 July</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">Grouped by the kind of work left — the honest list. The database side went live on 27 July, so it has come off this list.</p>
+
+                    <h4 class="cat">Integrations <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Sharper company logos<span class="tag-undecided">paid key undecided</span></b><span>Auto-detect already works with no key at all, using a website's own icon · a paid logo service (logo.dev) returns crisper artwork, and whether that is worth a subscription is still an open call</span></li>
+          </ul></div>
+
+          <h4 class="cat">Testing <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Switch-phones check</b><span>Sign in on a second phone and confirm your details arrive intact and the first phone is signed out — the one-phone-at-a-time lock and the cloud profile both went live on the same day and should be exercised together on real hardware</span></li>
+          </ul></div>
+
+          <h4 class="cat">Polish <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>FAQs, Privacy policy and Terms</b><span>The words still have to be written — those three rows open tidy coming-soon screens today</span></li>
+            
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="notifications.html"><span>← Previous</span><b>Notifications</b></a>
+        <a class="next" href="../index.html#timeline"><span>Next →</span><b>Back to the timeline</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

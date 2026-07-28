@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Paid features & tools · ObjectiveDone Pricing</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules">Modules &amp; diagrams</a>
+      <a href="index.html" class="accent keep">Pricing</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <div class="crumb" style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:12px">
+        <a href="../index.html">Portal</a> / <a href="index.html">Pricing</a> / Features &amp; tools
+      </div>
+      <span class="badge rv">Step 1 of 3</span>
+      <h1 class="rv" style="--i:1">Every feature that costs money — and what runs it.</h1>
+      <p class="lead rv" style="--i:2">
+        Most of the app is free to run: screens, QR codes, NFC, the phone book, offline sync.
+        What follows is the short list of features that call a paid service, with the exact tool
+        planned for Android and for iPhone. Anything marked <b>free</b> costs nothing per use.
+      </p>
+
+      <div class="subnav rv" style="--i:3">
+        <a href="index.html">Overview</a>
+        <a href="features.html" class="here">Features &amp; tools</a>
+        <a href="costs.html">What each use costs</a>
+        <a href="plans.html">Basic &amp; Pro plans</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="sec-title rv"><h2>Sign-in &amp; identity</h2><span class="sub">scope A2 · A11</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Feature</th><th>Android</th><th>iPhone</th><th>Billed as</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>Email code sign-in</b><br /><span class="src">Live today</span></td>
+              <td>Supabase Auth + branded SMTP sender</td>
+              <td>Identical — one shared backend</td>
+              <td>Per email sent</td>
+            </tr>
+            <tr>
+              <td><b>Password sign-in &amp; reset</b><br /><span class="src">Live today</span></td>
+              <td>Supabase Auth</td>
+              <td>Identical</td>
+              <td><b>Free</b> — part of the backend plan</td>
+            </tr>
+            <tr>
+              <td><b>SMS code sign-in</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">MSG91 — one provider serves both platforms. <span class="src">Twilio does the same job for <b>50× the price</b> in India, so it is out.</span></td>
+              <td>Per SMS</td>
+            </tr>
+            <tr>
+              <td><b>WhatsApp code delivery</b><br /><span class="src">Planned · optional</span></td>
+              <td colspan="2">WhatsApp Business Platform (Meta Cloud API) — needs a Meta business account</td>
+              <td>Per authentication message</td>
+            </tr>
+            <tr>
+              <td><b>Google sign-in</b><br /><span class="src">Planned</span></td>
+              <td>Google OAuth via Supabase</td>
+              <td>Google OAuth via Supabase</td>
+              <td><b>Free</b> — account setup only</td>
+            </tr>
+            <tr>
+              <td><b>Apple sign-in</b><br /><span class="src">Planned · required by Apple</span></td>
+              <td>n/a</td>
+              <td>Sign in with Apple</td>
+              <td><b>Free</b> — needs the Apple developer account</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-title rv"><h2>The card &amp; sharing</h2><span class="sub">scope A3</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Feature</th><th>Android</th><th>iPhone</th><th>Billed as</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>QR code on the card</b><br /><span class="src">Live today</span></td>
+              <td colspan="2">Drawn on the phone — no service involved</td>
+              <td><b>Free</b></td>
+            </tr>
+            <tr>
+              <td><b>The page a shared link opens</b><br /><span class="src">To build</span></td>
+              <td colspan="2">Static web page on the same host as this portal</td>
+              <td>Hosting + bandwidth</td>
+            </tr>
+            <tr>
+              <td><b>Card photo, logo &amp; cover</b><br /><span class="src">Live on the phone · cloud uploads are the current milestone</span></td>
+              <td colspan="2">Supabase Storage (or Cloudflare R2 if volume grows)</td>
+              <td>Per GB stored + delivered</td>
+            </tr>
+            <tr>
+              <td><b>Company logo auto-fetch</b><br /><span class="src">Live today</span></td>
+              <td colspan="2">logo.dev, falling back to public favicons</td>
+              <td>Per lookup — free tier covers early volume</td>
+            </tr>
+            <tr>
+              <td><b>Tap-to-share on an NFC tag</b><br /><span class="src">Live on Android</span></td>
+              <td>Phone's own NFC writer</td>
+              <td>iPhone can read a tag but not write one <span class="src">(Apple platform limit)</span></td>
+              <td><b>Free</b> — blank tags are a one-off hardware cost</td>
+            </tr>
+            <tr>
+              <td><b>Wallet pass</b><br /><span class="src">Planned · iPhone only</span></td>
+              <td><b style="color:var(--rose)">Blocked in India</b> — Google states the Wallet API is not available to new Indian businesses</td>
+              <td>Apple Wallet (PassKit)</td>
+              <td><b>Free</b> to issue — needs the Apple developer account</td>
+            </tr>
+            <tr>
+              <td><b>Home-screen widget</b><br /><span class="src">Planned</span></td>
+              <td>App widget</td>
+              <td>WidgetKit</td>
+              <td><b>Free</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-title rv"><h2>Capture — scanning &amp; contacts</h2><span class="sub">scope A4 · A7</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Feature</th><th>Android</th><th>iPhone</th><th>Billed as</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>QR scanning</b><br /><span class="src">Returns with the camera</span></td>
+              <td>ML Kit barcode scanning — on the phone</td>
+              <td>Vision framework — on the phone</td>
+              <td><b>Free</b></td>
+            </tr>
+            <tr>
+              <td><b>Reading a paper card (OCR)</b><br /><span class="src">Planned</span></td>
+              <td>ML Kit text recognition on-device, <i>or</i> Google Cloud Vision for hard cases</td>
+              <td>Apple Vision on-device, <i>or</i> the same cloud fallback</td>
+              <td><b>Free on-device</b> · per image if cloud</td>
+            </tr>
+            <tr>
+              <td><b>Turning that text into a contact</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">One small AI call that sorts name, title, company, phone, email</td>
+              <td>Per scan (AI tokens)</td>
+            </tr>
+            <tr>
+              <td><b>Phone-book import &amp; duplicate check</b><br /><span class="src">Live today</span></td>
+              <td colspan="2">Runs entirely on the phone</td>
+              <td><b>Free</b></td>
+            </tr>
+            <tr>
+              <td><b>Google Contacts import</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">Google People API</td>
+              <td><b>Free</b> — account setup only</td>
+            </tr>
+            <tr>
+              <td><b>Where we met — place &amp; map</b><br /><span class="src">Basic live · map planned</span></td>
+              <td colspan="2">Phone GPS is free; place names and map thumbnails use Google Maps Platform</td>
+              <td>Per place lookup / per map image</td>
+            </tr>
+            <tr>
+              <td><b>Photos attached to a contact</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">Same cloud storage as card media</td>
+              <td>Per GB stored + delivered</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-title rv"><h2>Voice notes</h2><span class="sub">scope A5 — the most cost-sensitive area</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Feature</th><th>Android</th><th>iPhone</th><th>Billed as</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>Recording the conversation</b><br /><span class="src">UI live · real capture with the voice milestone</span></td>
+              <td colspan="2">The phone's own microphone</td>
+              <td><b>Free</b> to record · per GB to keep</td>
+            </tr>
+            <tr>
+              <td><b>Automatic transcription</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">Whisper or Deepgram, called from our server — never from the phone</td>
+              <td>Per minute of audio</td>
+            </tr>
+            <tr>
+              <td><b>Summary &amp; action items</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">One AI call per recording, on the transcript</td>
+              <td>Per recording (AI tokens)</td>
+            </tr>
+            <tr>
+              <td><b>Playback &amp; full transcript</b><br /><span class="src">UI live</span></td>
+              <td colspan="2">On the phone, from stored audio</td>
+              <td><b>Free</b> · bandwidth to stream</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-title rv"><h2>The AI concierge</h2><span class="sub">scope A6 · A19</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Feature</th><th>Android</th><th>iPhone</th><th>Billed as</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>Asking a question</b><br /><span class="src">Chat live · service deployed, waiting on the model key</span></td>
+              <td colspan="2">Claude, called from our server with only that member's own notes</td>
+              <td>Per question (AI tokens in + out)</td>
+            </tr>
+            <tr>
+              <td><b>Finding the right notes to answer with</b><br /><span class="src">Planned</span></td>
+              <td colspan="2">Embeddings index over the member's contacts and transcripts</td>
+              <td>Per note indexed (one-off) + per search</td>
+            </tr>
+            <tr>
+              <td><b>Speaking instead of typing</b><br /><span class="src">Planned</span></td>
+              <td>On-device speech recognition</td>
+              <td>On-device speech recognition</td>
+              <td><b>Free</b> on-device · per minute if routed to the cloud</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-title rv"><h2>Everything underneath</h2><span class="sub">the platform every feature sits on</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Item</th><th>Tool</th><th>Billed as</th></tr></thead>
+          <tbody>
+            <tr><td><b>Accounts, data &amp; live sync</b></td><td>Supabase — database, auth, storage, server functions</td><td>Monthly plan + usage above the included allowance</td></tr>
+            <tr><td><b>Reminder &amp; follow-up notifications</b></td><td>Firebase Cloud Messaging (Android) + Apple Push (iPhone)</td><td><b>Free</b></td></tr>
+            <tr><td><b>Call / WhatsApp / email from a contact</b></td><td>Ordinary phone links — no business account needed</td><td><b>Free</b></td></tr>
+            <tr><td><b>App Store presence</b></td><td>Apple Developer Program · Google Play Console</td><td>Yearly / one-off developer fees</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note rv">
+        <b>Why this matters for pricing:</b> only four things scale with how hard a member uses the
+        app — <b>transcription minutes</b>, <b>AI questions</b>, <b>card scans</b> and <b>stored media</b>.
+        Everything else is either free or a flat monthly platform cost. The plans on the next pages
+        are built around exactly those four.
+      </div>
+
+      <div class="note warn rv">
+        <b>Two findings worth acting on now.</b><br />
+        • <b>Google Wallet passes cannot ship for an India-registered company.</b> Google's own
+        support documentation says the Wallet API "isn't available to new businesses in India".
+        Apple Wallet is unaffected, so the plan is iPhone-only Wallet passes and an ordinary
+        home-screen shortcut on Android.<br />
+        • <b>Delivering the sign-in code over WhatsApp is cheaper than SMS</b> once volume passes
+        roughly 4,300 codes a month — ₹0.12 a message against ₹0.20 — but it carries a fixed
+        monthly platform fee, so SMS stays the right default until then.
+      </div>
+
+      <div class="pn">
+        <a href="index.html"><span>← Previous</span><b>Overview</b></a>
+        <a class="next" href="costs.html"><span>Next →</span><b>What each use costs</b></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal · pricing</span>
+    <span>Tool choices follow the locked scope (A2–A19)</span>
+  </footer>
+
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

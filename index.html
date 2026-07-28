@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>ObjectiveDone · Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#modules">Modules & diagrams</a>
+      <a href="pricing/index.html" class="accent keep">Pricing</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="badge rv">Live build status · updated <span id="stUpdated">Jul 27</span></span>
+      <h1 class="rv" style="--i:1">Four products. One backend.<br />Built in the open, flow by flow.</h1>
+      <p class="lead rv" style="--i:2">
+        Pick a product below. For everything in active development you get real flowcharts and
+        architecture diagrams for every module — pan them, zoom them, and see exactly what is
+        built, what is in progress, and what is still to come.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══ PRODUCT TABS ═══ -->
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="prod-tabs rv">
+        <button class="ptab active" data-panel="panel-app">
+          <span class="pt-icon">📇</span>
+          <span class="pt-body">
+            <b>ObjectiveDone App</b>
+            <span>Digital cards · scanning · contacts · AI concierge</span>
+            <span class="pill progress">In build now</span>
+          </span>
+        </button>
+        <button class="ptab locked" data-panel="panel-crm-mobile">
+          <span class="pt-icon">🗂️</span>
+          <span class="pt-body">
+            <b>CRM Mobile App</b>
+            <span>Work every captured contact on the go</span>
+            <span class="pill queued">🔒 Starts Aug 24, 2026</span>
+          </span>
+        </button>
+        <button class="ptab locked" data-panel="panel-crm-web">
+          <span class="pt-icon">🖥️</span>
+          <span class="pt-body">
+            <b>CRM Web Dashboard</b>
+            <span>The same CRM, full-screen in the browser</span>
+            <span class="pill queued">🔒 Starts Sep 8, 2026</span>
+          </span>
+        </button>
+        <button class="ptab locked" data-panel="panel-admin">
+          <span class="pt-icon">🛡️</span>
+          <span class="pt-body">
+            <b>Admin Dashboard</b>
+            <span>Members, analytics and platform control</span>
+            <span class="pill queued">🔒 Starts Sep 21, 2026</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- ═══ ACTIVE PRODUCT ═══ -->
+      <div class="prod-panel" id="panel-app">
+        <div class="overview">
+          <div class="ov-card rv">
+            <div class="ov-top">
+              <h3>Overall progress · ObjectiveDone App</h3>
+              <span class="pill progress">Day <span id="stDays">4</span> of the build</span>
+            </div>
+            <div class="ov-big" id="ovOverall">78<small>%</small></div>
+            <div class="bar" id="ovBar"><i data-w="54" style="width:0"></i></div>
+            <p class="ov-note" id="stNote">The overall number weighs backend and integrations more than screens.</p>
+            <div class="aspect-stack" id="aspectRows" style="margin-top:16px"><!-- the four tracks --></div>
+            <div class="stat-row">
+              <div class="stat"><b id="stDone">2</b><span>Modules done</span></div>
+              <div class="stat"><b id="stProg">8</b><span>In progress</span></div>
+              <div class="stat"><b id="stTarget">Aug 15</b><span>Target v1.0</span></div>
+            </div>
+          </div>
+          <div class="ov-card rv" style="--i:1">
+            <h3>Right now</h3>
+            <p class="ov-note" style="margin-top:10px">
+              Current milestone: <b id="stMilestone" style="color:var(--gold-deep)">M6 · Scanning, card reading &amp; location</b>
+            </p>
+            <p class="ov-note" style="margin-top:12px">
+              Started <b>Jul 24, 2026</b>. The estimate below is based on the real pace of these
+              first days — a full UI milestone per day — with slack for the native camera/voice
+              integrations and the first iPhone build, which move slower than screens.
+            </p>
+            <p class="ov-note" style="margin-top:12px">
+              Every module card below opens that module's diagram pages: user flows,
+              architecture, and states — with done and pending marked on the charts themselves.
+            </p>
+          </div>
+        </div>
+
+        <div class="sec-title" id="timeline" style="margin-top:30px"><h2>Timeline to v1.0</h2><span class="sub">scroll sideways · dates shift only if scope does</span></div>
+        <div class="ms-strip" id="msStrip"><!-- rendered from data.js --></div>
+
+        <div class="sec-title" id="modules" style="margin-top:26px"><h2>Modules</h2><span class="sub">click any module for its flowcharts & architecture diagrams</span></div>
+        <div class="mod-grid" id="modGrid"><!-- rendered from data.js --></div>
+      </div>
+
+      <!-- ═══ QUEUED PRODUCTS ═══ -->
+      <div class="prod-panel" id="panel-crm-mobile" style="display:none">
+        <div class="queued-panel rv">
+          <div class="qicon">🗂️</div>
+          <h3>ObjectiveDone CRM · Mobile App</h3>
+          <p>The team-side app for working every captured contact — pipelines, follow-ups and
+             assignments on the same shared backend the ObjectiveDone app writes to. Design and
+             flow-mapping begin once the app ships v1.0.</p>
+          <span class="qdate">Expected start · Aug 24, 2026</span>
+        </div>
+      </div>
+      <div class="prod-panel" id="panel-crm-web" style="display:none">
+        <div class="queued-panel rv">
+          <div class="qicon">🖥️</div>
+          <h3>ObjectiveDone CRM · Web Dashboard</h3>
+          <p>The same CRM, full-screen in the browser for desk work — bulk actions, filters and
+             reporting. Follows the CRM mobile app so both share one design language.</p>
+          <span class="qdate">Expected start · Sep 8, 2026</span>
+        </div>
+      </div>
+      <div class="prod-panel" id="panel-admin" style="display:none">
+        <div class="queued-panel rv">
+          <div class="qicon">🛡️</div>
+          <h3>ObjectiveDone · Admin Dashboard</h3>
+          <p>Members, analytics and control for the whole platform — the last surface, shipped
+             once all three apps run on the shared backend it administers.</p>
+          <span class="qdate">Expected start · Sep 21, 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal · flows & timelines</span>
+    <span>Diagrams are generated from the real codebase, not mockups</span>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

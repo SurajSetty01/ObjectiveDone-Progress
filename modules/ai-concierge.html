@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>AI Concierge · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="contacts.html">← Previous</a>
+      <a href="notifications.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / AI Concierge</div>
+      <div class="head-row rv">
+        <span class="badge">Module 09</span>
+        <h1>AI Concierge</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        A private concierge you chat with about the people you meet — every conversation keeps its
+        own thread, with a drawer to search, pin and rename them. Your chats now live in your own
+        cloud account rather than only on the phone, and the concierge's own service is switched on
+        and set up to read your contacts. It is waiting on one thing: the key that connects the
+        model itself. Until that arrives it says so plainly instead of guessing.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="60" style="width:0"></i></div><b>60%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="90" style="width:0"></i></div><b>90%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="80" style="width:0"></i></div><b>80%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="10" style="width:0"></i></div><b>10%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Ask about someone</h3><span class="pill partial">Built · answers await the model key</span></div>
+          <p class="f-note">From tapping the AI tab to an answer in the thread — every question is saved to your account the moment you send it; the reply is candid about the model not being connected until its key is set.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  HOME([Home]):::screen --> OPEN[Tap the AI tab<br/>tab bar hides]:::action
+  OPEN --> Q1{Chatted<br/>before?}:::decision
+  Q1 -->|No| WEL([Welcome hero<br/>suggested questions]):::screen
+  Q1 -->|Yes| THR([Your latest thread]):::screen
+  WEL --> ASK[Type or tap<br/>a question]:::action
+  THR --> ASK
+  ASK --> ECHO[Your words appear<br/>thinking dots below]:::action
+  ECHO --> SAVE[[Saved to your account<br/>in the cloud]]:::backend
+  SAVE --> Q2{Model key<br/>set yet?}:::decision
+  Q2 -->|Today| STAND([An honest note<br/>the model is not connected]):::state
+  Q2 -->|Once the key lands| LIVE[[The model answers<br/>your contacts as its memory]]:::pending
+  LIVE -.-> ANS([Real answer in the thread]):::pending
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>Your conversations</h3><span class="pill done">Built · saved to your account</span></div>
+          <p class="f-note">Every thread in one sliding panel — searchable and pinnable, a new chat names itself after your first message, and deleting always asks first. Threads now live in your own cloud account, and nobody else can reach them.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  AI([AI tab]):::screen --> DR[Tap the drawer icon]:::action
+  DR --> PANEL([Chats panel<br/>search · pinned · recent]):::screen
+  PANEL --> Q{What would<br/>you like?}:::decision
+  Q -->|New chat| FRESH([A fresh welcome]):::screen
+  FRESH --> FIRST[Your first message<br/>becomes its title]:::action
+  FIRST --> NAMED([Chat named itself]):::state
+  Q -->|Pick a chat| OPEN2([That thread opens]):::screen
+  Q -->|Hold a chat| MENU([Small menu<br/>pin · rename · delete]):::screen
+  MENU -->|Pin| PINNED([Jumps to the pinned list]):::state
+  MENU -->|Rename| REN([New name saved]):::state
+  MENU -->|Delete| CONF{Sure?}:::decision
+  CONF -->|Cancel| PANEL
+  CONF -->|Delete| GONE([Chat and its messages<br/>gone for good]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>Speak instead of typing</h3><span class="pill pending">Pending · voice milestone</span></div>
+          <p class="f-note">The mic sits in the bar today and politely says so when tapped; real dictation — stop to edit, or one gold tick to send — arrives with the voice milestone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  COMP([Chat composer]):::screen --> MIC[Tap the mic]:::action
+  MIC --> Q{Speech engine<br/>installed yet?}:::decision
+  Q -->|Today| NOTE([A polite note<br/>type for now]):::state
+  Q -->|From the voice milestone| LISTEN[Listening<br/>gold ring pulses]:::pending
+  LISTEN --> GHOST[Your words appear<br/>live in the bar]:::pending
+  GHOST --> Q2{How do<br/>you finish?}:::pending
+  Q2 -->|Stop| EDIT([Transcript in the box<br/>edit then send]):::pending
+  Q2 -->|Gold tick| SENT([Sent straight away]):::pending
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How the concierge is wired</h3><span class="pill partial">Live on the cloud · model key pending</span></div>
+          <p class="f-note">The chat plugs into one switchboard — your threads and messages are now kept in the cloud, and the concierge's own service is deployed and set up to read only your own contacts. The one piece still missing is the model key.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SCR([Chat screen and drawer]):::screen
+    AL[Chat switchboard<br/>one plug for every store]:::action
+    HON([An honest reply<br/>until the key lands]):::state
+  end
+  subgraph CLOUD [Supabase cloud]
+    TBL[(ai_threads and ai_messages<br/>live · private to you)]:::backend
+    FN[[ai-chat cloud function<br/>deployed and running]]:::backend
+    MEM[(Your contacts<br/>the concierge memory)]:::backend
+    CLA[[Claude model<br/>waiting on its key]]:::pending
+  end
+  SCR --> AL
+  AL -->|every thread and message| TBL
+  AL -->|each question| FN
+  FN -->|reads only your own contacts| MEM
+  FN -.->|no key yet| HON
+  FN -->|once the key is set| CLA
+  CLA -.->|the answer flows back into the thread| AL
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · STATES ═══ -->
+      <div class="tabpanel" id="tab-states">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">S</span><h3>A message's journey</h3><span class="pill done">Built</span></div>
+          <p class="f-note">What happens to a single message from typing it to seeing an answer — your words are saved to your account before anything else happens, so nothing you send is ever lost, even when things go wrong.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+stateDiagram-v2
+  [*] --> Composing
+  Composing --> Sending: gold send tapped
+  Sending --> Saved: your words stored in your account
+  Sending --> Composing: send failed · text restored
+  Saved --> Thinking: the concierge is asked
+  Thinking --> Replied: real answer, once the model key is set
+  Thinking --> HonestReply: the model is not connected yet
+  Replied --> Composing: ask a follow-up
+  HonestReply --> Composing: upgrades the moment the key lands
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Threaded chat experience</b><span>React Native 0.80 (New Architecture) + TypeScript · thread drawer with search, pin, rename, delete · a new chat auto-titles itself from your first message — all built</span></li>
+            <li><b>Chat data</b><span>LIVE on Supabase PostgreSQL — ai_threads + ai_messages (migration 0004, applied and verified 2026-07-27) · the app now runs on supabaseAiRepository, so threads and messages persist to the account rather than the phone</span></li>
+            <li><b>Chat privacy</b><span>Owner-only row-level security on both tables and, unlike cards or contacts, no administrator read path at all · isolation proven with two live signed-in sessions</span></li>
+            <li><b>Concierge service</b><span>Supabase Edge Function ai-chat — DEPLOYED with its real implementation · verifies a genuine signed-in user (an anon key is rejected) and reads the caller's own contacts under their own credentials to ground the answer · Anthropic Claude Haiku 4.5, replaying the last 20 turns</span></li>
+            <li><b>Model key</b><span>ANTHROPIC_API_KEY is not set yet, so the function answers 503 and the app persists an honest "the model isn't connected yet" reply · setting the secret upgrades replies in place — no app change, no rebuild</span></li>
+            <li><b>Crash safety in the composer</b><span>A focused text field surviving a screen closing tripped an unguarded null inside React Native's scroll-view focus search and crashed the app natively · found, fixed and applied across every screen carrying a text field, this composer included · verified on a real device</span></li>
+            <li><b>Dictation</b><span>useVoiceInput keeps its real interface — the mic sits in the composer and explains itself on tap today (@react-native-voice/voice removed in M2.1 over an AndroidX manifest clash)</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">What is left on the concierge, grouped by the kind of work. Cloud storage and the concierge service came off this list on 27 July.</p>
+
+          <h4 class="cat">AI <span class="n">2 items</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Connect the model</b><span>Set ANTHROPIC_API_KEY as a Supabase secret · the deployed ai-chat function answers 503 until then and the app replies honestly instead · one command, no rebuild, and every existing chat starts answering for real</span></li>
+            <li><b>Answers that draw on voice memos<span class="tag-undecided">transcription provider undecided</span></b><span>Blocked twice over: real audio capture returns with the voice milestone, and turning that audio into text needs a paid service (Whisper or Deepgram, server-side) · the function already has a place for transcripts in the notes it reads</span></li>
+          </ul></div>
+
+          <h4 class="cat">Integrations <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Dictation in the composer<span class="tag-undecided">approach undecided</span></b><span>On-device recogniser versus cloud speech-to-text · the mic is in place and explains itself on tap, so only useVoiceInput's body changes (voice milestone)</span></li>
+          </ul></div>
+
+          <h4 class="cat">Testing <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Grounded-answer pass once the key is live</b><span>Confirm the concierge only ever cites the asker's own contacts, admits what it does not know, and stays coherent on long threads · the database side of that isolation is already proven with two live signed-in sessions</span></li>
+          </ul></div>
+
+          <h4 class="cat">Decisions <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>How to search a large contact book<span class="tag-undecided">revisit at scale</span></b><span>Today every contact is handed to the model directly, which is cheaper and simpler · a search index (pgvector plus an embeddings provider) is only worth its complexity once a member passes roughly 200 contacts</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="contacts.html"><span>← Previous</span><b>Contacts</b></a>
+        <a class="next" href="notifications.html"><span>Next →</span><b>Notifications</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

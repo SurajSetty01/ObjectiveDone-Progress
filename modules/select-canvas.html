@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Select Your Canvas · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="authentication.html">← Previous</a>
+      <a href="card-builder.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Select Your Canvas</div>
+      <div class="head-row rv">
+        <span class="badge">Module 03</span>
+        <h1>Select Your Canvas</h1>
+        <span class="pill done">Done</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Right after the first sign-in, every member chooses the material their card will be
+        made of — Obsidian, Gold or Platinum, each shown as a finished sample card on a
+        rotating pedestal. The choice is mandatory: the rest of the app opens only once
+        that first card exists.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Choosing a canvas</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">The mandatory first step after joining — swipe the three materials, each carrying a complete sample card, and pick one.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  IN[Sign in for<br/>the first time]:::action --> GATE{Card in<br/>the wallet?}:::decision
+  GATE -->|No · a card is mandatory| SEL([Choose your canvas<br/>no back arrow]):::screen
+  GATE -->|Yes| HOME([Straight to Home]):::state
+  SEL --> CAR[Pedestal carousel<br/>full sample cards]:::action
+  CAR --> OB[Obsidian<br/>dark gunmetal · gold trim]:::action
+  OB -.->|swipe| GO[Gold<br/>solid brushed]:::action
+  GO -.->|swipe| PL[Platinum<br/>cool polished]:::action
+  OB --> Q{Happy with<br/>this material?}:::decision
+  GO --> Q
+  PL --> Q
+  Q -->|Tap Select| CB([Card Builder<br/>carries the design]):::screen
+  Q -->|Keep browsing| CAR
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>Adding another card later</h3><span class="pill done">Built</span></div>
+          <p class="f-note">From My Cards the same picker opens as a normal page — this time with a back arrow, because a card already exists.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  WAL([My Cards wallet]):::screen --> ADD[Tap New card]:::action
+  ADD --> SEL([Choose a design<br/>back arrow shown]):::screen
+  SEL --> CAR[Same pedestal<br/>swipe the three materials]:::action
+  CAR --> Q{Found the<br/>right one?}:::decision
+  Q -->|Tap Select| CB([Card Builder]):::screen
+  Q -->|Back chevron| WAL
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How the picker is wired</h3><span class="pill done">Live today</span></div>
+          <p class="f-note">One carousel engine serves both the picker and the wallet; the chosen material rides into the builder, and the saved card lands in the live cloud database.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SEL([Select Design screen]):::screen
+    CAR[Pedestal carousel<br/>shared with the wallet]:::action
+    PLATE[Three material plates<br/>Obsidian · Gold · Platinum]:::action
+    DEMO[Sample persona data<br/>display only]:::action
+    CB([Card Builder]):::screen
+    OPEN([Full app unlocks]):::state
+  end
+  subgraph CLOUD [Supabase cloud]
+    DB[(PostgreSQL<br/>cards table)]:::backend
+  end
+  SEL --> CAR
+  PLATE --> CAR
+  DEMO --> CAR
+  SEL -->|hands over the chosen material| CB
+  CB -->|saves the first card| DB
+  DB -.->|wallet check passes| OPEN
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Pedestal carousel</b><span>Reanimated 3 springs + react-native-gesture-handler pan — custom fling-and-settle physics, one engine shared with the My Cards wallet</span></li>
+            <li><b>The three designs</b><span>Locked card geometry rendered from 1000×1400 pre-generated plates · Obsidian / Gold / Platinum material variants · sample persona faces, display only</span></li>
+            <li><b>Handoff</b><span>React Navigation params carry the chosen theme (plus onboarding vs member origin) straight into the Card Builder</span></li>
+            <li><b>Where the card is saved</b><span>The live Supabase PostgreSQL cards table — every row is owner-scoped, so a member can only ever read and write their own cards. Proven with two separate signed-in accounts</span></li>
+            <li><b>The mandatory first-card gate</b><span>React Navigation's root stack counts the signed-in member's cards in that same live table and swaps stacks — an empty wallet forces Select Design → Card Builder with no way back</span></li>
+            <li><b>Save reliability</b><span>The native crash that could hit a card save — a still-focused text field surviving the screen teardown — is fixed, and the same guard is applied to every form screen</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">The honest list, grouped by the kind of work. This module is finished — the cloud database it saves into is live — so only one optional nicety is left.</p>
+
+          <h4 class="cat">Polish <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Your own details on the sample cards</b><span>The three previews deliberately carry a made-up person, so each material is judged carrying a complete card instead of a blank slab. Showing the signed-in member's own name and title there instead is a small nicety — nothing waits on it, and the picker is complete without it.</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="authentication.html"><span>← Previous</span><b>Authentication</b></a>
+        <a class="next" href="card-builder.html"><span>Next →</span><b>Card Builder</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

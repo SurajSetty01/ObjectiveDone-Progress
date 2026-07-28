@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Notifications · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="ai-concierge.html">← Previous</a>
+      <a href="profile.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Notifications</div>
+      <div class="head-row rv">
+        <span class="badge">Module 10</span>
+        <h1>Notifications</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Whenever something worth knowing happens — a card shared, a contact saved — a note lands
+        in one tidy centre and a small gold count appears on the Home bell. Every note is now kept
+        in your account rather than only on the phone. Reading, clearing one by one and catching up
+        in a single tap all work today; lock-screen alerts arrive with the push milestone.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="65" style="width:0"></i></div><b>65%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="80" style="width:0"></i></div><b>80%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="10" style="width:0"></i></div><b>10%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Something happens → you know</h3><span class="pill done">Built</span></div>
+          <p class="f-note">From the moment something happens to the moment you have seen it — the bell, the day-grouped centre, and both ways of clearing unread. Notes are kept in your account, so what you have read stays read.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  EVT[Something happens<br/>in the app]:::action --> WRITE[Note saved to your account<br/>bell updates instantly]:::action
+  WRITE --> BELL([Home bell<br/>gold unread count]):::screen
+  BELL --> TAP[Tap the bell]:::action
+  TAP --> CEN([Notification centre<br/>day groups · unread marks]):::screen
+  CEN --> Q1{Any updates<br/>yet?}:::decision
+  Q1 -->|No| QUIET([Quiet for now<br/>friendly empty note]):::state
+  Q1 -->|Yes| Q2{Unread<br/>rows left?}:::decision
+  Q2 -->|Tap one row| ROW[Marked read<br/>on the spot]:::action
+  ROW --> Q2
+  Q2 -->|Mark all read| ALLB[Everything cleared<br/>in one tap]:::action
+  ALLB --> CLEAR([All caught up<br/>badge goes quiet]):::state
+  Q2 -->|No| CLEAR
+  CLEAR -.->|back on Home · badge agrees| BELL
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>Reaching the lock screen</h3><span class="pill pending">Pending · push milestone</span></div>
+          <p class="f-note">The same note travelling further — onto the lock screen even when the app is shut. The dashed steps land in the push milestone; the in-app bell and centre already work today.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  EV2[Something happens<br/>in the app]:::action --> WR2[Note saved to your account<br/>centre lights up today]:::action
+  WR2 --> SEND[[Pushed to the phone<br/>over the air]]:::backend
+  SEND --> QO{App open<br/>right now?}:::backend
+  QO -->|Yes| INAPP([Bell badge<br/>works already]):::state
+  QO -->|No| LOCK([Lock screen lights up<br/>app closed or away]):::device
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How notifications are wired</h3><span class="pill partial">Live in the cloud · push with the push milestone</span></div>
+          <p class="f-note">One helper any feature can call, the cloud home where notes live, and lock-screen delivery — which is now live and proven on a real phone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    FEAT[Any feature<br/>cards · contacts · account]:::action
+    HELP[Notify helper<br/>one line to raise a note]:::action
+    UI([Bell and centre<br/>read the same list]):::screen
+  end
+  subgraph CLOUD [Supabase cloud]
+    TABLE[(PostgreSQL notifications<br/>live · private to your account)]:::backend
+  end
+  PUSHN[[Firebase push sender<br/>LIVE on Android]]:::backend
+  FEAT --> HELP
+  HELP --> TABLE
+  TABLE -.->|read back on the phone| UI
+  TABLE -.->|a new note triggers a send| PUSHN
+  PUSHN -->|even when the app is closed| LOCK2([Lock screen]):::device
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Notification centre</b><span>React Native SectionList grouped Today / Yesterday / date · hairline separators and unread marks per row · optimistic mark-read on tap + "Mark all read" header action — TanStack Query mutations that reconcile the list and unread-count caches together, with rollback on error</span></li>
+            <li><b>Home bell badge</b><span>Gold unread count on the Home TopBar · fed by a TanStack Query unread key over the same store · refetches on every screen focus, so returning from the centre or an emit from any flow updates it without a manual refresh</span></li>
+            <li><b>Writing an entry</b><span>notify() helper — the one-line way for any feature (cards, contacts, account) to drop an entry, now inserted straight into the cloud table; fire-and-forget, it never throws into the calling flow</span></li>
+            <li><b>Where notifications live</b><span>Live on Supabase — the PostgreSQL notifications table from migration 0004, applied and verified on 27 July · supabaseNotificationRepository is the active data layer · row-level security is on, so an account can only ever read its own notes, proven with two signed-in test sessions</span></li>
+            <li><b>Staying signed in</b><span>Supabase Auth session · the single-device sign-in lock is now active, so notes follow the one device a person is signed in on</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">The cloud store went live on 27 July, so that work is off this list. What remains is grouped by the kind of work it is. Nothing in this module is undecided.</p>
+
+          <h4 class="cat">Backend <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Instant badge updates</b><span>Turn on Supabase Realtime for the notifications table so the gold count changes the moment a note arrives, instead of when the next screen opens. One dashboard switch — deliberately still off, because nothing listens to it yet</span></li>
+            
+          </ul></div>
+
+          <h4 class="cat">Integrations <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Verify alerts on iPhone</b><span>Lock-screen delivery is live and proven on Android. The iPhone half needs an Apple push key and a Mac to build on — the code is written and platform-guarded, it has simply never run on an iPhone</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="ai-concierge.html"><span>← Previous</span><b>AI Concierge</b></a>
+        <a class="next" href="profile.html"><span>Next →</span><b>Profile & Account</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

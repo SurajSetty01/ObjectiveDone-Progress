@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Contacts · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="scan.html">← Previous</a>
+      <a href="ai-concierge.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Contacts</div>
+      <div class="head-row rv">
+        <span class="badge">Module 08</span>
+        <h1>Contacts</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Everyone you meet lands in one searchable rolodex — tagged, sorted, and a swipe away.
+        Each person gets a full page of their own: details, where you met, written memories,
+        voice-memo rows, and a one-tap jump to ask the concierge about them. The whole rolodex
+        now lives in the cloud, private to your account, so it survives the phone it was typed on.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="70" style="width:0"></i></div><b>70%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="85" style="width:0"></i></div><b>85%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="20" style="width:0"></i></div><b>20%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Find anyone</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">Search, sort and filter by tag; every row shows where the contact came from, and a swipe on a row deletes or tags them. Every one of those rows is now read and saved in the cloud.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  TAB([Contacts tab]):::screen --> Q1{Anyone<br/>saved yet?}:::decision
+  Q1 -->|No| EMP([Empty state<br/>add or import]):::screen
+  Q1 -->|Yes| LIST[Rolodex rows<br/>source badges]:::action
+  LIST --> FIND[Search bar<br/>name company or role]:::action
+  LIST --> SORT[Sort menu<br/>name or newest first]:::action
+  LIST --> CHIPS[Tag chips<br/>long-press deletes a tag]:::action
+  LIST --> Q2{Swipe or<br/>tap a row?}:::decision
+  Q2 -->|Swipe left| DELC{Really<br/>delete?}:::decision
+  DELC -->|Cancel| LIST
+  DELC -->|Delete| GONE([Contact removed]):::state
+  Q2 -->|Swipe right| SHEET([Tag picker sheet]):::screen
+  SHEET -.->|tags saved| LIST
+  Q2 -->|Tap| DET([Contact page]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>A contact's page</h3><span class="pill partial">Built · real audio still to come</span></div>
+          <p class="f-note">One page per person — details, memories, voice memos and where you met. Every edit saves straight to the cloud; the memo player runs today, but the sound itself is simulated until the recorder returns.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  DET([Contact page]):::screen --> INFO[Info rows<br/>phone email website]:::action
+  INFO --> OUT([Dialler mail or browser]):::state
+  DET --> TAGS[Tag chip opens<br/>the tag sheet]:::action
+  DET --> NOTE[Memories note<br/>edit in place]:::action
+  DET --> MEMO[Voice memo rows<br/>play and pause]:::action
+  MEMO -.->|sound is simulated today| AUD[Real recorded audio<br/>still to come]:::pending
+  DET --> MET[Where we met card]:::action
+  MET --> MAPS([Opens in Maps]):::state
+  DET --> MENU{More menu<br/>which action?}:::decision
+  MENU -->|Edit| EDIT([Edit contact form]):::screen
+  MENU -->|Favourite| DET
+  MENU -->|Share or follow up| FUP([Ready-made text or email]):::state
+  MENU -->|Delete · confirm| GONE([Deleted · back to list]):::state
+  DET -->|Ask Concierge pill| AI([AI Concierge chat]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>Add someone</h3><span class="pill partial">Built · Google import pending</span></div>
+          <p class="f-note">Two doors in: type a person yourself, or bring a whole list from the phone book, a CSV or a vCard — every import passes a duplicate guard first, then lands in the cloud rolodex.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  ADD{By hand<br/>or import?}:::decision
+  ADD -->|By hand| FORM([Create contact form<br/>grouped fields and tags]):::screen
+  FORM --> GPS[Use current location<br/>stamps where you met]:::action
+  FORM --> RECP[Voice memo recorder<br/>simulated for now]:::pending
+  FORM --> QV{Name plus phone<br/>or email?}:::decision
+  QV -->|Missing · keep typing| FORM
+  QV -->|Yes · save| SAVED([Saved · page opens]):::state
+  ADD -->|Import| IMP([Import sources]):::screen
+  IMP --> SRC{Which source?}:::decision
+  SRC -->|Phone book| PB[Device contacts<br/>asks permission first]:::action
+  SRC -->|A file| FILE[CSV or vCard file]:::action
+  SRC -->|Google| GGL[Google Contacts<br/>needs the accounts phase]:::pending
+  PB --> PREV([Review list<br/>tick who comes in]):::screen
+  FILE --> PREV
+  PREV --> DUP[Duplicate guard<br/>skips people you have]:::action
+  DUP --> DONE([In the rolodex]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>Where the rolodex lives</h3><span class="pill partial">Live on the cloud · media uploads next</span></div>
+          <p class="f-note">Every contact screen talks through one data door, and that door now opens onto the cloud — people, tags and favourites are saved to rows only your account can read. Photos and memo files are the last things still sitting on the phone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SCR([Contacts · Detail · Create · Import]):::screen
+    SEAM[Contacts layer<br/>one door for all data]:::action
+    MEDIA[Contact photos<br/>upload to the cloud]:::backend
+  end
+  subgraph CLOUD [Supabase cloud]
+    DB[(PostgreSQL contacts<br/>live · only you can read it)]:::backend
+    TAGDB[(Tag registry<br/>live)]:::backend
+    BUCKET[[Cloudflare R2<br/>media storage]]:::backend
+    TRS[[Transcription service<br/>pending]]:::pending
+  end
+  SCR --> SEAM
+  SEAM -->|people and favourites| DB
+  SEAM -->|tags| TAGDB
+  SEAM --> MEDIA
+  MEDIA -->|photos| BUCKET
+  BUCKET -.->|memo audio| TRS
+  TRS -.->|transcripts land back| DB
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · STATES ═══ -->
+      <div class="tabpanel" id="tab-states">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">S</span><h3>Voice memo lifecycle</h3><span class="pill partial">Built · real sound still to come</span></div>
+          <p class="f-note">The recorder's real lifecycle from the code — timer, pulsing waveform, playback with pause and resume all run today; only the captured sound is simulated, until the microphone comes back.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> Recording: tap the mic · sound simulated for now
+  Idle --> MicBlocked: mic access denied on iOS
+  MicBlocked --> Idle: open settings and return
+  Recording --> Recording: timer ticks · waveform pulses
+  Recording --> Saved: tap stop · memo joins the list
+  Saved --> Recording: record another
+  Saved --> Playing: tap play
+  Playing --> Paused: tap pause
+  Paused --> Playing: tap again to resume
+  Playing --> Stopped: reaches the finish
+  Stopped --> Saved: ready to replay
+  Saved --> Idle: delete the memo
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>List & filters</b><span>Search, name/newest sort and tag-chip filters backed by the contact_tags registry · swipe a row left to delete, right to tag</span></li>
+            <li><b>Shared grouped fields</b><span>The create/edit form reuses the Card Builder's FieldGroupsEditor — one grouped-fields component across both modules · every exit from the form now routes through leaveScreen(), the fix for the native save-crash found and closed on 27 July</span></li>
+            <li><b>Where-we-met</b><span>@react-native-community/geolocation stamps coordinates plus free-text place · opens in Maps from the contact page</span></li>
+            <li><b>Imports</b><span>Phone book via react-native-contacts (runtime permission both platforms) · CSV / vCard via @react-native-documents/picker with in-app parsers · duplicate guard skips people already saved</span></li>
+            <li><b>Voice memos</b><span>Functional simulation today (src/lib/audioRecorderPlayer.ts) — timer, pulsing waveform and playback all run behind the real recorder's exact interface, so bringing the microphone back is an internals-only swap</span></li>
+            <li><b>Where the data lives</b><span>Live on Supabase PostgreSQL — the contacts and contact_tags tables plus the tags, met_location and recordings columns from migration 0004, applied and verified 27 July · owner-only row security, proven with two separate signed-in sessions</span></li>
+            <li><b>Photos & memo audio</b><span>Still device paths (local: keys) — the card-media bucket and its owner-scoped rules exist, but nothing uploads yet, so media does not travel between phones</span></li>
+            <li><b>Ask the concierge</b><span>The deployed ai-chat cloud function reads your own contacts under your own sign-in to ground its answers · it returns an honest "not connected yet" reply until the Anthropic API key is set</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">What is left, grouped by the kind of work it is. The cloud move is done and off this list.</p>
+
+          <h4 class="cat">Backend <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Memo audio uploads</b><span>Contact photos now upload for real. Memo audio still does not — the recorder is a simulation, so there is no file to send yet. Arrives with the voice milestone</span></li>
+          </ul></div>
+
+          <h4 class="cat">Integrations <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Real voice recording</b><span>Reintroduce react-native-audio-recorder-player v3 (classic module, no Nitro — the lowest-risk of the native returns) and restore the RECORD_AUDIO request in RecorderPanel · the simulation already matches the real recorder's interface, so nothing above it changes</span></li>
+          </ul></div>
+
+          <h4 class="cat">APIs <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Google Contacts import</b><span>Google People API — needs the Google Cloud OAuth setup from the accounts phase (the same credentials as Google sign-in) · the button is already in the app, marked as coming with that phase</span></li>
+            
+          </ul></div>
+
+          <h4 class="cat">AI <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Memo transcription provider<span class="tag-undecided">undecided</span></b><span>Whisper vs Deepgram — the key stays a server-side secret and transcription runs in a cloud function, never in the app · waits on real recording first, since there is nothing to transcribe until then</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="scan.html"><span>← Previous</span><b>Scan</b></a>
+        <a class="next" href="ai-concierge.html"><span>Next →</span><b>AI Concierge</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

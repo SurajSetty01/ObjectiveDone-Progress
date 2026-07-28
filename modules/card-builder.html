@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Card Builder · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="select-canvas.html">← Previous</a>
+      <a href="home.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Card Builder</div>
+      <div class="head-row rv">
+        <span class="badge">Module 04</span>
+        <h1>Card Builder</h1>
+        <span class="pill progress">In progress</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        This is where a card takes shape — your name and role, a photo and company logo, and every
+        way to reach you, clubbed into tidy blocks you reorder with a drag of the finger. The builder
+        refuses to save a card nobody can reply to, asks before unsaved work is lost, and every
+        finished card now lands in the live cloud database the moment you tap Save. The pictures
+        themselves still sit on the phone until image uploads arrive.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="88" style="width:0"></i></div><b>88%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="92" style="width:0"></i></div><b>92%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="75" style="width:0"></i></div><b>75%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>Building the card</h3><span class="pill done">Built</span></div>
+          <p class="f-note">From identity to imagery to contact details — every piece is staged on a live preview of the actual card.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  BLD([Card builder]):::screen --> IDF[Fill identity details<br/>name company role]:::action
+  IDF --> MED[Tap photo or logo]:::action
+  MED --> SHT([Manage sheet]):::screen
+  SHT --> Q1{Which source?}:::decision
+  Q1 -->|Gallery| GAL[Pick from gallery]:::action
+  Q1 -->|Auto-detect| LKP[[Logo fetched from<br/>company website]]:::backend
+  Q1 -->|Remove| REM[Image cleared]:::action
+  GAL -.->|staged on the card| BLD
+  LKP -.->|staged on the card| BLD
+  REM -.->|slot emptied| BLD
+  BLD --> FLD[Add phones emails<br/>and links]:::action
+  FLD --> ROW[Grow or trim<br/>rows in a box]:::action
+  ROW --> DRG[Drag whole blocks<br/>to reorder]:::action
+  DRG --> PRE([Preview shows<br/>the real card]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>Saving safely</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">A card must carry a way to reach you before it can exist — and the very first save unlocks the rest of the app. A fault that could close the app at the instant of saving has been found and fixed, and the save now lands on the live cloud database every time.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  BLD([Card builder]):::screen --> SAV[Tap Save]:::action
+  SAV --> Q1{Phone or email<br/>present?}:::decision
+  Q1 -->|No| NUD[Inline nudge<br/>add one first]:::action
+  NUD -.->|back to the form| BLD
+  Q1 -->|Yes| UP[[Card saved<br/>to the cloud]]:::backend
+  UP --> Q2{Your first<br/>card?}:::decision
+  Q2 -->|Yes| HOME([App unlocks<br/>into Home]):::state
+  Q2 -->|No| WAL([Back to the wallet]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>Leaving without saving</h3><span class="pill done">Built</span></div>
+          <p class="f-note">Backing out never eats work — the moment anything has changed, leaving asks first.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  BLD([Card builder]):::screen --> BCK[Tap Cancel<br/>or press back]:::action
+  BCK --> Q1{Unsaved<br/>changes?}:::decision
+  Q1 -->|No| OUT([Leaves at once]):::state
+  Q1 -->|Yes| DLG([Discard or stay<br/>dialog]):::screen
+  DLG -->|Stay| BLD
+  DLG -->|Discard| BIN([Changes dropped<br/>back where you were]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How the builder is wired</h3><span class="pill done">Live today</span></div>
+          <p class="f-note">Where the pictures come from and where the finished card lives — your saved details and every finished card are on the live cloud database today. Only the images themselves still sit on the phone.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    SCR([Card builder screen]):::screen
+    PIC[Photo gallery picker]:::action
+  end
+  subgraph WEB [Public web]
+    LKP[[Logo lookup<br/>from your website]]:::backend
+  end
+  subgraph CLOUD [Supabase cloud]
+    PRF[(PostgreSQL<br/>profiles table)]:::backend
+    DB[(PostgreSQL<br/>cards table)]:::backend
+    IMG[[Cloudflare R2<br/>image storage]]:::backend
+  end
+  PRF -.->|prefills the first card| SCR
+  SCR --> PIC
+  PIC -.->|chosen image| SCR
+  PIC -.->|not uploaded yet| IMG
+  SCR -->|find my logo| LKP
+  LKP -.->|logo preview| SCR
+  SCR -->|Save| DB
+  DB -.->|wallet refreshes| SCR
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · STATES ═══ -->
+      <div class="tabpanel" id="tab-states">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">S</span><h3>Form lifecycle</h3><span class="pill done">Built</span></div>
+          <p class="f-note">Every state the form passes through, from first keystroke to safely saved.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+stateDiagram-v2
+  [*] --> Pristine
+  Pristine --> [*]: back · leaves freely
+  Pristine --> Editing: first change
+  Editing --> Checking: Save tapped
+  Checking --> Invalid: phone or email missing
+  Checking --> Saving: everything in place
+  Invalid --> Editing: nudge shown · typing resumes
+  Saving --> Editing: cloud error · try again
+  Saving --> Saved: cloud confirms
+  Saved --> [*]: Home or the wallet
+  Editing --> LeavePrompt: back pressed
+  LeavePrompt --> Editing: stay
+  LeavePrompt --> [*]: discard changes
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Form and fields</b><span>Shared FieldGroupsEditor — grouped +/− field boxes with drag-a-block reorder · phone-or-email rule enforced before any save · unsaved-changes guard on every exit path</span></li>
+            <li><b>Media staging</b><span>react-native-image-picker for gallery picks · company-logo auto-detect through the logo service, with a Google-favicon fallback when no token is set</span></li>
+            <li><b>Live preview</b><span>The preview modal renders the real card face from the live form input — what you see is exactly what saves</span></li>
+            <li><b>Card storage</b><span>LIVE on the Supabase PostgreSQL cards table, verified against the real project on 27 July · owner-only access rules, so one account can never read another's cards</span></li>
+            <li><b>Profile prefill</b><span>LIVE on the Supabase profiles table · the first card fills itself from your saved profile, and a first card with no profile behind it writes those details back</span></li>
+            <li><b>Images</b><span>Photos, logos and covers are still saved as device file paths, not uploaded files · the Supabase card-media bucket and its access rules already exist, so uploads are wiring, not new infrastructure</span></li>
+            <li><b>Safe screen exit</b><span>src/lib/leaveScreen.ts — dismisses the keyboard and waits two frames before the screen is torn down, curing a native crash in React Native's ScrollView focus search when a focused text field outlived its screen · applied to every form screen and verified on a real device</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">What is left on this module. Image uploads, upload progress, and the question of what Save should do mid-upload all came off this list on 29 Jul 2026 — pictures now upload for real, and Save simply waits for them.</p>
+
+          <h4 class="cat">APIs <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Sharper logo auto-detect<span class="tag-undecided">paid tier undecided</span></b><span>A LOGO_DEV_TOKEN in the environment file returns crisper company logos. The keyless favicon fallback works today, so this is a quality upgrade, not a blocker — worth deciding once we see how good the free results look on real customers</span></li>
+          </ul></div>
+
+          <h4 class="cat">Polish <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Brand polish pass</b><span>A visual sweep over the builder screens to bring spacing, type and colour fully onto the brand system</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="select-canvas.html"><span>← Previous</span><b>Select Your Canvas</b></a>
+        <a class="next" href="home.html"><span>Next →</span><b>Home</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>

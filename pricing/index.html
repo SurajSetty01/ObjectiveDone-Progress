@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Pricing · ObjectiveDone</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules">Modules &amp; diagrams</a>
+      <a href="index.html" class="accent keep">Pricing</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <div class="crumb" style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:12px">
+        <a href="../index.html">Portal</a> / Pricing
+      </div>
+      <span class="badge rv">Running costs &amp; member plans</span>
+      <h1 class="rv" style="--i:1">What ObjectiveDone costs to run —<br />and what a member should pay.</h1>
+      <p class="lead rv" style="--i:2">
+        Three pages, in order: which features actually cost money and what runs them, what each
+        single use costs at the vendors' published rates, and the two member plans those numbers
+        support. Every price here is a real published figure with its source linked — nothing is
+        estimated except where it says so.
+      </p>
+
+      <div class="subnav rv" style="--i:3">
+        <a href="index.html" class="here">Overview</a>
+        <a href="features.html">Features &amp; tools</a>
+        <a href="costs.html">What each use costs</a>
+        <a href="plans.html">Basic &amp; Pro plans</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="sec-title rv"><h2>Only four things scale with usage</h2><span class="sub">everything else is free or a flat monthly cost</span></div>
+      <div class="costs rv">
+        <div class="cost">
+          <h4>🎙️ Transcribing a voice note</h4>
+          <div class="big">₹0.29</div>
+          <div class="unit">per minute of audio</div>
+          <p class="math">A member who records ten 3-minute conversations a month costs about ₹9 in transcription.</p>
+        </div>
+        <div class="cost">
+          <h4>💬 One question to the concierge</h4>
+          <div class="big">₹0.31</div>
+          <div class="unit">per question &amp; answer</div>
+          <p class="math">Cheap individually, but the thing members will use most. 100 questions a month ≈ ₹31.</p>
+        </div>
+        <div class="cost">
+          <h4>📇 Reading a paper card</h4>
+          <div class="big">₹0.00</div>
+          <div class="unit">per scan, on the phone</div>
+          <p class="math">Free when the phone does the reading. A cloud fallback for difficult cards costs ₹0.14 each, and the first 1,000 a month are free.</p>
+        </div>
+        <div class="cost">
+          <h4>🗄️ Keeping photos &amp; recordings</h4>
+          <div class="big">₹1.44</div>
+          <div class="unit">per GB per month</div>
+          <p class="math">On Cloudflare R2, which charges nothing to send files back. On the default storage the same GB costs ₹2.05 plus ₹8.65 every time it is downloaded.</p>
+        </div>
+      </div>
+      <p class="src rv" style="margin:-10px 0 4px">
+        Converted at ₹96 to the US dollar — the assumption used throughout this section, and one
+        that moves. Full working, per-vendor rates and sources on <a href="costs.html">the costs page</a>.
+      </p>
+
+      <div class="sec-title rv" style="margin-top:34px"><h2>How the plans work</h2><span class="sub">two tiers, built from those four numbers</span></div>
+      <div class="plans rv">
+        <div class="plan">
+          <h3>Basic</h3>
+          <p class="who">For the member who swaps cards and keeps a tidy contact book.</p>
+          <div class="price"><b>₹299</b><span>/ member / month</span></div>
+          <p class="margin">Costs at most ₹72 to serve — a 76% margin even if fully used.</p>
+          <ul>
+            <li><span class="ck">✓</span><span>Unlimited cards, QR, NFC and sharing</span></li>
+            <li><span class="ck">✓</span><span>Unlimited contacts, tags and imports</span></li>
+            <li><span class="ck">✓</span><span><b>60 minutes</b> of voice-note transcription</span></li>
+            <li><span class="ck">✓</span><span><b>150 concierge questions</b></span></li>
+            <li><span class="ck">✓</span><span><b>2 GB</b> of recordings &amp; photos</span></li>
+          </ul>
+        </div>
+        <div class="plan hero">
+          <span class="ribbon">Recommended</span>
+          <h3>Pro</h3>
+          <p class="who">For the founder who records every meeting and asks the concierge daily.</p>
+          <div class="price"><b>₹799</b><span>/ member / month</span></div>
+          <p class="margin">Costs at most ₹379 to serve — a 53% margin even if fully used.</p>
+          <ul>
+            <li><span class="ck">✓</span><span>Everything in Basic</span></li>
+            <li><span class="ck">✓</span><span><b>300 minutes</b> of transcription</span></li>
+            <li><span class="ck">✓</span><span><b>750 concierge questions</b></span></li>
+            <li><span class="ck">✓</span><span><b>20 GB</b> of recordings &amp; photos</span></li>
+            <li><span class="ck">✓</span><span>Summaries &amp; action items on every recording</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="src rv" style="margin-top:-2px">
+        Allowances, the cost behind each one, and the margin they leave are broken down on
+        <a href="plans.html">the plans page</a>.
+      </p>
+
+      <div class="note rv" style="margin-top:30px">
+        <b>A note on how these were built:</b> the plan prices are set so that a member using their
+        <i>entire</i> allowance still costs meaningfully less than they pay — the arithmetic is shown
+        on the plans page rather than hidden. Members who barely use AI cost almost nothing to serve,
+        which is what funds the heavy users.
+      </div>
+
+      <div class="note warn rv">
+        <b>Three decisions this research forced into the open:</b><br />
+        • <b>Google Wallet passes cannot be issued by an India-registered company</b> — Google's own
+        documentation closes the API to new Indian businesses. Wallet ships on iPhone only.<br />
+        • <b>Where recordings and photos live decides the infrastructure bill.</b> At 5,000 members
+        it is the difference between ₹47,735 and ₹6,193 a month, and it is much easier to choose
+        now than to migrate later.<br />
+        • <b>Which model answers concierge questions triples the cost</b> of the feature members
+        touch most. All three are worked through on <a href="costs.html">the costs page</a>.
+      </div>
+
+      <div class="pn">
+        <a href="../index.html"><span>← Back to</span><b>The build portal</b></a>
+        <a class="next" href="features.html"><span>Start here →</span><b>Features &amp; tools</b></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal · pricing</span>
+    <span>Vendor prices checked 27 Jul 2026</span>
+  </footer>
+
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

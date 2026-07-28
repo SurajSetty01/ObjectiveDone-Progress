@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Splash &amp; App Boot · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules" class="keep">All modules</a>
+      <a href="../pricing/index.html">Pricing</a>
+      <a href="../index.html#modules">← Previous</a>
+      <a href="authentication.html" class="accent keep">Next →</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Splash &amp; App Boot</div>
+      <div class="head-row rv">
+        <span class="badge">Module 01</span>
+        <h1>Splash &amp; App Boot</h1>
+        <span class="pill done">Done</span>
+      </div>
+      <p class="lead rv" style="--i:1">
+        The app's first second does real work: while the gold logo glows, the phone quietly
+        restores your saved sign-in, confirms this is still the phone your account is signed in
+        on, and checks the cloud to see whether your wallet holds a card yet. Whatever it finds,
+        you land on exactly the right screen — Welcome, the first-card studio, or straight into
+        Home.
+      </p>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
+        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+        <div class="hero-aspects">
+          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+          <div class="abar"><span>Backend</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
+        </div>
+      </div>
+
+      <div class="tabbar rv" style="--i:3">
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+      </div>
+
+      <div class="legend">
+        <span class="lg lg-screen"><i></i>App screen</span>
+        <span class="lg lg-action"><i></i>Action</span>
+        <span class="lg lg-decision"><i></i>Decision</span>
+        <span class="lg lg-backend"><i></i>Cloud / backend</span>
+        <span class="lg lg-state"><i></i>Outcome / milestone</span>
+        <span class="lg lg-pending"><i></i>Pending — later milestone</span>
+      </div>
+
+      <!-- ═══ TAB · USER FLOWS ═══ -->
+      <div class="tabpanel active" id="tab-flows">
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">01</span><h3>From tap to the right screen</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">Launch, the logo moment, the one-phone check that is now switched on, and the routing decision — every cold open lands exactly where it should.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  TAP[Tap the app icon]:::action --> SPL([Splash<br/>gold logo intro]):::screen
+  SPL -->|while the logo animates| SESS[[Restore saved session]]:::backend
+  SESS --> LOCK{Still your<br/>only phone?}:::decision
+  LOCK -->|another phone claimed it| WEL([Welcome<br/>sign in first]):::screen
+  LOCK -->|yes| CHK[Quick wallet check<br/>a one-beat loader]:::action
+  CHK --> Q{Where does this<br/>phone belong?}:::decision
+  Q -->|no session| WEL
+  Q -->|signed in · wallet empty| GATE([Select Your Canvas<br/>the mandatory gate]):::screen
+  Q -->|signed in · cards ready| HOME([Home]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">02</span><h3>The gate re-checks itself</h3><span class="pill done">Built</span></div>
+          <p class="f-note">The first-card gate watches the wallet. The moment a card exists it steps aside on its own — no button pressed, no way to skip it before then.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  GATE([Select Your Canvas]):::screen --> BUILD([Card Builder]):::screen
+  BUILD --> SAVE[Save your first card]:::action
+  SAVE --> DB[[Card lands in the cloud]]:::backend
+  DB -.->|wallet updated| RE[Gate re-checks<br/>the wallet]:::action
+  RE --> Q{Wallet still<br/>empty?}:::decision
+  Q -->|Yes| GATE
+  Q -->|No| FADE[Screen fades<br/>on its own]:::action
+  FADE --> HOME([Home]):::screen
+  HOME --> FREE([Gate never<br/>appears again]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · ARCHITECTURE ═══ -->
+      <div class="tabpanel" id="tab-arch">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">A</span><h3>How the boot is wired</h3><span class="pill done">Live today</span></div>
+          <p class="f-note">Everything a launch talks to — sign-in, the one-phone check and the wallet count, all of it running on the real cloud today, nothing simulated.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [On the phone · React Native]
+    BOOT[App boot<br/>splash intro]:::action
+    SS[Encrypted session storage]:::action
+    GK{Route<br/>decision}:::decision
+    W([Welcome]):::screen
+    G([Select Your Canvas]):::screen
+    H([Home]):::screen
+  end
+  subgraph CLOUD [Supabase cloud · live today]
+    GA[[Supabase Auth]]:::backend
+    PROF[(PostgreSQL<br/>profiles · device lock)]:::backend
+    DB[(PostgreSQL<br/>cards table)]:::backend
+  end
+  BOOT --> SS
+  SS -->|saved token| GA
+  GA -->|whose phone is this| PROF
+  PROF -.->|still yours or evicted| GK
+  GA -.->|fresh session or none| GK
+  GK -->|signed in| DB
+  DB -.->|card count| GK
+  GK -->|no session| W
+  GK -->|zero cards| G
+  GK -->|cards ready| H
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · TECH STACK ═══ -->
+      <div class="tabpanel" id="tab-stack">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
+          <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
+          <div class="list-card"><ul>
+            <li><b>Boot gate</b><span>RootNavigator screen-set switching (auth → gate → main) — the screen set is chosen declaratively by auth + wallet state, no imperative navigation</span></li>
+            <li><b>Session restore</b><span>Supabase Auth persisted session restored on launch · Zustand auth store drives the navigator</span></li>
+            <li><b>One-phone lock</b><span>ACTIVE since migration 0004 (applied 27 July) — the restored session is checked against profiles.current_device_id, and a phone that lost the claim is signed out at launch rather than shown stale data</span></li>
+            <li><b>Wallet check</b><span>TanStack Query against the LIVE Supabase cards table · zero cards keeps the first-card gate up, the first save flips it</span></li>
+            <li><b>Splash screen</b><span>React Native + theme tokens · fades while the session restore and wallet check run</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <!-- ═══ TAB · THINGS TO DO ═══ -->
+      <div class="tabpanel" id="tab-pending">
+        <section class="feature">
+          <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
+          <p class="f-note">Nothing here blocks the module — launch, sign-in restore and routing are all finished and running on the cloud. What is left is forward-looking.</p>
+
+          <h4 class="cat">Integrations <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Open a shared card straight from its link<span class="tag-undecided">link type undecided</span></b><span>Tapping someone's card link should open it inside the app instead of the browser. Universal links or a custom app link — the call comes with the public card page, which is a separate build and not started yet.</span></li>
+          </ul></div>
+
+          <h4 class="cat">Testing <span class="n">2 items</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Cold-start timing on low-end Android</b><span>Measure how long the first second really takes on cheap hardware and trim anything slow. Needs a test handset, nothing else.</span></li>
+            <li><b>Two-phone run-through of the one-phone lock</b><span>The lock went live on 27 July. Sign in on a second phone and confirm the first one returns to Welcome on its next launch, on real devices rather than in a simulator.</span></li>
+          </ul></div>
+
+          <h4 class="cat">Polish <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Launching with no signal</b><span>The wallet count now comes from the cloud, so a launch with no connection cannot confirm your cards and falls back to the first-card screen. It should remember the last known wallet instead.</span></li>
+          </ul></div>
+        </section>
+      </div>
+
+      <div class="pn">
+        <a href="../index.html#modules"><span>← Previous</span><b>All modules</b></a>
+        <a class="next" href="authentication.html"><span>Next →</span><b>Authentication</b></a>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <span><b>ObjectiveDone</b> — internal build portal</span>
+    <span>Charts pan & zoom · F fits · 0 resets</span>
+  </footer>
+
+  <script src="../vendor/mermaid.min.js"></script>
+  <script src="../vendor/svg-pan-zoom.min.js"></script>
+  <script src="../vendor/hammer.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../assets/site.js"></script>
+  <script src="../assets/flow.js"></script>
+</body>
+</html>
