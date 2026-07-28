@@ -1,0 +1,16 @@
+{
+  "name": "objectivedone-progress-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ObjectiveDone client build portal — static site, served by a zero-dependency Node server.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build-data.mjs",
+    "check": "node build-data.mjs --check"
+  },
+  "dependencies": {}
+}
