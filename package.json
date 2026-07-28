@@ -7,9 +7,11 @@
   "engines": {
     "node": ">=18"
   },
+  "_deployNote": "data.js is a COMMITTED build artifact. It is generated from ../docs/website-status.md, which lives OUTSIDE this folder and is therefore NOT deployed — so `build` must stay a no-op. Regenerate locally with `npm run build:data`, commit data.js, then deploy.",
   "scripts": {
     "start": "node server.js",
-    "build": "node build-data.mjs",
+    "build": "echo \"Nothing to build at deploy time — data.js is committed. Regenerate locally: npm run build:data\"",
+    "build:data": "node build-data.mjs",
     "check": "node build-data.mjs --check"
   },
   "dependencies": {}

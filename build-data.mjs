@@ -26,6 +26,21 @@ const MD = path.join(HERE, '..', 'docs', 'website-status.md');
 const OUT = path.join(HERE, 'data.js');
 const CHECK = process.argv.includes('--check');
 
+if (!fs.existsSync(MD)) {
+  // This is a DEVELOPMENT tool, not a deploy step. Only website1/ is deployed, so
+  // docs/website-status.md is not present on the host — an ENOENT stack trace
+  // there looks like a broken build rather than a script being run in the wrong
+  // place, which is exactly how it was first misread.
+  console.error(
+    `Cannot find ${MD}\n\n` +
+      'This script generates data.js from the status document in docs/, which is\n' +
+      'OUTSIDE the deployed folder. data.js is a committed artifact — the host must\n' +
+      'not regenerate it.\n\n' +
+      'Run this locally from a full checkout, commit the updated data.js, then deploy.',
+  );
+  process.exit(1);
+}
+
 const md = fs.readFileSync(MD, 'utf8');
 const rows = section =>
   md
