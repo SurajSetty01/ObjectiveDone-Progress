@@ -38,13 +38,8 @@
         the door out. Edit them once and every new card starts from the right information — cards
         you have already made stay exactly as you designed them.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="85" style="width:0"></i></div><b>85%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="85" style="width:0"></i></div><b>85%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="60" style="width:0"></i></div><b>60%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
@@ -68,7 +63,7 @@
 
         <section class="feature">
           <div class="f-head"><span class="f-num">01</span><h3>The hub</h3><span class="pill done">Built</span></div>
-          <p class="f-note">Your photo in the top corner opens the hub — export, invites, support and the door out, with every row doing exactly what it says. The FAQ and legal rows open tidy coming-soon pages until the copy is written.</p>
+          <p class="f-note">Your photo in the top corner opens the hub — export, invites, support and the door out, with every row doing exactly what it says. Sign out now lives only here, behind an are-you-sure confirm — the temporary sign-out button Home carried during development was removed on 1 August. The FAQ and legal rows open tidy coming-soon pages until the copy is written.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -100,7 +95,7 @@ flowchart LR
 
         <section class="feature">
           <div class="f-head"><span class="f-num">02</span><h3>Account details</h3><span class="pill done">Built</span></div>
-          <p class="f-note">One identity form feeds every card you make next — photo changes and the logo auto-detect choice save on the spot, text fields wait for an explicit Save so half-typed details are never kept.</p>
+          <p class="f-note">One identity form feeds every card you make next — photo changes save on the spot, text fields wait for an explicit Save so half-typed details are never kept.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -110,8 +105,8 @@ flowchart LR
   Q1 -->|Delete photo| CLR[Back to your initials]:::action
   GAL --> INST([Saved on the spot]):::state
   CLR --> INST
-  ACC --> CHK[Logo auto-detect<br/>tick on or off]:::action
-  CHK -->|card builder can then<br/>fetch it from your website| INST
+  ACC --> WEB[Website<br/>feeds the logo finder]:::action
+  WEB -->|card builder reads<br/>your site's own artwork| INST
   ACC --> FRM[Edit your details<br/>name · designation · company · website]:::action
   FRM --> SAVE[Tap Save changes]:::action
   SAVE --> Q2{Everything<br/>checks out?}:::decision
@@ -133,8 +128,8 @@ flowchart LR
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
-          <div class="f-head"><span class="f-num">A</span><h3>Where your details live</h3><span class="pill partial">Live · photo upload next</span></div>
-          <p class="f-note">Your details now save to your account in the cloud, locked to you alone, and come back on whichever phone you sign in on — only the picture files themselves are still held on this phone.</p>
+          <div class="f-head"><span class="f-num">A</span><h3>Where your details live</h3><span class="pill done">Live · pictures upload too</span></div>
+          <p class="f-note">Your details save to your account in the cloud, locked to you alone, and come back on whichever phone you sign in on — and the picture files now travel with them instead of staying on one handset.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -144,7 +139,7 @@ flowchart LR
     PICK[Photo and logo pickers<br/>gallery on the phone]:::action
     IMG[(Picture files<br/>kept on this phone)]:::backend
   end
-  subgraph CLOUD [Supabase cloud · live]
+  subgraph CLOUD [In the cloud · live]
     DB[(PostgreSQL profiles table<br/>live · locked to your account)]:::backend
     BUC[[Cloudflare R2<br/>cloud picture storage]]:::backend
   end
@@ -154,7 +149,7 @@ flowchart LR
   PICK -->|the image file itself| IMG
   PL -->|saves your details| DB
   DB -.->|comes back on any phone<br/>you sign in on| SCR
-  IMG -.->|next milestone| BUC
+  IMG -->|uploaded on pick| BUC
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -176,11 +171,11 @@ flowchart LR
             <li><b>CSV export</b><span>Contacts serialised to CSV in-app, then handed to the native share sheet via React Native's Share API — mail, Drive and Notes all accept it</span></li>
             <li><b>Invite friends</b><span>Ready-made invite message through the same native Share API sheet</span></li>
             <li><b>Contact support</b><span>Linking opens a pre-addressed mailto with the subject line already filled in</span></li>
-            <li><b>Sign out</b><span>Confirm dialog → Supabase session ends, every local store wiped</span></li>
+            <li><b>Sign out</b><span>Confirm dialog → Supabase session ends, every local store wiped · the app's only sign-out since Home's development-time button was removed on 1 August</span></li>
             <li><b>Identity form</b><span>react-hook-form + zod (blur-validated) · TanStack Query · avatar picked with react-native-image-picker and saved instantly · fields release the keyboard before the screen closes, which is what fixed the native save crash found on 27 July</span></li>
-            <li><b>Company-logo auto-detect</b><span>Opt-in checkbox that saves on the spot — stored in profiles.logo_autodetect since 27 July — and unlocks "find it from your website" in the card builder (logo.dev with Google-favicon fallback)</span></li>
+            <li><b>Company website</b><span>Saved with your identity and handed to the card builder's logo finder, which reads the site's own artwork. The opt-in checkbox that used to gate this was removed on 31 July — a setting you have to find before a feature works is a setting that stops it working</span></li>
             <li><b>Profile storage</b><span>LIVE on the Supabase PostgreSQL profiles table since 27 July, via supabaseProfileRepository — every row is locked to its owner by database security rules, proven with two separate signed-in sessions. The on-phone MMKV version is now only a fallback for offline development</span></li>
-            <li><b>Picture files</b><span>Your photo and any company logo are still saved as file paths on the phone itself · the Supabase card-media bucket that will hold them exists and is owner-scoped, but the uploads are the next milestone's work</span></li>
+            <li><b>Picture files</b><span>Your photo and any company logo upload for real to Cloudflare R2 (via short-lived presigned URLs from the media-sign edge function) and survive a reinstall · signing out clears the cached copies so the next account never sees the last one's pictures</span></li>
             <li><b>One phone at a time</b><span>profiles.current_device_id — signing in on a new phone claims the account and signs the previous one out. Active since 27 July</span></li>
           </ul></div>
         </section>
@@ -190,12 +185,7 @@ flowchart LR
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">Grouped by the kind of work left — the honest list. The database side went live on 27 July, so it has come off this list.</p>
-
-                    <h4 class="cat">Integrations <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Sharper company logos<span class="tag-undecided">paid key undecided</span></b><span>Auto-detect already works with no key at all, using a website's own icon · a paid logo service (logo.dev) returns crisper artwork, and whether that is worth a subscription is still an open call</span></li>
-          </ul></div>
+          <p class="f-note">Grouped by the kind of work left — the honest list. The database side went live on 27 July, and the paid-logo question was closed on 31 July: the free finder reads the company website's own artwork, which is good enough that a subscription buys nothing. The "use my website to auto-detect the company logo" setting was removed with it — the card builder simply offers it, so there is no preference to find first.</p>
 
           <h4 class="cat">Testing <span class="n">1 item</span></h4>
           <div class="list-card"><ul>

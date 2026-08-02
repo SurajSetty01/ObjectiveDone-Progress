@@ -39,17 +39,12 @@
         Sharing goes well past the code: send the link through any app, copy it, pass a contact
         file, duplicate a design, or write your card onto a physical NFC tag.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="65" style="width:0"></i></div><b>65%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="70" style="width:0"></i></div><b>70%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="35" style="width:0"></i></div><b>35%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
-        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">4</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
@@ -80,7 +75,7 @@ flowchart LR
   BACK --> TAPQ[Tap the QR]:::action
   TAPQ --> FULL([Fullscreen QR<br/>bright on dark]):::screen
   FULL --> SCN([Their phone reads the link]):::state
-  SCN -.-> PUBP[Page the link opens<br/>still to be built]:::pending
+  SCN --> PUBP([Your public card page<br/>opens in their browser]):::state
   FULL -.->|tap anywhere closes| BACK
   BACK -.->|swipe on flips it back| CAR
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
@@ -94,26 +89,28 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">02</span><h3>Share your card</h3><span class="pill partial">Built · Wallet passes deferred</span></div>
-          <p class="f-note">Every solid box on the sheet works today — the tag writer really writes, with a 20-second window and an honest outcome either way. The two dashed boxes explain themselves when tapped.</p>
+          <div class="f-head"><span class="f-num">02</span><h3>Share your card</h3><span class="pill done">Built · every route works</span></div>
+          <p class="f-note">Every box on this sheet works today. The tag writer really writes, with a 20-second window and an honest outcome either way; the QR goes out as a branded picture, the card as a contact file the address book imports directly, and the app row reaches WhatsApp, LinkedIn, X, Instagram, Facebook, Telegram, Messenger, email and SMS — or hands off to the phone's own sheet for anything else installed. One honest exception: the wallet-pass button opens a "not configured yet" page until the issuer accounts exist — a business registration, tracked under Things to do.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   SHEET([Share sheet<br/>QR up top]):::screen --> LNK[Share the link<br/>any app on the phone]:::action
   SHEET --> CPY[Copy the link]:::action
+  SHEET --> QRP[Send the QR<br/>as a branded picture]:::action
   SHEET --> VCF[Send a contact file<br/>vCard format]:::action
   SHEET --> DUP[Duplicate this card<br/>copy joins the wallet]:::action
-  SHEET --> SOC[Social strip<br/>WhatsApp LinkedIn X Instagram]:::action
+  SHEET --> SOC[App row<br/>nine apps · scrolls]:::action
+  SOC --> MORE[More<br/>the phone's own sheet]:::action
   SHEET --> NFC[Write to an NFC tag]:::action
   NFC --> QN{Phone has NFC<br/>switched on?}:::decision
   QN -->|No| NONFC([Friendly message<br/>nothing hangs]):::state
   QN -->|Yes| WIN[20-second window<br/>hold a tag to the phone]:::action
   WIN --> QT{Tag touched<br/>in time?}:::decision
   QT -->|Yes| TAGOK([Your link is written<br/>onto the tag]):::state
-  TAGOK -.-> PUBT[Page the tag opens<br/>still to be built]:::pending
+  TAGOK --> PUBT([Tapping the tag opens<br/>your public card page]):::state
   QT -.->|No · times out with advice| SHEET
-  SHEET --> WAL[Wallet pass<br/>iPhone only · deferred]:::pending
-  SHEET --> HS[Add to home screen<br/>launcher phase]:::pending
+  SHEET --> WAL[Add to the phone wallet]:::action
+  SHEET --> HS[Pin to the home screen]:::action
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -154,13 +151,37 @@ flowchart LR
             </script>
           </div>
         </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">04</span><h3>After the card leaves your phone</h3><span class="pill done">Built · live today</span></div>
+          <p class="f-note">What happens out in the world now comes back to you. Every open of your public card page is counted as a card view. If the person shares their own details back, the introduction waits for your approval — it arrives as a notification and, since today, also sits on Home until you deal with it. Once approved, the new contact remembers it arrived by share-back, and Home's network card shows the running numbers.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  OPEN[They open your link<br/>QR · tag · shared link]:::action --> PUB([Your public card page]):::screen
+  PUB --> CNT[[Counted as a card view]]:::backend
+  PUB --> SAVE[Save Contact<br/>straight into their address book]:::action
+  PUB --> SB[Share their details back]:::action
+  SB --> WAIT([Waits for your approval<br/>a notification · and on Home]):::state
+  WAIT --> APPR[You approve]:::action
+  APPR --> NEWC([Saved as a contact<br/>recorded as shared back]):::state
+  CNT -.->|views and share-backs| HOMEN([Shown on Home<br/>in your network card]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
       </div>
 
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
           <div class="f-head"><span class="f-num">A</span><h3>How the wallet is wired</h3><span class="pill done">Live today</span></div>
-          <p class="f-note">Your cards live in the cloud and come back on any phone you sign in on — the link, the QR and the tag writer all read from the same saved card. Pictures are the one part still kept on the phone.</p>
+          <p class="f-note">Your cards live in the cloud and come back on any phone you sign in on — the link, the QR and the tag writer all read from the same saved card, and pictures upload to cloud storage alongside it, so a reinstall loses nothing. New since today: every open of your public page and every share-back is counted, and Home reads those numbers.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -182,8 +203,9 @@ flowchart LR
   QRG -.->|shown on the card back| SCR
   LNK --> NFCW
   NFCW --> TAG([A physical tag<br/>carries your link]):::state
-  LNK --> PUB[[Public card page<br/>not built yet]]:::pending
-  LNK --> WALP[[Wallet pass service<br/>iPhone only · deferred]]:::pending
+  LNK --> PUB[[Public card page<br/>live]]:::backend
+  PUB --> ANA[[Card views and share-backs<br/>counted · shown on Home]]:::backend
+  LNK --> WALP[[Wallet pass service<br/>awaiting issuer account]]:::backend
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -233,10 +255,14 @@ stateDiagram-v2
           <div class="list-card"><ul>
             <li><b>Wallet & card flip</b><span>Reanimated circular carousel — cards loop around the pedestal · tap-to-flip card backs on the same animation stack</span></li>
             <li><b>QR code</b><span>react-native-qrcode-svg (pure JS) rendering the card's public link — on the card back and blown up fullscreen for scanning</span></li>
-            <li><b>Share sheet</b><span>@gorhom/bottom-sheet modal · native share sheet for the link · clipboard copy · vCard 3.0 contact-file export built in-app</span></li>
+            <li><b>Share sheet</b><span>@gorhom/bottom-sheet modal · the phone's own share sheet for text, so every destination behaves the way it normally does — messaging apps open their composer, Notes makes a note, browsers open the link, Copy copies · react-native-share for pictures and files, because Android's built-in sharing cannot attach either</span></li>
+            <li><b>The app row</b><span>Nine apps addressed directly, then a hand-off to the phone's own sheet. Each is reached by its published web link rather than a private app scheme, so a tap still works on a phone without the app installed. Instagram, Facebook and Messenger cannot legally be handed text, so those copy the link and open the app</span></li>
+            <li><b>Seeing other apps</b><span>Android 11 hides installed apps from us unless we declare what we want to reach. That declaration was missing, which is why sharing to a specific app quietly did nothing on newer phones — the app was there, the system simply would not admit it. Now declared for text, pictures, contact files, browsers and the nine named apps</span></li>
+            <li><b>Contact file</b><span>vCard 3.0 built in-app, offered first as the type Android's address book, Gmail and WhatsApp actually filter on — the newer standard name is tried second, and the card falls back to plain text so the button always does something</span></li>
             <li><b>NFC tag writing</b><span>react-native-nfc-manager — a real NDEF URI write, 20-second tag window, graceful timeout and off-state detection</span></li>
             <li><b>Card storage</b><span>Live Supabase cards table (PostgreSQL) with owner-scoped access rules — create, edit, duplicate, pause and delete all save to your account today, and only you can read your own cards</span></li>
-            <li><b>Card pictures</b><span>Supabase Storage card-media bucket exists, but the app still saves photos, logos and covers as device file paths — real uploads are the next backend job, and are required before the iPhone build</span></li>
+            <li><b>Card pictures</b><span>Live in Cloudflare R2 object storage — photos, logos and covers upload for real and survive a reinstall. The app never holds the storage keys; a server function signs short-lived upload and download links scoped to the owner's own folder</span></li>
+            <li><b>Where contacts came from</b><span>Live — migration 0010 applied and verified 1 Aug. Each contact records its own route in — imported, QR scanned, card photographed, typed in, or shared back — counted per account in PostgreSQL, and Home's network card reads these numbers today alongside card views and share-backs. The same counts are readable by the CRM and OKR products later, rather than a figure only this app understands. Applying it also fixed a quiet blocker: the database had been refusing contacts that recorded a scan route, so scanned contacts — QR and card photo — save again</span></li>
             <li><b>Save reliability</b><span>A native crash when saving a card — a text field still focused while the screen was torn down — was found and fixed, and the same guard now covers every form screen</span></li>
           </ul></div>
         </section>
@@ -246,24 +272,13 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">What is left on this module, grouped by the kind of work it is — the honest list.</p>
-
-          <h4 class="cat">Backend <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>The public card page — the big one</b><span>Every QR and every shared link points at a web address with no page behind it yet, so a scan leads nowhere outside the app · it is a separate web build and is the last thing standing between this module and real-world sharing</span></li>
-            
-          </ul></div>
+          <p class="f-note">The big items that sat here have shipped: the public card page is live, the wallet-pass flow is built into the app, a card can be pinned to the home screen, and as of today every contact records how it was acquired — numbers Home now shows. What is left is one business step and the two iPhone checks, which are listed but not counted.</p>
 
           <h4 class="cat">Integrations <span class="n">3 items</span></h4>
           <div class="list-card"><ul>
-            <li><b>Wallet passes</b><span>Google states its Wallet API is unavailable to India-registered businesses, so a pass can only be an iPhone one through Apple Wallet — needs an Apple developer account and a signing certificate · the share sheet's button says so honestly today</span></li>
-            <li><b>NFC tag writing on iPhone</b><span>One Xcode capability switch — Near Field Communication tag reading under Signing and Capabilities · Android writes real tags today, iPhone shows a graceful message until then</span></li>
-            <li><b>Add-to-home-screen shortcut</b><span>Android ShortcutManager / iOS widget — native module work slated for the launcher phase</span></li>
-          </ul></div>
-
-          <h4 class="cat">Decisions <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Share analytics<span class="tag-undecided">scope undecided</span></b><span>Whether and how to count scans, link opens and saves — the call waits on the public card page landing first, since that is where a scan would be counted</span></li>
+            <li><b>Wallet issuer accounts</b><span>The in-app flow is done and the pass endpoint is live. What remains is a business registration, not engineering: Google states its Wallet API is unavailable to India-registered businesses, and Apple Wallet needs a developer account and a signing certificate. Until those exist the button opens an honest "not configured yet" page rather than failing silently</span></li>
+            <li><b>NFC tag writing on iPhone<span class="tag-ios">iPhone · not counted</span></b><span>Needs the paid Apple developer membership — the free account cannot grant the NFC capability. Android writes real tags today; iPhone shows a graceful message until then</span></li>
+            <li><b>The iPhone home-screen widget<span class="tag-ios">iPhone · not counted</span></b><span>Android's home-screen widget ships and shows the code with no signal needed. The iPhone equivalent is written but needs its own build target plus the paid Apple membership for the data sharing it relies on</span></li>
           </ul></div>
         </section>
       </div>

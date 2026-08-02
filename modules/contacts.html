@@ -39,17 +39,12 @@
         voice-memo rows, and a one-tap jump to ask the concierge about them. The whole rolodex
         now lives in the cloud, private to your account, so it survives the phone it was typed on.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="70" style="width:0"></i></div><b>70%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="85" style="width:0"></i></div><b>85%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="20" style="width:0"></i></div><b>20%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
-        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">4</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
@@ -98,17 +93,18 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">02</span><h3>A contact's page</h3><span class="pill partial">Built · real audio still to come</span></div>
-          <p class="f-note">One page per person — details, memories, voice memos and where you met. Every edit saves straight to the cloud; the memo player runs today, but the sound itself is simulated until the recorder returns.</p>
+          <div class="f-head"><span class="f-num">02</span><h3>A contact's page</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">One page per person — details, a FOLLOW-UP section, memories, voice memos and where you met. Every edit saves straight to the cloud. The follow-up section sets a reminder against this person in two taps, and snoozes or completes it later; the phone is nudged when one falls due, even with the app closed — the deeper story is on the <a href="home.html">Home</a> page.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   DET([Contact page]):::screen --> INFO[Info rows<br/>phone email website]:::action
   INFO --> OUT([Dialler mail or browser]):::state
+  DET --> FUPS[FOLLOW-UP section<br/>set snooze or complete]:::action
+  FUPS --> REM([Reminder saved<br/>a nudge arrives when due]):::state
   DET --> TAGS[Tag chip opens<br/>the tag sheet]:::action
   DET --> NOTE[Memories note<br/>edit in place]:::action
-  DET --> MEMO[Voice memo rows<br/>play and pause]:::action
-  MEMO -.->|sound is simulated today| AUD[Real recorded audio<br/>still to come]:::pending
+  DET --> MEMO[Voice memo rows<br/>record play transcribe]:::action
   DET --> MET[Where we met card]:::action
   MET --> MAPS([Opens in Maps]):::state
   DET --> MENU{More menu<br/>which action?}:::decision
@@ -128,7 +124,34 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">03</span><h3>Add someone</h3><span class="pill partial">Built · Google import pending</span></div>
+          <div class="f-head"><span class="f-num">03</span><h3>A voice memo, end to end</h3><span class="pill done">Built · verified on the phone</span></div>
+          <p class="f-note">Recording is free and nothing transcribes by itself — a transcript spends a paid model call, so it is a deliberate step. Each memo row offers "Generate transcript"; the transcript comes back with a one-paragraph summary and the commitments made out loud. After a failure the same button reads "Try again". Delete the transcript only, the recording only, or both — a memo with neither part removes itself.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  REC[Tap the mic<br/>recording is free]:::action --> ROW([Memo row saved<br/>plays back on any of your phones]):::screen
+  ROW --> GT[Generate transcript<br/>the one paid step]:::action
+  GT --> SRV[[Transcribed in the cloud<br/>on the club's own AI allowance]]:::backend
+  SRV --> OK{Words worth<br/>keeping?}:::decision
+  OK -->|Yes| TXT([Transcript · summary<br/>action items]):::state
+  OK -->|Failed or silent| TRY[Same button reads<br/>Try again]:::action
+  TRY --> GT
+  ROW --> DEL{Delete<br/>what?}:::decision
+  DEL -->|Transcript only| ROW
+  DEL -->|Recording only| ROW
+  DEL -->|Both| GONE([Memo removes itself]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">04</span><h3>Add someone</h3><span class="pill partial">Built · Google import pending</span></div>
           <p class="f-note">Two doors in: type a person yourself, or bring a whole list from the phone book, a CSV or a vCard — every import passes a duplicate guard first, then lands in the cloud rolodex.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
@@ -136,7 +159,7 @@ flowchart LR
   ADD{By hand<br/>or import?}:::decision
   ADD -->|By hand| FORM([Create contact form<br/>grouped fields and tags]):::screen
   FORM --> GPS[Use current location<br/>stamps where you met]:::action
-  FORM --> RECP[Voice memo recorder<br/>simulated for now]:::pending
+  FORM --> RECP[Voice memo recorder<br/>record before you save]:::action
   FORM --> QV{Name plus phone<br/>or email?}:::decision
   QV -->|Missing · keep typing| FORM
   QV -->|Yes · save| SAVED([Saved · page opens]):::state
@@ -163,29 +186,31 @@ flowchart LR
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
-          <div class="f-head"><span class="f-num">A</span><h3>Where the rolodex lives</h3><span class="pill partial">Live on the cloud · media uploads next</span></div>
-          <p class="f-note">Every contact screen talks through one data door, and that door now opens onto the cloud — people, tags and favourites are saved to rows only your account can read. Photos and memo files are the last things still sitting on the phone.</p>
+          <div class="f-head"><span class="f-num">A</span><h3>Where the rolodex lives</h3><span class="pill done">Live on the cloud</span></div>
+          <p class="f-note">Every contact screen talks through one data door, and that door opens onto the cloud — people, tags, favourites and follow-up reminders are rows only your account can read, and photos and memo audio upload to storage only your account can reach. A transcript is made in the cloud when you ask for one, and lands back on the memo with its summary and action items.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   subgraph PHONE [On the phone · React Native]
     SCR([Contacts · Detail · Create · Import]):::screen
     SEAM[Contacts layer<br/>one door for all data]:::action
-    MEDIA[Contact photos<br/>upload to the cloud]:::backend
+    MEDIA[Photos and memo audio<br/>upload to the cloud]:::backend
   end
   subgraph CLOUD [Supabase cloud]
     DB[(PostgreSQL contacts<br/>live · only you can read it)]:::backend
     TAGDB[(Tag registry<br/>live)]:::backend
+    REMDB[(Follow-up reminders<br/>live)]:::backend
     BUCKET[[Cloudflare R2<br/>media storage]]:::backend
-    TRS[[Transcription service<br/>pending]]:::pending
+    TRS[[Transcription service<br/>runs when you ask]]:::backend
   end
   SCR --> SEAM
   SEAM -->|people and favourites| DB
   SEAM -->|tags| TAGDB
+  SEAM -->|set snooze complete| REMDB
   SEAM --> MEDIA
-  MEDIA -->|photos| BUCKET
-  BUCKET -.->|memo audio| TRS
-  TRS -.->|transcripts land back| DB
+  MEDIA -->|photos and audio| BUCKET
+  BUCKET -->|memo audio on request| TRS
+  TRS -->|transcript summary action items| DB
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -200,24 +225,28 @@ flowchart LR
       <!-- ═══ TAB · STATES ═══ -->
       <div class="tabpanel" id="tab-states">
         <section class="feature">
-          <div class="f-head"><span class="f-num">S</span><h3>Voice memo lifecycle</h3><span class="pill partial">Built · real sound still to come</span></div>
-          <p class="f-note">The recorder's real lifecycle from the code — timer, pulsing waveform, playback with pause and resume all run today; only the captured sound is simulated, until the microphone comes back.</p>
+          <div class="f-head"><span class="f-num">S</span><h3>Voice memo lifecycle</h3><span class="pill done">Built · verified on the phone</span></div>
+          <p class="f-note">The recorder's real lifecycle, with real sound. The microphone had a defect where it died app-wide after one take; it now recovers on its own, and back-to-back recordings are verified on the device. The transcript is a separate, deliberate step — asked for per memo, retried after a failure, deletable on its own.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 stateDiagram-v2
   [*] --> Idle
-  Idle --> Recording: tap the mic · sound simulated for now
-  Idle --> MicBlocked: mic access denied on iOS
+  Idle --> Recording: tap the mic
+  Idle --> MicBlocked: mic access denied
   MicBlocked --> Idle: open settings and return
   Recording --> Recording: timer ticks · waveform pulses
   Recording --> Saved: tap stop · memo joins the list
-  Saved --> Recording: record another
+  Saved --> Recording: record another · back-to-back works
   Saved --> Playing: tap play
   Playing --> Paused: tap pause
   Paused --> Playing: tap again to resume
-  Playing --> Stopped: reaches the finish
-  Stopped --> Saved: ready to replay
-  Saved --> Idle: delete the memo
+  Playing --> Saved: reaches the finish
+  Saved --> Transcribing: Generate transcript · the paid step
+  Transcribing --> Transcribed: summary and action items arrive
+  Transcribing --> Failed: failed or came back silent
+  Failed --> Transcribing: same button reads Try again
+  Transcribed --> Saved: delete the transcript only
+  Saved --> [*]: delete recording and transcript · memo removes itself
             </script>
           </div>
         </section>
@@ -233,10 +262,12 @@ stateDiagram-v2
             <li><b>Shared grouped fields</b><span>The create/edit form reuses the Card Builder's FieldGroupsEditor — one grouped-fields component across both modules · every exit from the form now routes through leaveScreen(), the fix for the native save-crash found and closed on 27 July</span></li>
             <li><b>Where-we-met</b><span>@react-native-community/geolocation stamps coordinates plus free-text place · opens in Maps from the contact page</span></li>
             <li><b>Imports</b><span>Phone book via react-native-contacts (runtime permission both platforms) · CSV / vCard via @react-native-documents/picker with in-app parsers · duplicate guard skips people already saved</span></li>
-            <li><b>Voice memos</b><span>Functional simulation today (src/lib/audioRecorderPlayer.ts) — timer, pulsing waveform and playback all run behind the real recorder's exact interface, so bringing the microphone back is an internals-only swap</span></li>
+            <li><b>Voice memos</b><span>react-native-audio-recorder-player, patched at source for a defect that killed the microphone app-wide after one take, plus a self-healing retry · recording duration measured by wall clock, so a quick second take is no longer rejected as too short · verified back-to-back on the device</span></li>
+            <li><b>Transcription</b><span>The transcribe-memo edge function on Cloudflare Workers AI — Whisper large v3 turbo turns speech into text; llama-3.3-70b writes the one-paragraph summary and pulls out action items · runs per memo, on request, keys stay server-side</span></li>
+            <li><b>Follow-up reminders</b><span>The reminders table from migration 0011 with owner-only security on every verb · a pg_cron job sweeps every five minutes and sends the reminder.due push · set/snooze/complete from this page's FOLLOW-UP section or from Home</span></li>
             <li><b>Where the data lives</b><span>Live on Supabase PostgreSQL — the contacts and contact_tags tables plus the tags, met_location and recordings columns from migration 0004, applied and verified 27 July · owner-only row security, proven with two separate signed-in sessions</span></li>
-            <li><b>Photos & memo audio</b><span>Still device paths (local: keys) — the card-media bucket and its owner-scoped rules exist, but nothing uploads yet, so media does not travel between phones</span></li>
-            <li><b>Ask the concierge</b><span>The deployed ai-chat cloud function reads your own contacts under your own sign-in to ground its answers · it returns an honest "not connected yet" reply until the Anthropic API key is set</span></li>
+            <li><b>Photos & memo audio</b><span>Both upload to the card-media bucket on Cloudflare R2 under owner-scoped rules, so media follows the account — a memo recorded on one phone plays back on another</span></li>
+            <li><b>Ask the concierge</b><span>The deployed ai-chat cloud function answers on Cloudflare Workers AI (llama-3.3-70b), grounded only in your own contacts, notes and memo transcripts · a paid Anthropic Claude key upgrades answer quality with no code change</span></li>
           </ul></div>
         </section>
       </div>
@@ -245,27 +276,16 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">What is left, grouped by the kind of work it is. The cloud move is done and off this list.</p>
-
-          <h4 class="cat">Backend <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Memo audio uploads</b><span>Contact photos now upload for real. Memo audio still does not — the recorder is a simulation, so there is no file to send yet. Arrives with the voice milestone</span></li>
-          </ul></div>
-
-          <h4 class="cat">Integrations <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Real voice recording</b><span>Reintroduce react-native-audio-recorder-player v3 (classic module, no Nitro — the lowest-risk of the native returns) and restore the RECORD_AUDIO request in RecorderPanel · the simulation already matches the real recorder's interface, so nothing above it changes</span></li>
-          </ul></div>
+          <p class="f-note">What is left, grouped by the kind of work it is. The whole voice pipeline — recording, upload, playback, on-request transcription — is done and off this list.</p>
 
           <h4 class="cat">APIs <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
             <li><b>Google Contacts import</b><span>Google People API — needs the Google Cloud OAuth setup from the accounts phase (the same credentials as Google sign-in) · the button is already in the app, marked as coming with that phase</span></li>
-            
           </ul></div>
 
-          <h4 class="cat">AI <span class="n">1 item</span></h4>
+          <h4 class="cat">Polish <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Memo transcription provider<span class="tag-undecided">undecided</span></b><span>Whisper vs Deepgram — the key stays a server-side secret and transcription runs in a cloud function, never in the app · waits on real recording first, since there is nothing to transcribe until then</span></li>
+            <li><b>A standing inbox for share-backs</b><span>Details shared back to you arrive as a notification today, and only as a notification — a small standing list would hold them until you review them, so a missed notification is not a missed contact</span></li>
           </ul></div>
         </section>
       </div>

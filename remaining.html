@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>What's left · ObjectiveDone Build Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    /* Page-local: this is an internal working view, not a client surface, so it
+       keeps its own compact styling rather than growing the shared stylesheet. */
+    .asp-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 6px }
+    .asp-tab {
+      display:flex; align-items:center; gap:8px;
+      padding:9px 14px; border-radius:999px; cursor:pointer;
+      border:1px solid var(--line); background:var(--card);
+      color:var(--ink-2); font-size:13px; font-weight:700;
+      font-family:inherit;
+    }
+    .asp-tab .n { font-weight:800; opacity:.65 }
+    .asp-tab[aria-selected="true"] {
+      border-color:var(--gold); color:var(--gold-deep); background:var(--card);
+    }
+    .asp-summary {
+      display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+      margin:18px 0 4px;
+    }
+    .asp-summary h2 { margin:0 }
+    .asp-summary .pct { font-size:30px; font-weight:900; color:var(--gold-deep) }
+    .mod-group { margin-top:20px }
+    .mod-group h3 {
+      margin:0 0 8px; font-size:13px; letter-spacing:1.2; text-transform:uppercase;
+      color:var(--ink-3);
+    }
+    .todo-card { border:1px solid var(--line); border-radius:14px; background:var(--card); overflow:hidden }
+    .todo-row {
+      display:flex; align-items:flex-start; gap:10px;
+      padding:12px 14px; border-top:1px solid var(--line);
+    }
+    .todo-row:first-child { border-top:0 }
+    .todo-row .dot {
+      flex:none; width:7px; height:7px; border-radius:50%;
+      background:var(--gold); margin-top:7px;
+    }
+    .todo-row .txt { flex:1; font-size:14px; line-height:1.5 }
+    .tagset { display:flex; gap:6px; flex:none; flex-wrap:wrap }
+    .mini {
+      font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase;
+      padding:3px 7px; border-radius:999px; border:1px solid var(--line); color:var(--ink-3);
+      white-space:nowrap;
+    }
+    .mini.ios { border-color:#7aa7ff55; color:#7aa7ff }
+    .mini.dec { border-color:#d9a54255; color:var(--gold-deep) }
+    .asp-empty { padding:26px 14px; text-align:center; color:var(--ink-3); font-size:14px }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#modules" class="keep">All modules</a>
+      <a href="pricing/index.html">Pricing</a>
+      <a href="index.html" class="accent keep">← Back to overview</a>
+    </div>
+  </nav>
+
+  <header class="mod-head">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">Portal</a> / What's left</div>
+      <div class="head-row rv">
+        <span class="badge">Internal</span>
+        <h1>What's left</h1>
+      </div>
+      <p class="lead rv" style="--i:1">
+        Every open item, grouped by the progress track it is holding back and then by
+        module. This is the working view behind the four bars on the overview — pick a
+        track to see exactly what stands between it and 100%.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding-bottom:60px">
+    <div class="asp-tabs" id="aspTabs" role="tablist"></div>
+    <div class="asp-summary">
+      <span class="pct" id="aspPct">—</span>
+      <h2 id="aspName">—</h2>
+      <span class="ov-note" id="aspCount"></span>
+    </div>
+    <p class="ov-note" id="aspNote" style="margin-bottom:6px"></p>
+    <div id="aspBody"></div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">Internal working view · generated from docs/website-status.md</div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+    /* Renders the per-aspect breakdown. Reads the SAME data.js the overview does,
+       so a task cannot appear here and be missing there. */
+    (function () {
+      var D = window.OD_DATA || {};
+      var ASPECTS = [
+        { key: 'ui',           label: 'UI & experience',
+          note: 'Screens, copy, states and polish — anything a member sees or reads.' },
+        { key: 'backend',      label: 'Backend & data',
+          note: 'Database, security rules, server jobs and the data seams behind them.' },
+        { key: 'integrations', label: 'Device integrations',
+          note: 'Camera, push, wallet, NFC, contacts and every third-party account. Android only — iPhone items are listed but never scored.' },
+        { key: 'ai',           label: 'AI & automation',
+          note: 'Card reading, transcription and the concierge — quality as well as plumbing.' }
+      ];
+
+      var todos = D.todos || [];
+      var pcts = {};
+      (((D.project || {}).aspects) || []).forEach(function (a, i) {
+        pcts[ASPECTS[i] ? ASPECTS[i].key : a.key] = a.pct;
+      });
+
+      var tabs = document.getElementById('aspTabs');
+      var current = (location.hash || '').replace('#', '') || 'ui';
+      if (!ASPECTS.some(function (a) { return a.key === current; })) current = 'ui';
+
+      function countFor(key) {
+        return todos.filter(function (t) { return t.aspect === key; }).length;
+      }
+
+      function render() {
+        var meta = ASPECTS.filter(function (a) { return a.key === current; })[0];
+        document.getElementById('aspName').textContent = meta.label;
+        document.getElementById('aspPct').textContent =
+          pcts[meta.key] != null ? pcts[meta.key] + '%' : '—';
+        document.getElementById('aspNote').textContent = meta.note;
+
+        var items = todos.filter(function (t) { return t.aspect === current; });
+        var scoring = items.filter(function (t) { return !t.iphone; }).length;
+        document.getElementById('aspCount').textContent =
+          items.length + ' open · ' + scoring + ' counting toward the number';
+
+        Array.prototype.forEach.call(tabs.children, function (b) {
+          b.setAttribute('aria-selected', b.dataset.key === current ? 'true' : 'false');
+        });
+
+        /* Group by module, in the portal's own module order so this page reads in
+           the same sequence as the overview grid. */
+        var order = D.moduleOrder || [];
+        var groups = {};
+        items.forEach(function (t) {
+          (groups[t.module] = groups[t.module] || []).push(t);
+        });
+
+        var host = document.getElementById('aspBody');
+        host.innerHTML = '';
+        var keys = order.filter(function (k) { return groups[k]; });
+        if (!keys.length) {
+          host.innerHTML = '<div class="todo-card"><div class="asp-empty">Nothing open on this track.</div></div>';
+          return;
+        }
+        keys.forEach(function (k) {
+          var wrap = document.createElement('div');
+          wrap.className = 'mod-group';
+          var title = (D.modules && D.modules[k] ? D.modules[k].title : k);
+          var rows = groups[k].map(function (t) {
+            var tags = '';
+            if (t.iphone) tags += '<span class="mini ios">iPhone · not counted</span>';
+            if (t.decision) tags += '<span class="mini dec">decision</span>';
+            return '<div class="todo-row"><span class="dot"></span>' +
+                   '<span class="txt">' + t.label + '</span>' +
+                   '<span class="tagset">' + tags + '</span></div>';
+          }).join('');
+          wrap.innerHTML = '<h3>' + title + ' · ' + groups[k].length + '</h3>' +
+                           '<div class="todo-card">' + rows + '</div>';
+          host.appendChild(wrap);
+        });
+      }
+
+      ASPECTS.forEach(function (a) {
+        var b = document.createElement('button');
+        b.className = 'asp-tab';
+        b.type = 'button';
+        b.dataset.key = a.key;
+        b.setAttribute('role', 'tab');
+        b.innerHTML = a.label + ' <span class="n">' + countFor(a.key) + '</span>';
+        b.onclick = function () {
+          current = a.key;
+          history.replaceState(null, '', '#' + a.key);
+          render();
+        };
+        tabs.appendChild(b);
+      });
+
+      window.addEventListener('hashchange', function () {
+        var next = (location.hash || '').replace('#', '');
+        if (ASPECTS.some(function (a) { return a.key === next; })) {
+          current = next;
+          render();
+        }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

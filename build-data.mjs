@@ -41,7 +41,11 @@ if (!fs.existsSync(MD)) {
   process.exit(1);
 }
 
-const md = fs.readFileSync(MD, 'utf8');
+// Normalised to LF at the door. The markdown is edited on Windows, so it
+// carries CRLF — and every paragraph-boundary lookahead in the parsers below
+// is written against LF, so they silently never matched: one capture
+// swallowed the entire section instead of stopping at its own block.
+const md = fs.readFileSync(MD, 'utf8').replace(/\r\n/g, '\n');
 const rows = section =>
   md
     .split(/^## /m)
@@ -62,14 +66,14 @@ const FEATS = {
   splash: 'Launch, session restore, and the routing decision — welcome, first-card gate, or straight home.',
   auth: 'Email code + password live; the one-phone-per-account lock is ACTIVE, and signing out now properly releases the phone. Apple & Google sign-in and SMS / WhatsApp still to come.',
   onboarding: 'Mandatory first-card gate; pedestal carousel of Obsidian, Gold and Platinum; every card stored in the cloud.',
-  builder: 'Identity, photo & logo, grouped fields, preview, cloud saving — and images now really upload to cloud storage, so a card survives a reinstall. Abandoning the form cleans up after itself.',
-  home: 'Deliberately empty for now — this surface waits for the CRM and Admin products, so its features can be decided with them instead of guessed today.',
-  cards: 'Wallet, flip-to-QR and NFC writing work on live cloud data, and card artwork is now real cloud media. The public page a shared link opens is still the big gap.',
-  scan: 'The camera is live. QR codes decode by themselves — from the lens or from a photo — and a photographed paper card reads its own name, company, job title, department, address, phone, email, website and social links straight into the contact form.',
-  contacts: 'Live in the cloud with tags, search, imports and contact photos. Address, department and social links are now stored properly, and “where we met” has real place search. Recording and transcripts are the remaining gap.',
-  ai: 'Chats persist in the cloud and the answering service is deployed — it still needs one API key to start replying for real. (The card-reading AI used by Scan is a separate service and is already running.)',
+  builder: 'Identity, photo & logo, grouped fields, preview, cloud saving — and images now really upload to cloud storage, so a card survives a reinstall. The logo finder reads your company website’s own artwork, and anything missing when you save is now named at the top of the form instead of hidden below it.',
+  home: 'The day’s first screen, built around who needs you: overdue and due follow-ups with one-tap done and snooze, introductions waiting for approval, the people you met most recently with a one-tap Remind, and how your whole network was built. Set a follow-up on anyone in two taps — the phone buzzes when it falls due, even with the app closed.',
+  cards: 'The public card page is LIVE — a permanent short link per card, rendered fresh on every open, so an edit reaches everyone you already shared with. Cards go into the phone’s wallet and onto the home screen, the QR shares as a branded picture, the card shares as a contact file, and the share row reaches WhatsApp, LinkedIn, X, Instagram, Facebook, Telegram, Messenger, email and SMS directly.',
+  scan: 'The camera is live. QR codes decode by themselves — from the lens or from a photo — and a photographed paper card reads its own name, company, job title, department, address, phone, email, website and social links straight into the contact form. Reading quality has been tuned against real cards, including more than one card in a single photo.',
+  contacts: 'Live in the cloud with tags, search, imports and contact photos, and every contact records how it was acquired. Voice memos now really record: play one back on a second phone, and read the transcript, the summary and the commitments it picked out. Google Contacts import is the remaining gap.',
+  ai: 'The concierge answers for real — grounded in your own contacts, notes and memo transcripts, and it says plainly when your notes don’t hold the answer instead of inventing one. Speak your question instead of typing it. It runs on the club’s own AI allowance; a paid Claude key is a one-line upgrade for answer quality.',
   notifications: 'Lock-screen delivery is LIVE and proven on a real phone: the app writes a notification, the server pushes it, and the phone that caused it is deliberately skipped. Tapping one opens what it is about. iPhone delivery is the remaining piece.',
-  profile: 'Identity, avatar and logo controls sync to the cloud, and the avatar image itself now really uploads. Signing out clears cached media so the next account never sees the last one’s photos.',
+  profile: 'Identity, avatar and logo controls sync to the cloud, and the avatar image itself now really uploads. Signing out clears cached media so the next account never sees the last one’s photos. The logo auto-detect preference is gone — the card builder simply offers it, with one fewer setting to find first.',
 };
 const PAGES = {
   splash: 'modules/splash-boot.html', auth: 'modules/authentication.html',
@@ -103,10 +107,12 @@ const NOTES = {
   'Media uploads & storage': 'Photos and logos now live in cloud storage instead of on one phone — they survive a reinstall and follow the account.',
   'Lock-screen notifications': 'Live and proven on a real phone. The device that caused an event is skipped, so you are never buzzed about your own action.',
   'Camera, QR & card reading': 'The camera is back. QR codes decode themselves; a photographed business card reads its own details into the contact form — and the photo never leaves the phone.',
-  'Voice memos & transcription': 'The microphone returns: record a memo on a contact, then turn it into text automatically.',
-  'Concierge thinks for real': 'The AI key goes in; memo transcripts feed its memory.',
-  'Public card page & Wallet': 'The page a shared link opens, and passes you can keep in Apple/Google Wallet.',
-  'Polish, iPhone & release prep': 'Final polish, the first iPhone build, and everything needed to hand over v1.',
+  'Public card page & Wallet': 'Done ahead of plan. Every card now has a permanent short link that renders fresh on every open, so an edit updates everywhere it has already been shared — and the card can be kept in the phone’s wallet.',
+  'Voice memos & transcription': 'Done. The microphone is real: record a memo on a contact, play it back on any of your phones, and within a minute it comes back as text — with a short summary and the promises you made out loud pulled out of it. You can also just speak your question to the concierge instead of typing.',
+  'Concierge thinks for real': 'Done — a day early, and without the planned key. The concierge answers about your own contacts on the club’s existing AI allowance: ask who to follow up with and it reasons from your notes, and it says plainly when your notes don’t hold the answer instead of inventing one. A paid Claude key remains a one-line upgrade for answer quality.',
+  'Home & follow-up reminders': 'Home is no longer a placeholder — it opens on who needs you today. Set a follow-up on any contact in two taps; the phone buzzes when it falls due even with the app closed; snooze it or mark it done from the same row. Around it: introductions waiting for your approval, the people you met most recently, and how your whole network was built.',
+  'Polish & release prep': 'The long tail: the open items on each module\u2019s list, a brand polish pass, and everything needed to hand over v1. Under way now.',
+  'iPhone verification': 'The first build on a Mac already happened \u2014 the app compiles, installs and runs on a real iPhone, and most of it was checked there. What is left is closing the card-reading gap and confirming push, NFC and the widget, which need the paid Apple membership. iPhone items are listed but never counted against progress.',
   'Connect v1.0': 'The finished app — the CRM foundation.',
 };
 const timeline = rows('4. Timeline').map(([title, when, status, progress]) => {
@@ -115,6 +121,69 @@ const timeline = rows('4. Timeline').map(([title, when, status, progress]) => {
 });
 const targetV1 = (md.match(/\*\*Target v1: (.+?)\*\*/) || [])[1];
 if (!targetV1) problems.push('no "Target v1:" line found');
+
+/**
+ * §5 "Things to do" -> structured items, so the portal's four progress bars can
+ * open a breakdown of exactly what is holding each one back.
+ *
+ * The markdown stays the single source: every item carries an aspect tag
+ * (#ui / #backend / #int / #ai) naming the track it blocks, and an UNTAGGED item
+ * is a hard error rather than a silent default — a to-do that quietly lands in
+ * the wrong bucket is worse than no breakdown at all.
+ */
+const ASPECT_KEY = { ui: 'ui', backend: 'backend', int: 'integrations', ai: 'ai' };
+const todos = [];
+{
+  const section = md.split('## 5. Things to do')[1] || '';
+  const body = section.split('### Removed')[0];
+  // NOT `$` for the end anchor: the /m flag makes it match end-of-LINE, which
+  // stopped every module's capture at its first line break and silently dropped
+  // the wrapped remainder — aspect tags included. `(?![\s\S])` is a true
+  // end-of-input and keeps the multiline `^` that finds each module.
+  const BLOCK_RE = new RegExp(
+    '^\\*\\*([a-z]+)\\*\\*\\s+\u2014\\s+([\\s\\S]*?)(?=\\n\\n|\\n### |(?![\\s\\S]))',
+    'gm',
+  );
+  let m;
+  while ((m = BLOCK_RE.exec(body)) !== null) {
+    const moduleKey = m[1];
+    if (!(moduleKey in modules)) {
+      problems.push(`things-to-do: "${moduleKey}" is not a module in §3`);
+      continue;
+    }
+    const flat = m[2].replace(/\s*\n\s*/g, ' ').trim();
+    for (const raw of flat.split(' \u00b7 ')) {
+      const item = raw.trim();
+      if (!item) continue;
+      const tag = item.match(/`#(ui|backend|int|ai)`/);
+      if (!tag) {
+        problems.push(
+          `things-to-do: "${moduleKey}" item has no #aspect tag: ${item.slice(0, 60)}`,
+        );
+        continue;
+      }
+      const iphone = item.includes('[iPhone]');
+      const decision = item.includes('(decision)');
+      // Strip the machine markers; keep the human note in brackets.
+      const label = item
+        .replace(/`#(ui|backend|int|ai)`/g, '')
+        .replace(/\*\*\[iPhone\]\*\*/g, '')
+        .replace(/\*\((.*?)\)\*/g, '($1)')
+        .replace(/\*\*/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      todos.push({
+        module: moduleKey,
+        moduleTitle: modules[moduleKey].title,
+        aspect: ASPECT_KEY[tag[1]],
+        label,
+        iphone,
+        decision,
+      });
+    }
+  }
+  if (todos.length === 0) problems.push('things-to-do: parsed zero items');
+}
 
 if (problems.length) {
   console.error('REFUSING TO WRITE — the numbers do not add up:');
@@ -136,14 +205,19 @@ function assertRendererKeys(obj) {
 }
 
 const data = {
+  todos,
   project: {
     started: '2026-07-24',
     lastUpdated: new Date().toISOString().slice(0, 10),
     overall,
     aspects,
-    currentMilestone: 'M6 · Scanning, card reading & location',
+    currentMilestone: 'M10 \u00b7 Home, follow-up reminders & polish',
     targetV1,
-    note: 'Three milestones landed in two days. Photos and logos now upload to cloud storage; lock-screen notifications are live and proven on a real phone; and the camera is back — scanning a paper card reads its details automatically, and QR codes decode instantly. What remains is the microphone (voice memos and transcripts), the AI concierge’s own key, Wallet passes and the public card page, then the first iPhone build.',
+    note: 'Every screen is built. Voice memos record, play back and transcribe on request \u2014 verified on the phone \u2014 and you can speak a question to the concierge instead of typing it. The concierge answers for real, grounded only in your own contacts and notes, and says plainly when your notes do not hold the answer. Home opens on who needs you today: follow-ups you set in two taps, pushed by the server so they reach the phone with the app closed. What remains is polish, a handful of decisions, and verification on iPhone.',
+    // Rendered under the headline figure on the home page. The rule it states is set
+    // out in docs/website-status.md §1 — every number here measures Android, and no
+    // iPhone item lowers any of them.
+    platformNote: 'Every feature is built and verified on Android, and these percentages measure that. iPhone work is listed in each module’s “Things to do” but is deliberately excluded from the progress bars — the code is already written and accommodated for iOS, so what remains is a scheduled block of building and testing on a Mac rather than unfinished work.',
   },
   moduleOrder,
   modules,

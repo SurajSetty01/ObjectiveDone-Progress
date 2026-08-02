@@ -35,17 +35,15 @@
       </div>
       <p class="lead rv" style="--i:1">
         Tap the gold dock and the whole screen becomes a scanner — a glowing viewfinder that reads
-        QR cards or snaps paper ones straight into your contact book. The screens and controls are
-        finished today, and a contact you save now goes straight to your own private space in the
-        cloud; the live preview and automatic card reading are now live.
+        QR cards or snaps paper ones straight into your contact book. The whole path is live on
+        Android: camera, QR decoding, card reading, and saving to your own private space in the
+        cloud. Today the reading got noticeably better — the address no longer gets cut off — and a
+        database rule that had been quietly refusing scanned saves was found and fixed, so both QR
+        and card-photo contacts save cleanly. Once saved, a follow-up can be set from the contact
+        in two taps.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="45" style="width:0"></i></div><b>45%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="60" style="width:0"></i></div><b>60%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="5" style="width:0"></i></div><b>5%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
@@ -96,25 +94,23 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">02</span><h3>Capture a paper card</h3><span class="pill done">Live · camera + on-device reading</span></div>
-          <p class="f-note">This runs end-to-end right now and the saved contact goes straight to the cloud — the shutter sources the photo from your gallery until the live camera returns, and the form opens blank until text reading lands.</p>
+          <div class="f-head"><span class="f-num">02</span><h3>Capture a paper card</h3><span class="pill done">Live end to end</span></div>
+          <p class="f-note">The shutter takes the photo, the card is read on the phone, and an AI model sorts out which line is the name, the company, the title and the address — the full contact form opens pre-filled. The reading got sharper on 1 Aug: the address no longer gets cut off, and the reader is given long enough to finish. Once saved, the contact's page offers a follow-up in two taps — that story lives on the Home page.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   TOG[Flip the mode toggle]:::action --> VF2[Viewfinder morphs<br/>to card shape]:::action
   VF2 --> SHUT[Tap the shutter]:::action
-  SHUT --> SRCQ{Camera live yet?}:::decision
-  SRCQ -->|Not yet · gallery opens| SRC[Photo picked<br/>from the gallery]:::action
-  SRCQ -->|Shutter| SNAP[Straight camera snap]:::device
-  SRC --> READ([Reading the card]):::screen
-  SNAP -.-> READ
-  READ -->|blank form today| FORM([Save contact form]):::screen
-  READ --> OCR[Reads the card on the device<br/>then AI sorts the details<br/>prefills the full contact form]:::device
-  OCR -.->|with the camera| FORM
+  SHUT --> SNAP[Camera takes the still]:::device
+  SNAP --> READ([Reading the card]):::screen
+  GAL[Or a photo picked<br/>from the gallery]:::action --> READ
+  READ --> OCR[Reads the card on the device<br/>then AI sorts the details<br/>text only, never the photo]:::device
+  OCR --> FORM([Contact form opens<br/>pre-filled]):::screen
   FORM --> CHK{Ready to save?}:::decision
   CHK -->|Add the name first| FORM
   CHK -->|Retake| SHUT
   CHK -->|Save contact| DONE([Saved to Contacts]):::state
+  DONE --> FU[Set a follow-up<br/>in two taps]:::action
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -126,8 +122,8 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">03</span><h3>The controls</h3><span class="pill partial">Built · lamp waits on the camera</span></div>
-          <p class="f-note">Torch, gallery and close — the torch switch flips today but the real lamp lights only when the camera returns, and closing over half-filled details always asks first.</p>
+          <div class="f-head"><span class="f-num">03</span><h3>The controls</h3><span class="pill done">Live · torch, gallery and close</span></div>
+          <p class="f-note">Torch, gallery and close. The torch lights the real lamp, the gallery reads cards and QR codes from photos alike, and closing over half-filled details always asks first.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -136,7 +132,7 @@ flowchart LR
   PANEL --> GAL[Gallery button]:::action
   GAL --> QM{Which mode?}:::decision
   QM -->|Card| PICK[Photo opens<br/>for reading]:::action
-  QM -->|QR| NOTE[Explains QR from photos<br/>comes later]:::action
+  QM -->|QR| NOTE[A screenshot decodes<br/>like a live code]:::action
   PANEL --> XB[X close button]:::action
   XB --> GUARD{Unsaved details?}:::decision
   GUARD -->|Yes| ASK[Asks before leaving]:::action
@@ -156,35 +152,32 @@ flowchart LR
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
-          <div class="f-head"><span class="f-num">A</span><h3>How scanning is wired</h3><span class="pill partial">Cloud saving live · camera pieces with the camera milestone</span></div>
-          <p class="f-note">Everything here is live. A scanned contact goes straight into your own private space in the cloud, the card photo uploads alongside it, and both come back on any device you sign in on. The card image itself is never sent for AI reading — only the text that was recognised on the phone.</p>
+          <div class="f-head"><span class="f-num">A</span><h3>How scanning is wired</h3><span class="pill done">Live end to end</span></div>
+          <p class="f-note">Everything here is live. A scanned contact goes straight into your own private space in the cloud, the card photo uploads alongside it, and both come back on any device you sign in on. The card image itself is never sent for AI reading — only the text that was recognised on the phone. Each contact also remembers how it arrived — QR or card photo — the same numbers Home shows for your network. A database rule that had been quietly refusing saves carrying that detail was fixed on 1 Aug; both paths now save.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   subgraph PHONE [On the phone · React Native]
     SCR([Scan screen]):::screen
     STAGE[Live camera stage]:::device
-    LIB[Photo library<br/>sources the still]:::action
-    SEAM2[Card-reading step]:::action
+    LIB[Card still — shutter snap<br/>or a gallery photo]:::action
     OCRS[Reads the card on the device<br/>then AI sorts the details<br/>text only, never the photo]:::device
-    FORM([Save contact form]):::screen
+    FORM([Save contact form<br/>opens pre-filled]):::screen
     IMG[Card photo uploads<br/>to cloud storage]:::backend
   end
   subgraph CLOUD [Supabase cloud]
-    CT[(PostgreSQL contacts table<br/>live · private to you)]:::backend
+    CT[(PostgreSQL contacts table<br/>private to you · remembers<br/>QR vs card photo)]:::backend
     BKT[[Cloudflare R2<br/>picture store]]:::backend
   end
   DONE([In your Contacts<br/>on every device]):::state
   SCR --> STAGE
-  STAGE -->|shutter opens| LIB
-  LIB --> SEAM2
-  SEAM2 -->|form opens blank today| FORM
-  SEAM2 --> OCRS
-  OCRS -.->|prefilled fields once live| FORM
+  STAGE -->|shutter| LIB
+  LIB --> OCRS
+  OCRS --> FORM
   FORM -->|saved to your account| CT
   FORM --> IMG
-  IMG -.->|once uploads land| BKT
-  CT -.->|signed in anywhere| DONE
+  IMG --> BKT
+  CT -->|signed in anywhere| DONE
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -199,13 +192,13 @@ flowchart LR
       <!-- ═══ TAB · STATES ═══ -->
       <div class="tabpanel" id="tab-states">
         <section class="feature">
-          <div class="f-head"><span class="f-num">S</span><h3>Scanner lifecycle</h3><span class="pill partial">Built · QR entry arms with the camera milestone</span></div>
-          <p class="f-note">The exact steps the scanner moves through in code — the torch tracker runs alongside them, and the Decoded step waits on the live reader.</p>
+          <div class="f-head"><span class="f-num">S</span><h3>Scanner lifecycle</h3><span class="pill done">Live</span></div>
+          <p class="f-note">The exact steps the scanner moves through in code — the torch tracker runs alongside them. Every step is live.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 stateDiagram-v2
   [*] --> Scan
-  Scan --> Decoded: QR sighted · waits on the camera milestone
+  Scan --> Decoded: QR sighted and decoded
   Decoded --> Scan: scan again
   Decoded --> Scan: save · contact form opens
   Scan --> Review: shutter still or gallery photo
@@ -234,9 +227,9 @@ stateDiagram-v2
             <li><b>Camera</b><span>LIVE — react-native-camera-kit. Full-screen preview, working torch and shutter, verified on a real Android device. Chosen over vision-camera because vision-camera v5 has no Android implementation of QR scanning at all, and because it adds no native dependency that could collide with the app's storage layer</span></li>
             <li><b>QR decoding</b><span>LIVE on both platforms — camera-kit's built-in scanner restricted to QR, plus Google ML Kit barcode scanning for codes inside a photo from the gallery. Both paths end at the same result card, so a screenshot of a code behaves exactly like one held up to the lens</span></li>
             <li><b>Card text reading</b><span>LIVE — Google ML Kit text recognition, running ON THE DEVICE. The model ships inside the app, so it works in aeroplane mode, costs nothing per scan, and no photograph of anyone's card is uploaded anywhere</span></li>
-            <li><b>Understanding what was read</b><span>Two layers. Patterns that are unambiguous — phone, email, website, social links — are matched on the device. The judgement calls — which line is the company and which is a slogan, job title versus department, the postal address — go to an AI model (Cloudflare Workers AI) as TEXT ONLY, never the image. Every value it returns is checked against the card text before it is accepted, so it can only choose words that were actually printed; it cannot invent a company name</span></li>
+            <li><b>Understanding what was read</b><span>Two layers. Patterns that are unambiguous — phone, email, website, social links — are matched on the device, and those fields stay with the pattern pass. The judgement calls — name, company, job title, department, the postal address — go to an AI model (Cloudflare Workers AI) as TEXT ONLY, never the image, and the model's answer decides those fields. Its reply used to be cut off before it reached the address; that was fixed on 1 Aug, and the reading budget was re-measured from six to twelve seconds so the answer arrives before the form gives up waiting. Every value the model returns is checked against the card text before it is accepted, so it can only choose words that were actually printed; it cannot invent a company name</span></li>
             <li><b>Paper-card path</b><span>Shutter → on-device reading → the SAME full contact editor used when adding a contact by hand, opened pre-filled. Not a reduced copy of that form — one editor means one set of rules. The card photo uploads to cloud storage at the same time the text is being read, so nothing waits on it</span></li>
-            <li><b>Saving</b><span>Supabase PostgreSQL contacts table — live since migration 0004 was applied and verified on 27 Jul 2026 · every row is owner-scoped by row-level security, so a scanned contact is readable only by the account that saved it (proven with two separate signed-in sessions) · the save runs as a TanStack Query mutation that refreshes the contacts list on success</span></li>
+            <li><b>Saving</b><span>Supabase PostgreSQL contacts table — live since migration 0004 was applied and verified on 27 Jul 2026 · every row is owner-scoped by row-level security, so a scanned contact is readable only by the account that saved it (proven with two separate signed-in sessions) · the save runs as a TanStack Query mutation that refreshes the contacts list on success · each contact records how it arrived — QR or card photo — since migration 0010 (applied and verified 1 Aug 2026); a security rule had not yet allowed those new values and was quietly refusing scan saves, which applying the migration fixed</span></li>
             <li><b>Card photos</b><span>LIVE — the captured still uploads to Cloudflare R2 and the contact stores a reference to it, so the picture follows the account to any device and survives a reinstall</span></li>
             <li><b>Offline behaviour</b><span>Losing the connection never fails a scan. The on-device reading still runs and still fills in phone, email, website and social links; only the AI-judged fields are skipped, and the form opens regardless</span></li>
             <li><b>Form stability</b><span>A native crash on save — a text field still holding focus while the screen was being torn down, which tripped an unguarded null inside React Native's scroll-view focus search — was found, fixed and rolled out to every form screen including Save contact; verified on a real device</span></li>
@@ -248,22 +241,11 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">What is left on this module. Almost everything that was on this list has now shipped — the camera, QR decoding on both platforms, card text reading, understanding what was read, and photo uploads all came off it on 29 Jul 2026.</p>
-
-          <h4 class="cat">Quality <span class="n">2 items</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Tune the reading against real cards</b><span>Reading is strong and deliberately cautious — it leaves a field blank rather than guessing, and it can never invent a value. What it still needs is a run against a stack of real Indian business cards, so the weak spots can be found on actual print rather than assumed</span></li>
-            <li><b>Reading a second card in the same photo</b><span>Today one photo means one contact. Cards photographed two-up on a desk are a common habit and currently only the stronger one is read</span></li>
-          </ul></div>
+          <p class="f-note">This module is finished on Android. The camera, QR decoding, card text reading, understanding what was read and photo uploads all shipped on 29 Jul; reading quality against real cards — including more than one card in a single photo — was signed off on 31 Jul, and the reading got a further server-side lift on 1 Aug. On iPhone the scanner now runs — camera, torch, QR decoding and card reading were all verified on a real device on 1 Aug — but the fields pulled off a paper card are not yet as good as Android's. Closing that gap is the one item left, and it does not count against the percentage above.</p>
 
           <h4 class="cat">Integrations <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Verify the whole flow on iPhone</b><span>The camera, QR and reading code is written to run on both platforms and the iPhone project is fully configured for it, but it has never been compiled on Apple hardware — that needs a Mac. Nothing is known to be wrong; it is simply unproven</span></li>
-          </ul></div>
-
-          <h4 class="cat">Decisions <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Reading harder cards<span class="tag-undecided">undecided</span></b><span>Glossy stock, reversed-out type and heavy design can defeat on-device reading. A paid cloud vision service would cover those, at roughly ₹0.14 a scan. Deliberately NOT built yet: the right way to decide is to scan twenty real cards and count the failures, rather than pay for a problem that may not exist</span></li>
+            <li><b>Close the card-reading gap on iPhone<span class="tag-ios">iPhone · not counted</span></b><span>The app builds and runs on a real iPhone since 1 Aug, and the scanner works there — reading and QR both decode. What lags is the quality of the fields pulled off a paper card, which is not yet as good as Android's. That work belongs to the scheduled iPhone block and is excluded from the progress figures</span></li>
           </ul></div>
         </section>
       </div>

@@ -37,16 +37,12 @@
         This is where a card takes shape — your name and role, a photo and company logo, and every
         way to reach you, clubbed into tidy blocks you reorder with a drag of the finger. The builder
         refuses to save a card nobody can reply to, asks before unsaved work is lost, and every
-        finished card now lands in the live cloud database the moment you tap Save. The pictures
-        themselves still sit on the phone until image uploads arrive.
+        finished card — pictures included — lands in the live cloud the moment you tap Save. If
+        something required is missing, the builder now says so at the top of the form rather than
+        at the bottom, where the answer used to be a scroll away from the tap that failed.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="88" style="width:0"></i></div><b>88%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="92" style="width:0"></i></div><b>92%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="75" style="width:0"></i></div><b>75%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
@@ -80,7 +76,7 @@ flowchart LR
   MED --> SHT([Manage sheet]):::screen
   SHT --> Q1{Which source?}:::decision
   Q1 -->|Gallery| GAL[Pick from gallery]:::action
-  Q1 -->|Auto-detect| LKP[[Logo fetched from<br/>company website]]:::backend
+  Q1 -->|Find it from my website| LKP[[Reads the site's own<br/>logo artwork]]:::backend
   Q1 -->|Remove| REM[Image cleared]:::action
   GAL -.->|staged on the card| BLD
   LKP -.->|staged on the card| BLD
@@ -150,7 +146,7 @@ flowchart LR
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
           <div class="f-head"><span class="f-num">A</span><h3>How the builder is wired</h3><span class="pill done">Live today</span></div>
-          <p class="f-note">Where the pictures come from and where the finished card lives — your saved details and every finished card are on the live cloud database today. Only the images themselves still sit on the phone.</p>
+          <p class="f-note">Where the pictures come from and where the finished card lives — your saved details, every finished card and the pictures on it all live in the cloud today. An image begins uploading the moment it is picked, and Save waits for any picture still in flight.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -169,7 +165,7 @@ flowchart LR
   PRF -.->|prefills the first card| SCR
   SCR --> PIC
   PIC -.->|chosen image| SCR
-  PIC -.->|not uploaded yet| IMG
+  PIC -.->|uploads on pick| IMG
   SCR -->|find my logo| LKP
   LKP -.->|logo preview| SCR
   SCR -->|Save| DB
@@ -218,11 +214,11 @@ stateDiagram-v2
           <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
           <div class="list-card"><ul>
             <li><b>Form and fields</b><span>Shared FieldGroupsEditor — grouped +/− field boxes with drag-a-block reorder · phone-or-email rule enforced before any save · unsaved-changes guard on every exit path</span></li>
-            <li><b>Media staging</b><span>react-native-image-picker for gallery picks · company-logo auto-detect through the logo service, with a Google-favicon fallback when no token is set</span></li>
+            <li><b>Media staging</b><span>react-native-image-picker for gallery picks · company-logo auto-detect reads the company site's own declared artwork first (apple-touch-icon, social preview image), then keyless icon services as fallback — no API token anywhere</span></li>
             <li><b>Live preview</b><span>The preview modal renders the real card face from the live form input — what you see is exactly what saves</span></li>
             <li><b>Card storage</b><span>LIVE on the Supabase PostgreSQL cards table, verified against the real project on 27 July · owner-only access rules, so one account can never read another's cards</span></li>
             <li><b>Profile prefill</b><span>LIVE on the Supabase profiles table · the first card fills itself from your saved profile, and a first card with no profile behind it writes those details back</span></li>
-            <li><b>Images</b><span>Photos, logos and covers are still saved as device file paths, not uploaded files · the Supabase card-media bucket and its access rules already exist, so uploads are wiring, not new infrastructure</span></li>
+            <li><b>Images</b><span>Photos, logos and covers upload for real to Cloudflare R2 through short-lived signed links from the media-sign function, and survive a reinstall · Save waits for any picture still in flight, so a card can never point at a file that never arrived</span></li>
             <li><b>Safe screen exit</b><span>src/lib/leaveScreen.ts — dismisses the keyboard and waits two frames before the screen is torn down, curing a native crash in React Native's ScrollView focus search when a focused text field outlived its screen · applied to every form screen and verified on a real device</span></li>
           </ul></div>
         </section>
@@ -232,12 +228,7 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">What is left on this module. Image uploads, upload progress, and the question of what Save should do mid-upload all came off this list on 29 Jul 2026 — pictures now upload for real, and Save simply waits for them.</p>
-
-          <h4 class="cat">APIs <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Sharper logo auto-detect<span class="tag-undecided">paid tier undecided</span></b><span>A LOGO_DEV_TOKEN in the environment file returns crisper company logos. The keyless favicon fallback works today, so this is a quality upgrade, not a blocker — worth deciding once we see how good the free results look on real customers</span></li>
-          </ul></div>
+          <p class="f-note">What is left on this module. Image uploads, upload progress and the question of what Save should do mid-upload all came off this list on 29 Jul; the logo finder and the invisible-error problem came off on 31 Jul. Finding a logo now reads the company website's own artwork — the icon a site publishes for a phone home screen, or its social preview image — and only falls back to icon services when a site declares nothing. Anything missing when you save is named at the top of the form instead of at the bottom, so a rejected Save explains itself where the tap happened.</p>
 
           <h4 class="cat">Polish <span class="n">1 item</span></h4>
           <div class="list-card"><ul>

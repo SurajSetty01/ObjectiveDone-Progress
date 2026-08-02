@@ -39,13 +39,8 @@
         now active: signing in on a new phone quietly retires the old one, so two people can never
         share an account. Apple and Google sign-in and the SMS / WhatsApp channels join later.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="75" style="width:0"></i></div><b>75%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="25" style="width:0"></i></div><b>25%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
@@ -229,7 +224,7 @@ stateDiagram-v2
 
           <h4 class="cat">Integrations <span class="n">2 items</span></h4>
           <div class="list-card"><ul>
-            <li><b>Apple sign-in</b><span>Required before the app can ship on the App Store at all. Needs an Apple Developer account and the Sign in with Apple capability — not started, and nothing else can unblock it.</span></li>
+            <li><b>Apple sign-in<span class="tag-ios">iPhone · not counted</span></b><span>Required before the app can ship on the App Store at all. Needs an Apple Developer account and the Sign in with Apple capability. The sign-in seam already accepts additional providers, so this is account setup on a Mac rather than app work — listed here, excluded from the percentage above.</span></li>
             <li><b>Google sign-in</b><span>Needs a Google Cloud OAuth client. The button is already in the app marked as coming later, and the same setup also unlocks importing contacts from Google.</span></li>
           </ul></div>
 

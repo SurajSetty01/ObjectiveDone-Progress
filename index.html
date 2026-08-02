@@ -45,7 +45,7 @@
           <span class="pt-icon">📇</span>
           <span class="pt-body">
             <b>ObjectiveDone App</b>
-            <span>Digital cards · scanning · contacts · AI concierge</span>
+            <span>Digital cards · scanning · contacts · follow-ups · AI concierge</span>
             <span class="pill progress">In build now</span>
           </span>
         </button>
@@ -87,6 +87,10 @@
             <div class="bar" id="ovBar"><i data-w="54" style="width:0"></i></div>
             <p class="ov-note" id="stNote">The overall number weighs backend and integrations more than screens.</p>
             <div class="aspect-stack" id="aspectRows" style="margin-top:16px"><!-- the four tracks --></div>
+            <!-- What the percentages are measured against. Set once, in
+                 docs/website-status.md §1, and rendered from data.js so it can never
+                 disagree with the numbers above it. -->
+            <p class="ov-note platform-note" id="stPlatformNote"></p>
             <div class="stat-row">
               <div class="stat"><b id="stDone">2</b><span>Modules done</span></div>
               <div class="stat"><b id="stProg">8</b><span>In progress</span></div>
@@ -99,9 +103,17 @@
               Current milestone: <b id="stMilestone" style="color:var(--gold-deep)">M6 · Scanning, card reading &amp; location</b>
             </p>
             <p class="ov-note" style="margin-top:12px">
-              Started <b>Jul 24, 2026</b>. The estimate below is based on the real pace of these
-              first days — a full UI milestone per day — with slack for the native camera/voice
-              integrations and the first iPhone build, which move slower than screens.
+              Started <b>Jul 24, 2026</b>. Every screen is built. <b>Voice memos, transcripts
+              and dictation are done</b> — record on a contact, play it back on another phone,
+              and generate the transcript when you want it, with the summary and the promises
+              made out loud pulled out of it; speaking a question to the concierge works the
+              same way. The concierge itself answers for real, grounded only in the member's own
+              contacts and notes. Home opens on who needs you today, and follow-up reminders are
+              sent by the server so they reach the phone with the app closed. The app also runs
+              on a real iPhone; finishing verification there has its own block below.
+              <br /><br />
+              Eleven milestones landed in the first nine days, so the remaining dates have been
+              re-cut to that pace — <b>v1 now targets Aug 12</b> rather than Aug 15.
             </p>
             <p class="ov-note" style="margin-top:12px">
               Every module card below opens that module's diagram pages: user flows,
@@ -123,9 +135,11 @@
           <div class="qicon">🗂️</div>
           <h3>ObjectiveDone CRM · Mobile App</h3>
           <p>The team-side app for working every captured contact — pipelines, follow-ups and
-             assignments on the same shared backend the ObjectiveDone app writes to. Design and
-             flow-mapping begin once the app ships v1.0.</p>
-          <span class="qdate">Expected start · Aug 24, 2026</span>
+             assignments on the same shared backend the ObjectiveDone app writes to. It starts
+             from a running platform rather than a blank repo: the design system, the data
+             layer, sign-in, storage, push and the AI services are all built and live, so this
+             build is mostly screens and pipeline logic on top of a spine that already works.</p>
+          <span class="qdate">Starting now · Aug 2026 · first build expected by Aug 22</span>
         </div>
       </div>
       <div class="prod-panel" id="panel-crm-web" style="display:none">
@@ -133,8 +147,9 @@
           <div class="qicon">🖥️</div>
           <h3>ObjectiveDone CRM · Web Dashboard</h3>
           <p>The same CRM, full-screen in the browser for desk work — bulk actions, filters and
-             reporting. Follows the CRM mobile app so both share one design language.</p>
-          <span class="qdate">Expected start · Sep 8, 2026</span>
+             reporting. Follows the CRM mobile app so both share one design language, and reuses
+             its pipeline rules rather than restating them.</p>
+          <span class="qdate">Expected start · Aug 25, 2026 · through mid-September</span>
         </div>
       </div>
       <div class="prod-panel" id="panel-admin" style="display:none">
@@ -142,8 +157,10 @@
           <div class="qicon">🛡️</div>
           <h3>ObjectiveDone · Admin Dashboard</h3>
           <p>Members, analytics and control for the whole platform — the last surface, shipped
-             once all three apps run on the shared backend it administers.</p>
-          <span class="qdate">Expected start · Sep 21, 2026</span>
+             once all three apps run on the shared backend it administers. The countable events
+             it reports on are already being written today, so it reads history rather than
+             starting one.</p>
+          <span class="qdate">Expected start · Sep 15, 2026 · through end September</span>
         </div>
       </div>
     </div>

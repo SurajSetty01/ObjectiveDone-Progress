@@ -97,6 +97,6 @@ with four rows — Module Total Completion, UI, Backend, Implementation.
 
 ## Before writing
 Read: this file, the exemplar, `website1/data.js` (your hero pill/progress
-values), `docs/app/modules.md`, `docs/manual-setup.md` §0, and your module's
+values), `docs/reference/01-modules.md`, `docs/manual-setup.md` §0, and your module's
 source files from the task prompt. Every branch you draw must exist in code;
 every state you can't fit becomes a small extra node, not a deletion.

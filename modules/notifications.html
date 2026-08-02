@@ -34,22 +34,18 @@
         <span class="pill progress">In progress</span>
       </div>
       <p class="lead rv" style="--i:1">
-        Whenever something worth knowing happens — a card shared, a contact saved — a note lands
-        in one tidy centre and a small gold count appears on the Home bell. Every note is now kept
-        in your account rather than only on the phone. Reading, clearing one by one and catching up
-        in a single tap all work today; lock-screen alerts arrive with the push milestone.
+        Whenever something worth knowing happens — a card shared, a contact saved, a follow-up
+        falling due — a note lands in one tidy centre and a small gold count appears on the Home
+        bell. Every note is kept in your account rather than only on the phone, and alerts reach
+        the lock screen even when the app is closed. Follow-up reminders now arrive this way too:
+        a server job checks every five minutes and delivers each one at the time you chose.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="65" style="width:0"></i></div><b>65%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="95" style="width:0"></i></div><b>95%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="80" style="width:0"></i></div><b>80%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="10" style="width:0"></i></div><b>10%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
-        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
         <button class="tabbtn" data-tab="tab-pending">Things to do</button>
@@ -97,16 +93,38 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">02</span><h3>Reaching the lock screen</h3><span class="pill pending">Pending · push milestone</span></div>
-          <p class="f-note">The same note travelling further — onto the lock screen even when the app is shut. The dashed steps land in the push milestone; the in-app bell and centre already work today.</p>
+          <div class="f-head"><span class="f-num">02</span><h3>Reaching the lock screen</h3><span class="pill done">Built · proven on a phone</span></div>
+          <p class="f-note">The same note travelling further — onto the lock screen even when the app is shut. This is live: saving a note triggers a push over the air, and it has been proven arriving on a real phone with the app closed.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
-  EV2[Something happens<br/>in the app]:::action --> WR2[Note saved to your account<br/>centre lights up today]:::action
+  EV2[Something happens<br/>in the app]:::action --> WR2[Note saved to your account]:::action
   WR2 --> SEND[[Pushed to the phone<br/>over the air]]:::backend
-  SEND --> QO{App open<br/>right now?}:::backend
-  QO -->|Yes| INAPP([Bell badge<br/>works already]):::state
-  QO -->|No| LOCK([Lock screen lights up<br/>app closed or away]):::device
+  SEND --> QO{App open<br/>right now?}:::decision
+  QO -->|Yes| INAPP([Bell badge<br/>lights up in the app]):::state
+  QO -->|No| LOCK([Lock screen lights up<br/>app closed or away]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>A follow-up falls due → the phone buzzes</h3><span class="pill done">Built</span></div>
+          <p class="f-note">New: follow-up reminders reach you at the time you chose. A server job checks for due reminders every five minutes and the phone buzzes even with the app closed. Each reminder announces exactly once — snoozing moves the time and it announces again when the new time comes — and tapping the alert opens the person it is about.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  SET[Follow-up reminder set<br/>from Home or a contact]:::action --> SWEEP[[Server job checks for<br/>due reminders every 5 minutes]]:::backend
+  SWEEP -->|one falls due| PUSH[[Pushed to the phone<br/>announces exactly once]]:::backend
+  PUSH --> BUZZ([Phone buzzes<br/>even with the app closed]):::state
+  BUZZ -->|Tap the alert| PERSON([That contact opens<br/>ready to follow up]):::screen
+  BUZZ -.->|Snooze| LATER[Time moves forward ·<br/>announces again when due]:::action
+  LATER -.-> SWEEP
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -121,8 +139,8 @@ flowchart LR
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
-          <div class="f-head"><span class="f-num">A</span><h3>How notifications are wired</h3><span class="pill partial">Live in the cloud · push with the push milestone</span></div>
-          <p class="f-note">One helper any feature can call, the cloud home where notes live, and lock-screen delivery — which is now live and proven on a real phone.</p>
+          <div class="f-head"><span class="f-num">A</span><h3>How notifications are wired</h3><span class="pill done">Live end to end on Android</span></div>
+          <p class="f-note">One helper any feature can call, the cloud home where notes live, lock-screen delivery proven on a real phone — and now a server job that watches follow-up reminders and sends the push the moment one falls due.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -133,13 +151,17 @@ flowchart LR
   end
   subgraph CLOUD [Supabase cloud]
     TABLE[(PostgreSQL notifications<br/>live · private to your account)]:::backend
+    REMS[(Follow-up reminders<br/>live · private to your account)]:::backend
+    SWEEP[[Server job<br/>checks every 5 minutes]]:::backend
   end
   PUSHN[[Firebase push sender<br/>LIVE on Android]]:::backend
   FEAT --> HELP
   HELP --> TABLE
   TABLE -.->|read back on the phone| UI
   TABLE -.->|a new note triggers a send| PUSHN
-  PUSHN -->|even when the app is closed| LOCK2([Lock screen]):::device
+  REMS --> SWEEP
+  SWEEP -->|a reminder falls due| PUSHN
+  PUSHN -->|even when the app is closed| LOCK2([Lock screen]):::state
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -161,6 +183,8 @@ flowchart LR
             <li><b>Home bell badge</b><span>Gold unread count on the Home TopBar · fed by a TanStack Query unread key over the same store · refetches on every screen focus, so returning from the centre or an emit from any flow updates it without a manual refresh</span></li>
             <li><b>Writing an entry</b><span>notify() helper — the one-line way for any feature (cards, contacts, account) to drop an entry, now inserted straight into the cloud table; fire-and-forget, it never throws into the calling flow</span></li>
             <li><b>Where notifications live</b><span>Live on Supabase — the PostgreSQL notifications table from migration 0004, applied and verified on 27 July · supabaseNotificationRepository is the active data layer · row-level security is on, so an account can only ever read its own notes, proven with two signed-in test sessions</span></li>
+            <li><b>Lock-screen delivery</b><span>Firebase Cloud Messaging on Android · a database trigger raises the send the moment a note is written, so the alert arrives with the app closed — proven on a real phone · iPhone delivery waits on the APNs key that comes with the paid Apple developer account</span></li>
+            <li><b>Follow-up reminder pushes</b><span>A pg_cron job inside Supabase sweeps the reminders table (migration 0011, applied and verified) every five minutes and sends a reminder.due push through Firebase Cloud Messaging — the 'reminder' notification type finally has a real writer · each reminder announces exactly once, and snoozing re-announces at the new time · tapping the notification opens that contact · row-level security keeps every read and write owner-only</span></li>
             <li><b>Staying signed in</b><span>Supabase Auth session · the single-device sign-in lock is now active, so notes follow the one device a person is signed in on</span></li>
           </ul></div>
         </section>
@@ -170,7 +194,7 @@ flowchart LR
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">The cloud store went live on 27 July, so that work is off this list. What remains is grouped by the kind of work it is. Nothing in this module is undecided.</p>
+          <p class="f-note">The cloud store went live on 27 July, lock-screen pushes were proven on 28 July, and follow-up reminder pushes joined them on 1 August — all off this list. What remains is grouped by the kind of work it is. Nothing in this module is undecided.</p>
 
           <h4 class="cat">Backend <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
@@ -180,7 +204,7 @@ flowchart LR
 
           <h4 class="cat">Integrations <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Verify alerts on iPhone</b><span>Lock-screen delivery is live and proven on Android. The iPhone half needs an Apple push key and a Mac to build on — the code is written and platform-guarded, it has simply never run on an iPhone</span></li>
+            <li><b>Verify alerts on iPhone<span class="tag-ios">iPhone · not counted</span></b><span>Lock-screen delivery is live and proven on Android, and since 1 August the app itself builds and runs on a real iPhone. Push there still needs the Apple push key, which comes with the paid developer account — the code is written and platform-guarded, it has simply never fired on an iPhone, which is why it is listed but excluded from the percentage above</span></li>
           </ul></div>
         </section>
       </div>

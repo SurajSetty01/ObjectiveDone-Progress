@@ -36,17 +36,12 @@
       <p class="lead rv" style="--i:1">
         The app's first second does real work: while the gold logo glows, the phone quietly
         restores your saved sign-in, confirms this is still the phone your account is signed in
-        on, and checks the cloud to see whether your wallet holds a card yet. Whatever it finds,
-        you land on exactly the right screen — Welcome, the first-card studio, or straight into
-        Home.
+        on, and checks the cloud to see whether your wallet holds a card yet. All of it happens
+        behind the logo, so the splash IS the loading screen — when it fades you are already on
+        the right screen, whether that is Welcome, the first-card studio, or Home.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="100" style="width:0"></i></div><b>100%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
@@ -78,7 +73,7 @@ flowchart LR
   SPL -->|while the logo animates| SESS[[Restore saved session]]:::backend
   SESS --> LOCK{Still your<br/>only phone?}:::decision
   LOCK -->|another phone claimed it| WEL([Welcome<br/>sign in first]):::screen
-  LOCK -->|yes| CHK[Quick wallet check<br/>a one-beat loader]:::action
+  LOCK -->|yes| CHK[Wallet checked<br/>still on the splash]:::action
   CHK --> Q{Where does this<br/>phone belong?}:::decision
   Q -->|no session| WEL
   Q -->|signed in · wallet empty| GATE([Select Your Canvas<br/>the mandatory gate]):::screen
@@ -171,7 +166,7 @@ flowchart LR
             <li><b>Session restore</b><span>Supabase Auth persisted session restored on launch · Zustand auth store drives the navigator</span></li>
             <li><b>One-phone lock</b><span>ACTIVE since migration 0004 (applied 27 July) — the restored session is checked against profiles.current_device_id, and a phone that lost the claim is signed out at launch rather than shown stale data</span></li>
             <li><b>Wallet check</b><span>TanStack Query against the LIVE Supabase cards table · zero cards keeps the first-card gate up, the first save flips it</span></li>
-            <li><b>Splash screen</b><span>React Native + theme tokens · fades while the session restore and wallet check run</span></li>
+            <li><b>Splash screen</b><span>React Native + theme tokens · the ONLY loading screen. Session restore and the wallet check both finish behind the logo, so the app opens straight onto its first real screen — a second spinner after the splash was defeating the point of having one</span></li>
           </ul></div>
         </section>
       </div>
@@ -184,7 +179,7 @@ flowchart LR
 
           <h4 class="cat">Integrations <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Open a shared card straight from its link<span class="tag-undecided">link type undecided</span></b><span>Tapping someone's card link should open it inside the app instead of the browser. Universal links or a custom app link — the call comes with the public card page, which is a separate build and not started yet.</span></li>
+            <li><b>Open a shared card straight from its link<span class="tag-undecided">link type undecided</span></b><span>Tapping someone's card link should open it inside the app instead of the browser. The public card page is live, so every card already has a permanent link — what remains is teaching the phone to claim that link, and the choice between universal links and a custom app link.</span></li>
           </ul></div>
 
           <h4 class="cat">Testing <span class="n">2 items</span></h4>

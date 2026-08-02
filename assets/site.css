@@ -201,6 +201,15 @@ button { font-family: var(--font); cursor: pointer; }
 .ov-card .ov-big small { font-size: 1.2rem; }
 .ov-card .bar { height: 12px; margin: 12px 0 10px; }
 .ov-card .ov-note { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+/* The "what these numbers measure" caveat. Set apart with a rule and a smaller size
+   so it reads as a footnote to the percentages rather than more project news. */
+.ov-card .platform-note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line, rgba(255,255,255,0.10));
+  font-size: 0.78rem;
+}
+.ov-card .platform-note:empty { display: none; }
 .stat-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 .stat {
   flex: 1 1 100px;
@@ -448,6 +457,22 @@ h4.cat.none::after { background: linear-gradient(90deg, #bfe8d6, transparent); }
   color: var(--rose);
   font-size: 0.64rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
   vertical-align: 2px;
+}
+
+/* iPhone items: listed on every module, deliberately outside the maths (see
+   docs/website-status.md §1). Visually quieter than tag-undecided — this is a
+   scheduling note, not an unresolved question. */
+.tag-ios {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(127, 140, 160, 0.14);
+  border: 1px solid rgba(127, 140, 160, 0.34);
+  color: var(--muted);
+  font-size: 0.64rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
+  vertical-align: 2px;
+  white-space: nowrap;
 }
 
 /* Legend */
@@ -707,3 +732,11 @@ table.t tr:hover td { background: #fdfdff; }
   .diagram-container { height: 58vh; min-height: 360px; }
   .chart-tools input[type='range'] { display: none; }
 }
+
+/* The four overall-progress tracks link to remaining.html — an internal view of
+   exactly what is still open on each. Styled as a row, not a link: the underline
+   and link colour would read as decoration inside a stat card. */
+.abar-link { text-decoration: none; color: inherit; border-radius: 8px; padding: 3px 4px; margin: -3px -4px; transition: background .16s ease; }
+.abar-link:hover { background: rgba(178, 140, 72, .08); }
+.abar-link:hover > span { color: var(--gold-deep); }
+.abar-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }

@@ -31,28 +31,24 @@
       <div class="head-row rv">
         <span class="badge">Module 05</span>
         <h1>Home</h1>
-        <span class="pill brainstorm">Brainstorming</span>
+        <span class="pill progress">In progress</span>
       </div>
       <p class="lead rv" style="--i:1">
-        Home is the one screen we are deliberately not building yet. It exists because the
-        ObjectiveDone CRM mobile app and the Admin Dashboard may want a daily dashboard to live
-        here — the day's highlights, follow-ups to make, what the team has been up to — so its
-        features stay undecided on purpose until those products take shape, rather than guessed
-        today. Until then the screen says so honestly, and points you to the tabs where your
-        cards, contacts and scans already live.
+        Home is the day's first screen, and it is the app's follow-up surface. It opens on a
+        greeting and the people who need you today — overdue follow-ups in red, due-today rows
+        marked in gold — each clearing with one-tap Done or Snooze, plus any introductions
+        waiting for your approval. Below that sit the people you met most recently, each with a
+        one-tap Remind, and your network's own numbers. Set a follow-up in two taps and the
+        phone buzzes when it falls due, even with the app closed; tapping the alert lands you
+        on the person.
       </p>
-      <div class="progress-box rv" style="--i:2" aria-label="Module progress">
-        <div class="prog-row"><span>Module Total Completion</span><div class="bar"><i data-w="0" style="width:0"></i></div><b>0%</b></div>
-        <div class="hero-aspects">
-          <div class="abar"><span>UI</span><div class="bar"><i data-w="0" style="width:0"></i></div><b>0%</b></div>
-          <div class="abar"><span>Backend</span><div class="bar"><i data-w="0" style="width:0"></i></div><b>0%</b></div>
-          <div class="abar"><span>Integrations</span><div class="bar"><i data-w="0" style="width:0"></i></div><b>0%</b></div>
-        </div>
+      <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
+        <!-- Filled from data.js by site.js — never hand-write these numbers. -->
       </div>
 
       <div class="tabbar rv" style="--i:3">
-        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
-        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
+        <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">2</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
         <button class="tabbtn" data-tab="tab-pending">Things to do</button>
       </div>
@@ -70,19 +66,24 @@
       <div class="tabpanel active" id="tab-flows">
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">01</span><h3>The daily landing</h3><span class="pill brainstorm">Brainstorming · decided with the CRM</span></div>
-          <p class="f-note">What today's Home really is — a candid placeholder that never pretends, with the bell and sign-out fully working around it.</p>
+          <div class="f-head"><span class="f-num">01</span><h3>The daily landing</h3><span class="pill done">Built · runs on live data</span></div>
+          <p class="f-note">Open the app and Home answers one question — who needs you today. Overdue follow-ups sit at the top in red, due-today rows carry a gold dot, and each clears with a single tap. When nothing is due, it says so honestly.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
-  OPEN[Open the Home tab]:::action --> HOME([Home]):::screen
-  HOME --> NOTE[Candid holding note<br/>no fake dashboard]:::action
-  NOTE -.->|takes shape next| FUT([Widgets and highlights canvas<br/>designed with the CRM apps]):::pending
-  HOME --> BELOW[Points to the tabs below<br/>cards contacts and scans]:::action
-  HOME --> BELL[Tap the bell]:::action
-  BELL --> NOTIF([Notifications centre]):::screen
-  HOME --> OUT[Tap Sign out]:::action
-  OUT --> WEL([Back to Welcome]):::state
+  OPEN[Open the app]:::action --> HOME([Home]):::screen
+  HOME --> GREET[Greeting with the date<br/>met this week and total contacts]:::action
+  HOME --> QA[Quick actions<br/>My card · Scan]:::action
+  HOME --> NEED[Needs you today<br/>overdue in red · due today in gold]:::action
+  NEED -->|tap a row| DET([The contact]):::screen
+  NEED -->|one tap Done| DONE([Follow-up completed]):::state
+  NEED -->|one tap Snooze| SNZ[Tomorrow · in a few days<br/>or next week]:::action
+  SNZ --> AGAIN([Buzzes again at the new time]):::state
+  NEED -.->|nothing due| CLEAR([All clear · said plainly]):::state
+  HOME --> SB[Introductions waiting]:::action -->|tap| APPR([Approval screen]):::screen
+  HOME --> MET[Met recently · last five people<br/>one-tap Remind on each]:::action
+  HOME --> NET[Your network<br/>how each contact arrived · card views]:::action
+  HOME -.->|no contacts yet| FIRST([Start your network<br/>scan your first card]):::state
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -94,7 +95,30 @@ flowchart LR
         </section>
 
         <section class="feature">
-          <div class="f-head"><span class="f-num">02</span><h3>The app's chrome</h3><span class="pill done">Built · runs on live data</span></div>
+          <div class="f-head"><span class="f-num">02</span><h3>Setting a follow-up</h3><span class="pill done">Built · runs on live data</span></div>
+          <p class="f-note">Two taps, no date-picker wheel. Pick a preset time, add a note if you like, and forget about it — the server watches the clock, so the phone buzzes when the reminder falls due even if the app has been closed all day. Tapping the alert opens the person it is about.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  MET[Remind on someone<br/>met recently]:::action --> SHEET([Follow-up sheet]):::screen
+  CON[Follow up on a<br/>contact's own page]:::action --> SHEET
+  SHEET --> PICK[Pick a time in two taps<br/>This evening · Tomorrow morning<br/>In a few days · Next week]:::action
+  PICK --> NOTE[Optional note]:::action
+  NOTE --> SAVE[(Reminder saved<br/>to the cloud)]:::backend
+  SAVE -.->|when the time comes| BUZZ([The phone buzzes<br/>even with the app closed]):::state
+  BUZZ -->|tap the push| DET([The contact]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>The app's chrome</h3><span class="pill done">Built · runs on live data</span></div>
           <p class="f-note">The frame around every screen — profile circle and bell up top, the gold Scan dock below, and how the bar knows when to disappear. The name, initials and unread count behind it all come from the cloud.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
@@ -128,27 +152,56 @@ flowchart LR
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
-          <div class="f-head"><span class="f-num">A</span><h3>What feeds the chrome</h3><span class="pill done">Live on the cloud</span></div>
-          <p class="f-note">Where the circle's photo and the bell's count come from — both now read straight from the cloud, with only the picture files themselves still sitting on the phone.</p>
+          <div class="f-head"><span class="f-num">A</span><h3>The reminder loop</h3><span class="pill done">Live on the cloud</span></div>
+          <p class="f-note">What makes a follow-up trustworthy: the phone only writes the reminder — the server watches the clock. A job sweeps every five minutes for anything due, writes the alert, and the same push pipeline that already carries every other notification delivers this one. Each reminder announces exactly once; snoozing moves the time, and it announces once more at the new time.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
-  subgraph PHONE [On the phone · React Native]
-    CHROME[App chrome<br/>top bar and tab bar]:::action
-    PS[Your profile details<br/>fetched and cached]:::action
-    NS[Your notifications<br/>fetched and cached]:::action
+  subgraph PHONE [On the phone]
+    SET[Set or snooze<br/>a follow-up]:::action
+    TAP[Tap the push]:::action
   end
-  subgraph CLOUD [Supabase cloud]
-    PDB[(profiles table<br/>live)]:::backend
-    NDB[(notifications table<br/>live)]:::backend
-    UP[[Picture uploads<br/>next milestone]]:::pending
+  subgraph CLOUD [In the cloud]
+    RDB[(reminders table<br/>owner-only security)]:::backend
+    JOB[[Server job<br/>sweeps every 5 minutes]]:::backend
+    NDB[(notifications table)]:::backend
+    PIPE[[Push pipeline<br/>the one already live]]:::backend
   end
-  PS -->|photo and initials| CHROME
-  NS -->|unread badge count| CHROME
-  CHROME -.->|asks again on every focus| NS
-  PDB -.->|syncs to every sign-in| PS
-  NDB -.->|syncs to every sign-in| NS
-  UP -.->|photo files stay on the phone for now| PS
+  SET --> RDB
+  RDB -.->|anything fallen due?| JOB
+  JOB -->|writes the alert<br/>announces exactly once| NDB
+  NDB --> PIPE
+  PIPE --> BUZZ([The phone buzzes<br/>app closed or open]):::state
+  BUZZ --> TAP
+  TAP --> DET([The contact opens]):::screen
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">B</span><h3>What feeds the Home screen</h3><span class="pill done">Live on the cloud</span></div>
+          <p class="f-note">Home invents no counters of its own. The people and where each one came from are read off the contact list the phone already holds — the same cached copy the Contacts tab uses, so nothing loads twice — while reminders, waiting introductions and the card-view numbers come fresh from the cloud. Pull to refresh, and it refreshes itself whenever you come back to it.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  subgraph PHONE [Already on the phone]
+    CACHE[Contacts · the same cached list<br/>the Contacts tab reads]:::action
+  end
+  subgraph CLOUD [Read fresh from the cloud]
+    RDB[(reminders)]:::backend
+    SB[(introductions waiting)]:::backend
+    ACQ[[Analytics call<br/>card views and share-backs]]:::backend
+  end
+  CACHE -->|totals and how each arrived| HOME([Home]):::screen
+  RDB -->|due and overdue| HOME
+  SB -->|waiting for approval| HOME
+  ACQ -->|the network's numbers| HOME
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -166,12 +219,12 @@ flowchart LR
           <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
           <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
           <div class="list-card"><ul>
-            <li><b>The Home surface itself</b><span>Nothing yet — honestly. It is a static React Native screen with a holding note and a sign-out button; no data source, no store, no cloud table behind it.</span></li>
-            <li><b>The chrome around it</b><span>Top bar, notification bell and the tab bar with the gold Scan dock are built in React Native — the full stacks are listed under the Cards and Notifications modules' Tech stack tabs.</span></li>
-            <li><b>Profile circle</b><span>Supabase PostgreSQL · profiles table, live since 27 July, with per-account security rules scoping every read to the signed-in member. The avatar image itself is still a device file path until the upload milestone.</span></li>
-            <li><b>Bell and unread badge</b><span>Supabase PostgreSQL · notifications table, live since 27 July. The count is re-read whenever a screen comes back into focus; Supabase Realtime is available but deliberately not switched on yet.</span></li>
-            <li><b>Sign out</b><span>Supabase Auth session end + full local wipe (query cache and stores cleared), so nothing personal survives on the phone.</span></li>
-            <li><b>Everything else</b><span>To be decided with the CRM phase — no stack gets chosen until the features are.</span></li>
+            <li><b>Follow-up reminders</b><span>Supabase PostgreSQL · a reminders table added by migration 0011 (applied and verified), with owner-only security rules on every read, insert, update and delete.</span></li>
+            <li><b>The due-time sweep</b><span>pg_cron · a server job runs every five minutes, finds reminders that have fallen due, writes a notification for each and marks the reminder announced, so nothing fires twice.</span></li>
+            <li><b>The push itself</b><span>The chain the app already uses for every alert: pg_net calls the push-send edge function, which delivers through Firebase — which is why a due reminder buzzes the phone with the app closed.</span></li>
+            <li><b>The network's numbers</b><span>acquisition_summary() (migration 0010) supplies card views and share-back counts; contact totals and how each contact was acquired are derived from the contact list the phone already holds.</span></li>
+            <li><b>The screen</b><span>React Native · TanStack Query reads the same contacts cache as the Contacts tab, so Home adds no second copy of the data; Reanimated animates the section entrances; the follow-up preset picker is a bottom sheet.</span></li>
+            <li><b>The chrome around it</b><span>Top bar, notification bell and the tab bar with the gold Scan dock — their full stacks are listed under the Cards and Notifications modules' Tech stack tabs.</span></li>
           </ul></div>
         </section>
       </div>
@@ -180,18 +233,16 @@ flowchart LR
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">One decision drives this whole module — the honest list, grouped by the kind of work it is.</p>
+          <p class="f-note">The list collapsed from "decide everything" to two lines — one check on a real phone, one idea for later.</p>
 
-          <h4 class="cat">Decisions <span class="n">3 items</span></h4>
+          <h4 class="cat">Verification <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Decide what Home is<span class="tag-undecided">entire surface undecided</span></b><span>Home exists because the CRM Mobile App and Admin Dashboard may want a daily dashboard surface here — the day's highlights, follow-ups due, team activity. Its features are deliberately undecided until those products take shape; making that call together is the work that unblocks everything else on this page.</span></li>
-            <li><b>Choose where the day's numbers come from<span class="tag-undecided">data sources undecided</span></b><span>Whatever Home shows has to be fed by something: this app's own cards, contacts and notifications — all of which now live in the cloud and could feed it today — or the CRM's own records, or a blend of both. That call decides how much backend work follows.</span></li>
-            <li><b>Decide whether everyone sees the same Home<span class="tag-undecided">audience undecided</span></b><span>Accounts already carry a member-or-admin role, so a manager's Home could legitimately differ from a member's. Settling this before design avoids building one screen twice.</span></li>
+            <li><b>Verify the due-time push on a phone</b><span>Set a reminder for a few minutes ahead, close the app and lock the phone — it should buzz the lock screen when the time comes, and tapping it should open the right contact. Every link in the chain is live and the server job is running; this one real-world proof is what the module still owes.</span></li>
           </ul></div>
 
-          <h4 class="cat">Backend <span class="n">1 item</span></h4>
+          <h4 class="cat">Later ideas <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Build whatever Home ends up needing</b><span>Home has no data of its own today and nothing was built speculatively, so there is nothing here to undo. Once the decisions above land, its widgets get designed, their data wired and the screen assembled — starting from an app whose database, security rules and data connections are already live.</span></li>
+            <li><b>A weekly follow-up digest</b><span>One summary of the week's follow-ups — completed, snoozed, still open. A later idea, noted here so it is not forgotten; not promised for v1.</span></li>
           </ul></div>
         </section>
       </div>

@@ -81,14 +81,21 @@
     set('stTarget', p.targetV1 || '—');
     set('stMilestone', p.currentMilestone || '—');
     set('stNote', p.note || '');
+    set('stPlatformNote', p.platformNote || '');
     set('stUpdated', p.lastUpdated || '');
 
     // The four tracks that actually make up the overall number.
     var ah = document.getElementById('aspectRows');
     if (ah) {
       ah.innerHTML = '';
-      (p.aspects || []).forEach(function (a2) {
-        var row = el('div', 'abar');
+      /* Each track links to its own breakdown of what is still open. Anchors,
+         not click handlers, so they open in a new tab, keyboard-focus and show a
+         real URL — the page is an internal working view and gets used that way. */
+      var ASPECT_SLUG = ['ui', 'backend', 'integrations', 'ai'];
+      (p.aspects || []).forEach(function (a2, i) {
+        var row = el('a', 'abar abar-link');
+        row.href = 'remaining.html#' + (ASPECT_SLUG[i] || '');
+        row.title = "See what's still open on this track";
         row.innerHTML = '<span>' + a2.key + '</span><div class="bar"><i data-w="' + a2.pct + '" style="width:0"></i></div><b>' + a2.pct + '%</b>';
         ah.appendChild(row);
       });
@@ -160,12 +167,58 @@
     });
   }
 
+  /* ── module page: the hero progress box ─────────────────────────────────
+     Every module page used to hand-write these four numbers, and every one of
+     them had drifted — Scan's page claimed 45% while the portal that links to it
+     said 98%. Two places holding one number is the exact failure build-data.mjs
+     exists to prevent, so the box now renders from data.js like everything else.
+     The page identifies itself by its own filename, which already matches the
+     `page` field the generator writes. */
+  function renderModuleProgress() {
+    var box = document.querySelector('[data-module-progress]');
+    if (!box) return;
+    var file = (location.pathname.split('/').pop() || '').toLowerCase();
+    var mods = D.modules || {};
+    var key = (D.moduleOrder || []).filter(function (k) {
+      return ((mods[k] || {}).page || '').toLowerCase().split('/').pop() === file;
+    })[0];
+    var m = key && mods[key];
+    if (!m) return;
+
+    var a = m.aspects || {};
+    var rows = [['UI', a.ui], ['Backend', a.backend], ['Integrations', a.integrations]];
+    box.innerHTML =
+      '<div class="prog-row"><span>Module Total Completion</span>' +
+      '<div class="bar"><i data-w="' + m.progress + '" style="width:0"></i></div>' +
+      '<b>' + m.progress + '%</b></div>' +
+      '<div class="hero-aspects">' +
+      rows
+        .map(function (r) {
+          return (
+            '<div class="abar"><span>' + r[0] + '</span>' +
+            '<div class="bar"><i data-w="' + (r[1] || 0) + '" style="width:0"></i></div>' +
+            '<b>' + (r[1] || 0) + '%</b></div>'
+          );
+        })
+        .join('') +
+      '</div>';
+
+    // The status pill is the same fact stated in words — keep it from drifting too.
+    var pill = document.querySelector('.head-row .pill');
+    if (pill) {
+      var label = { done: 'Built', progress: 'In progress', brainstorm: 'Not started' };
+      pill.textContent = label[m.status] || pill.textContent;
+      pill.className = 'pill ' + (m.status === 'done' ? 'done' : m.status === 'progress' ? 'progress' : 'pending');
+    }
+  }
+
   function boot() {
     initTabs();
     initProductTabs();
     renderOverview();
     renderMilestones();
     renderModules();
+    renderModuleProgress();
     watch();
     // Safety net: nothing may ever stay invisible if the observer misses it
     // (fast scrolling, quirky embedders, print). Reveals + fills bars.
