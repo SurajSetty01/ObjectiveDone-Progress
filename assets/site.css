@@ -153,7 +153,14 @@ button { font-family: var(--font); cursor: pointer; }
 .pt-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
 .pt-body b { font-size: 1rem; font-weight: 850; letter-spacing: -0.01em; }
 .pt-body span { font-size: 0.76rem; color: var(--muted); font-weight: 600; line-height: 1.45; }
-.pt-body .pill { align-self: flex-start; margin-top: 2px; }
+/* The tab pill now carries a percentage, so it is longer than the "🔒 Starts …"
+   labels this was written for. `white-space:nowrap` on .pill sent the overflow
+   straight through the card's right edge — a clipped number reads as a broken
+   page. Let it wrap inside the tab instead. */
+.pt-body .pill {
+  align-self: flex-start; margin-top: 2px;
+  max-width: 100%; white-space: normal; text-align: left;
+}
 .ptab:hover { border-color: var(--gold-line); transform: translateY(-4px); box-shadow: var(--shadow-lift); }
 .ptab.active {
   border-color: var(--gold);
@@ -182,6 +189,27 @@ button { font-family: var(--font); cursor: pointer; }
 .queued-panel h3 { font-size: 1.2rem; font-weight: 850; margin-bottom: 8px; }
 .queued-panel p { color: var(--muted); font-size: 0.92rem; line-height: 1.65; margin-bottom: 14px; }
 .queued-panel .qdate { display: inline-flex; padding: 8px 18px; border-radius: 999px; background: var(--pend-soft); border: 1px solid #dde1ea; font-weight: 800; font-size: 0.82rem; color: var(--muted); }
+
+/* What's left, per product (home). Sits inside an .ov-card, so it carries no
+   border of its own — nesting a second card inside one reads as a mistake. */
+.left-list { margin-top: 12px; }
+.left-list li {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 11px 0;
+  border-bottom: 1px solid #f0f2f6;
+  font-size: 0.84rem; line-height: 1.55; color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.left-list li:last-child { border-bottom: none; }
+/* A flex item, not an inline dot: these entries wrap to two and three lines, and
+   an inline marker leaves the continuation sitting under the bullet. */
+.left-list li::before {
+  content: '';
+  flex: none;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  margin-top: 7px;
+}
 
 /* ═══ OVERVIEW CARD (home) ══════════════════════════════════════════════ */
 .overview {
@@ -308,6 +336,11 @@ button { font-family: var(--font); cursor: pointer; }
 }
 .mod-card .m-open:hover { background: var(--gold); color: #fff; }
 .mod-card .m-hint { font-size: 0.68rem; font-weight: 700; color: var(--faint); }
+
+/* The CRM and the console have no diagram pages of their own yet, so their cards
+   do not flip and do not pretend to be a link. Same face, no 3D, no pointer. */
+.mod-card.static { cursor: default; perspective: none; min-height: 0; }
+.mod-card.static .face.front { min-height: 200px; height: 100%; }
 
 /* Aspect split bars (card backs) */
 .abar { display: flex; align-items: center; gap: 10px; }

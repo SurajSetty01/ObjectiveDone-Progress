@@ -28,11 +28,13 @@
   <header class="page-head">
     <div class="wrap">
       <span class="badge rv">Live build status · updated <span id="stUpdated">Jul 27</span></span>
-      <h1 class="rv" style="--i:1">Four products. One backend.<br />Built in the open, flow by flow.</h1>
+      <h1 class="rv" style="--i:1">Four products. One backend.<br />Three of them are built.</h1>
       <p class="lead rv" style="--i:2">
-        Pick a product below. For everything in active development you get real flowcharts and
-        architecture diagrams for every module — pan them, zoom them, and see exactly what is
-        built, what is in progress, and what is still to come.
+        Pick a product below. Connect's v1 is with the client; the CRM app and the admin console
+        are built and being verified; the web CRM is the one product still to start, and it starts
+        the moment the CRM's release checks pass. Every Connect module also opens its own real
+        flowcharts and architecture diagrams — pan them, zoom them, and see exactly what is built,
+        what is in progress, and what is still to come.
       </p>
     </div>
   </header>
@@ -40,47 +42,17 @@
   <!-- ═══ PRODUCT TABS ═══ -->
   <section class="section" id="products">
     <div class="wrap">
-      <div class="prod-tabs rv">
-        <button class="ptab active" data-panel="panel-app">
-          <span class="pt-icon">📇</span>
-          <span class="pt-body">
-            <b>ObjectiveDone App</b>
-            <span>Digital cards · scanning · contacts · follow-ups · AI concierge</span>
-            <span class="pill progress">In build now</span>
-          </span>
-        </button>
-        <button class="ptab locked" data-panel="panel-crm-mobile">
-          <span class="pt-icon">🗂️</span>
-          <span class="pt-body">
-            <b>CRM Mobile App</b>
-            <span>Work every captured contact on the go</span>
-            <span class="pill queued">🔒 Starts Aug 24, 2026</span>
-          </span>
-        </button>
-        <button class="ptab locked" data-panel="panel-crm-web">
-          <span class="pt-icon">🖥️</span>
-          <span class="pt-body">
-            <b>CRM Web Dashboard</b>
-            <span>The same CRM, full-screen in the browser</span>
-            <span class="pill queued">🔒 Starts Sep 8, 2026</span>
-          </span>
-        </button>
-        <button class="ptab locked" data-panel="panel-admin">
-          <span class="pt-icon">🛡️</span>
-          <span class="pt-body">
-            <b>Admin Dashboard</b>
-            <span>Members, analytics and platform control</span>
-            <span class="pill queued">🔒 Starts Sep 21, 2026</span>
-          </span>
-        </button>
-      </div>
+      <!-- Tabs are rendered from data.js §8, in deliverable order. Hand-writing
+           them is what let a tab pill and its own panel claim two different
+           start dates for the same product. -->
+      <div class="prod-tabs rv" id="prodTabs"></div>
 
       <!-- ═══ ACTIVE PRODUCT ═══ -->
       <div class="prod-panel" id="panel-app">
         <div class="overview">
           <div class="ov-card rv">
             <div class="ov-top">
-              <h3>Overall progress · ObjectiveDone App</h3>
+              <h3>Overall progress · <span id="stProduct">ObjectiveDone Connect</span></h3>
               <span class="pill progress">Day <span id="stDays">4</span> of the build</span>
             </div>
             <div class="ov-big" id="ovOverall">78<small>%</small></div>
@@ -100,21 +72,11 @@
           <div class="ov-card rv" style="--i:1">
             <h3>Right now</h3>
             <p class="ov-note" style="margin-top:10px">
-              Current milestone: <b id="stMilestone" style="color:var(--gold-deep)">M6 · Scanning, card reading &amp; location</b>
+              Current milestone: <b id="stMilestone" style="color:var(--gold-deep)">—</b>
             </p>
-            <p class="ov-note" style="margin-top:12px">
-              Started <b>Jul 24, 2026</b>. Every screen is built. <b>Voice memos, transcripts
-              and dictation are done</b> — record on a contact, play it back on another phone,
-              and generate the transcript when you want it, with the summary and the promises
-              made out loud pulled out of it; speaking a question to the concierge works the
-              same way. The concierge itself answers for real, grounded only in the member's own
-              contacts and notes. Home opens on who needs you today, and follow-up reminders are
-              sent by the server so they reach the phone with the app closed. The app also runs
-              on a real iPhone; finishing verification there has its own block below.
-              <br /><br />
-              Eleven milestones landed in the first nine days, so the remaining dates have been
-              re-cut to that pace — <b>v1 now targets Aug 12</b> rather than Aug 15.
-            </p>
+            <!-- Rendered from data.js: this paragraph carries the target date, and as
+                 hand-written prose it had already drifted a date away from the table. -->
+            <p class="ov-note" style="margin-top:12px" id="stRightNow"></p>
             <p class="ov-note" style="margin-top:12px">
               Every module card below opens that module's diagram pages: user flows,
               architecture, and states — with done and pending marked on the charts themselves.
@@ -129,40 +91,11 @@
         <div class="mod-grid" id="modGrid"><!-- rendered from data.js --></div>
       </div>
 
-      <!-- ═══ QUEUED PRODUCTS ═══ -->
-      <div class="prod-panel" id="panel-crm-mobile" style="display:none">
-        <div class="queued-panel rv">
-          <div class="qicon">🗂️</div>
-          <h3>ObjectiveDone CRM · Mobile App</h3>
-          <p>The team-side app for working every captured contact — pipelines, follow-ups and
-             assignments on the same shared backend the ObjectiveDone app writes to. It starts
-             from a running platform rather than a blank repo: the design system, the data
-             layer, sign-in, storage, push and the AI services are all built and live, so this
-             build is mostly screens and pipeline logic on top of a spine that already works.</p>
-          <span class="qdate">Starting now · Aug 2026 · first build expected by Aug 22</span>
-        </div>
-      </div>
-      <div class="prod-panel" id="panel-crm-web" style="display:none">
-        <div class="queued-panel rv">
-          <div class="qicon">🖥️</div>
-          <h3>ObjectiveDone CRM · Web Dashboard</h3>
-          <p>The same CRM, full-screen in the browser for desk work — bulk actions, filters and
-             reporting. Follows the CRM mobile app so both share one design language, and reuses
-             its pipeline rules rather than restating them.</p>
-          <span class="qdate">Expected start · Aug 25, 2026 · through mid-September</span>
-        </div>
-      </div>
-      <div class="prod-panel" id="panel-admin" style="display:none">
-        <div class="queued-panel rv">
-          <div class="qicon">🛡️</div>
-          <h3>ObjectiveDone · Admin Dashboard</h3>
-          <p>Members, analytics and control for the whole platform — the last surface, shipped
-             once all three apps run on the shared backend it administers. The countable events
-             it reports on are already being written today, so it reads history rather than
-             starting one.</p>
-          <span class="qdate">Expected start · Sep 15, 2026 · through end September</span>
-        </div>
-      </div>
+      <!-- ═══ THE OTHER PRODUCTS ═══
+           Rendered from data.js: a built product gets its own progress, timeline
+           and module cards; an unstarted one gets its start date and the list of
+           what it will contain. -->
+      <div id="prodPanels"></div>
     </div>
   </section>
 

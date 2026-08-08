@@ -44,10 +44,127 @@
     });
   }
 
-  /* ── home: product tab switching ────────────────────────────────────── */
-  function initProductTabs() {
-    var tabs = document.querySelectorAll('.ptab');
-    if (!tabs.length) return;
+  /* ── home: the four products ─────────────────────────────────────────────
+     Tabs AND panels are rendered from D.products. They used to be hand-written
+     in index.html, where a tab pill and the panel one click below it had drifted
+     to two different start dates for the same product — and both were describing
+     a product that had already been built. */
+  function msStrip(list) {
+    return '<div class="ms-strip">' + (list || []).map(function (m, i) {
+      return '<div class="ms-chip rv ' + m.status + '" style="--i:' + (i % 5) + '">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
+        '<span class="ms-when">' + m.when + '</span>' +
+        '<span class="pill ' + m.status + '">' + LABEL[m.status] + '</span></div>' +
+        '<h4>' + m.title + '</h4><p>' + m.note + '</p>' +
+        '<div class="bar ' + (m.status === 'done' ? 'green' : m.status === 'progress' ? 'blue' : '') +
+        '"><i data-w="' + (m.progress || 0) + '" style="width:0"></i></div></div>';
+    }).join('') + '</div>';
+  }
+
+  /* Cards for a product with no diagram pages of its own: the same face as a
+     Connect module card, minus the flip and the "open the diagrams" link. */
+  function staticModuleCards(list, unit) {
+    return '<div class="mod-grid">' + (list || []).map(function (m, i) {
+      return '<div class="mod-card static rv" style="--i:' + (i % 3) + '"><div class="face front">' +
+        '<div class="m-top"><span class="m-num">' + unit.toUpperCase() + ' ' +
+        String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="pill ' + m.status + '">' + LABEL[m.status] + '</span></div>' +
+        '<h3>' + m.title + '</h3>' +
+        '<p class="m-feats">' + m.feats + '</p>' +
+        '<div class="m-prog"><div class="bar"><i data-w="' + m.progress + '" style="width:0"></i></div>' +
+        '<b>' + m.progress + '%</b></div>' +
+        '</div></div>';
+    }).join('') + '</div>';
+  }
+
+  function leftList(items) {
+    return '<ul class="left-list">' + (items || []).map(function (t) {
+      return '<li>' + t + '</li>';
+    }).join('') + '</ul>';
+  }
+
+  function builtPanel(p) {
+    var done = 0, prog = 0;
+    (p.modules || []).forEach(function (m) {
+      if (m.status === 'done') done++; else if (m.status === 'progress') prog++;
+    });
+    return '' +
+      '<div class="overview">' +
+      '  <div class="ov-card rv">' +
+      '    <div class="ov-top"><h3>Overall progress · ' + p.name + '</h3>' +
+      '      <span class="pill ' + p.status + '">' + p.pill + '</span></div>' +
+      '    <div class="ov-big">' + p.progress + '<small>%</small></div>' +
+      '    <div class="bar"><i data-w="' + p.progress + '" style="width:0"></i></div>' +
+      '    <p class="ov-note">' + p.blurb + '</p>' +
+      '    <p class="ov-note platform-note">' + p.measure + '</p>' +
+      '    <div class="stat-row">' +
+      '      <div class="stat"><b>' + done + '</b><span>' + p.unit + ' done</span></div>' +
+      '      <div class="stat"><b>' + prog + '</b><span>In progress</span></div>' +
+      '      <div class="stat"><b>' + (p.target || '—') + '</b><span>Target v1.0</span></div>' +
+      '    </div>' +
+      '  </div>' +
+      '  <div class="ov-card rv" style="--i:1">' +
+      '    <h3>What is left</h3>' +
+      '    <p class="ov-note" style="margin-top:8px">Every open item on this product, ' +
+      '       and nothing that is already done.</p>' +
+      leftList(p.left) +
+      '  </div>' +
+      '</div>' +
+      '<div class="sec-title" style="margin-top:30px"><h2>Timeline</h2>' +
+      '  <span class="sub">scroll sideways · dates shift only if scope does</span></div>' +
+      msStrip(p.milestones) +
+      '<div class="sec-title" style="margin-top:26px"><h2>' + p.unit + '</h2>' +
+      '  <span class="sub">' + (p.unit === 'Screens'
+        ? 'what a staff member can do today, not how much code exists'
+        : 'what a sales team can do today, not how much code exists') + '</span></div>' +
+      staticModuleCards(p.modules, p.unit === 'Screens' ? 'Screen' : 'Module');
+  }
+
+  function queuedPanel(p) {
+    return '' +
+      '<div class="queued-panel rv">' +
+      '  <div class="qicon">' + p.icon + '</div>' +
+      '  <h3>' + p.name + '</h3>' +
+      '  <p>' + p.blurb + '</p>' +
+      '  <span class="qdate">' + p.when + '</span>' +
+      '</div>' +
+      '<div class="sec-title" style="margin-top:8px"><h2>What it will contain</h2>' +
+      '  <span class="sub">the contracted list, held here so nothing is lost between phases</span></div>' +
+      '<div class="ov-card rv" style="max-width:760px;margin:0 auto 10px">' + leftList(p.left) + '</div>';
+  }
+
+  function renderProducts() {
+    var tabHost = document.getElementById('prodTabs');
+    var panelHost = document.getElementById('prodPanels');
+    if (!tabHost || !panelHost) return;
+    var list = D.products || [];
+
+    list.forEach(function (p) {
+      var id = p.kind === 'main' ? 'panel-app' : 'panel-' + p.key;
+      var t = el('button', 'ptab' + (p.kind === 'queued' ? ' locked' : '') + (p.kind === 'main' ? ' active' : ''));
+      t.setAttribute('data-panel', id);
+      t.innerHTML =
+        '<span class="pt-icon">' + p.icon + '</span>' +
+        '<span class="pt-body"><b>' + p.name + '</b>' +
+        '<span>' + p.tagline + '</span>' +
+        '<span class="pill ' + p.status + '">' + p.pill + '</span></span>';
+      tabHost.appendChild(t);
+
+      if (p.kind === 'main') {
+        // Its panel is the one already written into index.html; only the product's
+        // own name is rendered, so the tab and the panel heading cannot disagree.
+        var h = document.getElementById('stProduct');
+        if (h) h.textContent = p.name;
+        return;
+      }
+      var panel = el('div', 'prod-panel');
+      panel.id = id;
+      panel.style.display = 'none';
+      panel.innerHTML = p.kind === 'queued' ? queuedPanel(p) : builtPanel(p);
+      panelHost.appendChild(panel);
+    });
+
+    var tabs = tabHost.querySelectorAll('.ptab');
     tabs.forEach(function (t) {
       t.addEventListener('click', function () {
         tabs.forEach(function (x) { x.classList.remove('active'); });
@@ -83,6 +200,8 @@
     set('stNote', p.note || '');
     set('stPlatformNote', p.platformNote || '');
     set('stUpdated', p.lastUpdated || '');
+    var rn = document.getElementById('stRightNow');
+    if (rn) rn.innerHTML = p.rightNow || '';
 
     // The four tracks that actually make up the overall number.
     var ah = document.getElementById('aspectRows');
@@ -214,7 +333,7 @@
 
   function boot() {
     initTabs();
-    initProductTabs();
+    renderProducts();
     renderOverview();
     renderMilestones();
     renderModules();

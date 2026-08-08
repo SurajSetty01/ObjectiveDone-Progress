@@ -145,9 +145,389 @@ window.OD_DATA = {
       "decision": false
     }
   ],
+  "products": [
+    {
+      "key": "connect",
+      "name": "ObjectiveDone Connect",
+      "deliverable": 1,
+      "icon": "📇",
+      "tagline": "Digital cards · scanning · contacts · follow-ups · AI concierge",
+      "status": "progress",
+      "progress": 98,
+      "when": "Jul 24 – Aug 15",
+      "pill": "v1 shipped · 98%",
+      "kind": "main",
+      "blurb": "",
+      "measure": "",
+      "unit": "Modules",
+      "target": "",
+      "left": []
+    },
+    {
+      "key": "crm",
+      "name": "CRM Mobile App",
+      "deliverable": 2,
+      "icon": "🗂️",
+      "tagline": "Every captured contact, worked by a sales team",
+      "status": "progress",
+      "progress": 91,
+      "when": "Aug 2 – Aug 18",
+      "pill": "Built · verifying · 91%",
+      "kind": "built",
+      "blurb": "The team-side app: leads, a pipeline you drag, tasks that buzz the right phone, reports counted by the database, and an assistant that only ever answers about records you are allowed to see. Eight modules in three days, because it started from a running platform rather than a blank repo — the design system, sign-in, storage, push and the AI services were already live and were lifted rather than rebuilt.",
+      "measure": "Every module here is built, installed and running on a real phone. What is not finished is the TWO-phone half of the checks — one phone assigning work to another, a seat refusing an invite past the cap — which needs the founder and a second handset. Those are listed as their own block, never as a deduction on a module that works. The CRM has not been built on a Mac yet either; it waits on the same block Connect’s iPhone verification does.",
+      "unit": "Modules",
+      "target": "Aug 18",
+      "left": [
+        "close the founder's two-phone gates (an assignment buzzing the assignee's phone and not the assigner's, a due task pushing with the app closed, a seat refusing an invite past the cap, a disabled member's app going blind)",
+        "make a bridged voice note PLAY for a colleague (the transcript, summary and commitments already render; the audio is still stored under the member's own private prefix, so it needs copying into the workspace's and a player on the record)",
+        "record a voice note straight onto a deal from inside the CRM",
+        "email reminders on a due date (the push works today; there is no email transport at all yet, and it arrives with the web phase)",
+        "the release hardening pass (a 1,500-lead paging proof, a storage audit, a cross-platform check and the signed release build)",
+        "the first build on a Mac (the same block Connect's iPhone verification is waiting for, and the CRM carries fewer iOS risks — no camera, no on-device card reading)"
+      ],
+      "modules": [
+        {
+          "key": "workspace",
+          "title": "Workspace, seats & roles",
+          "status": "done",
+          "progress": 98,
+          "feats": "The organisation itself: seats bought against seats used, invite by email, admin or sales, and disable or re-enable a person — a disabled member’s app goes blind at once. Its own name and logo, a hand-over step so somebody leaving does not orphan their records, and an accountability log of who did what."
+        },
+        {
+          "key": "pipeline",
+          "title": "Pipeline & deals",
+          "status": "done",
+          "progress": 98,
+          "feats": "Deals on a board you drag between stages, or a list you search, sort and filter. Stages are yours to rename, reorder and delete safely. Won or lost asks why, every move is written to the deal’s own history, and one deal can carry more than one contact."
+        },
+        {
+          "key": "leads",
+          "title": "Leads, contacts & accounts",
+          "status": "done",
+          "progress": 97,
+          "feats": "A leads inbox with sources, tags and owners; qualify and convert into a deal; the full contact record with its linked deals; and a company page showing its people, its deals and their value. Contacts cross from Connect in BOTH directions — send from Connect, or pull from your own Connect book inside the CRM — and pulling the same person twice returns the same record rather than a duplicate."
+        },
+        {
+          "key": "tasks",
+          "title": "Tasks & reminders",
+          "status": "progress",
+          "progress": 95,
+          "feats": "Work grouped as Overdue, Today, This week and Later. A task is a commitment to a person, held by an owner, with a date: you pick the assignee as you create it, so the right phone buzzes first — with the app closed. Complete, reschedule and hand over from the row. Email reminders are the one part still missing; the push already works."
+        },
+        {
+          "key": "conversation",
+          "title": "Conversation record",
+          "status": "progress",
+          "progress": 60,
+          "feats": "A voice note recorded in Connect travels with the contact: its transcript, the summary and the promises made out loud all render on the lead and on the deal. Two parts are not there yet, which is why this is the one number well under the rest — the audio itself does not play for a colleague, and you cannot record a new note onto a deal from the CRM."
+        },
+        {
+          "key": "assistant",
+          "title": "AI assistant",
+          "status": "done",
+          "progress": 92,
+          "feats": "An assistant grounded only in the records you are allowed to see — “what is stalling in Proposal?”, “who should I call today?”. A sales user’s answers cover their own book and an admin’s cover the workspace, and it refuses plainly when the records do not hold the answer. It runs on the free AI tier today; a paid key is a one-line upgrade for answer quality. Its threads are kept apart from Connect’s."
+        },
+        {
+          "key": "reports",
+          "title": "Reports & quick actions",
+          "status": "done",
+          "progress": 96,
+          "feats": "Open pipeline value, deals by stage, win rate, overdue count and a per-member table for admins, over any date range you pick — every figure counted by the database rather than added up in the app, so it cannot quietly stop at the first thousand rows. Plus what you do from a record: WhatsApp, call, email, and export the rows you selected as a spreadsheet."
+        }
+      ],
+      "milestones": [
+        {
+          "title": "Foundation & app shell",
+          "when": "Aug 2",
+          "status": "done",
+          "progress": 100,
+          "note": "A real app on the founder’s phone on day one: theme, navigation, sign-in and the CRM’s five tabs, lifted from Connect rather than written again."
+        },
+        {
+          "title": "Workspace, seats & roles",
+          "when": "Aug 2",
+          "status": "done",
+          "progress": 100,
+          "note": "An organization with seats you can fill: invite by email, admin or sales, disable and re-enable. A second real account joined the same day."
+        },
+        {
+          "title": "Pipeline & deals",
+          "when": "Aug 2 – 3",
+          "status": "done",
+          "progress": 100,
+          "note": "The board, drag and all: stages you own, deals with a value and a date, won or lost with a reason, and every move kept in the deal’s own history."
+        },
+        {
+          "title": "Leads, contacts & the Connect bridge",
+          "when": "Aug 3",
+          "status": "done",
+          "progress": 100,
+          "note": "The door between the two apps, in both directions — a contact captured in Connect this morning is a CRM lead by the afternoon, provenance intact, and the personal record untouched."
+        },
+        {
+          "title": "Tasks & due reminders",
+          "when": "Aug 3 – 4",
+          "status": "done",
+          "progress": 100,
+          "note": "Overdue, Today, This week, Later — with the assignee chosen as the task is written, so the phone that buzzes is the right one, even with the app closed."
+        },
+        {
+          "title": "The CRM assistant",
+          "when": "Aug 3 – 4",
+          "status": "done",
+          "progress": 100,
+          "note": "A workspace assistant that cannot see across the workspace boundary or into a colleague’s book, because the limit is enforced by the database rather than by the app deciding what to ask for."
+        },
+        {
+          "title": "Reports & quick actions",
+          "when": "Aug 3 – 4",
+          "status": "done",
+          "progress": 100,
+          "note": "Pipeline value, deals by stage, win rate, per-member performance — counted by the database over any range. Plus WhatsApp, call, email and spreadsheet export from a record."
+        },
+        {
+          "title": "Eleven founder-review rounds",
+          "when": "Aug 3 – 4",
+          "status": "done",
+          "progress": 100,
+          "note": "The part that does not appear in a feature list: eleven passes on the real thing on a real phone. It is where tasks were reworked around what a task actually IS, and where a finished assistant was found unreachable because a tab still pointed at a placeholder."
+        },
+        {
+          "title": "Founder device gates",
+          "when": "Aug 9 – 12",
+          "status": "progress",
+          "progress": 20,
+          "note": "The checks that need two phones and the founder holding them: an assignment buzzing the assignee and staying silent for the assigner, a due task pushing with the app closed, a seat refusing an invite past the cap, a disabled member going blind."
+        },
+        {
+          "title": "Conversation-record audio",
+          "when": "Aug 12 – 13",
+          "status": "pending",
+          "progress": 0,
+          "note": "The last real gap in the CRM: a voice note recorded in Connect renders its transcript, summary and commitments on the deal, but the audio still lives under the member’s own private prefix, so a colleague cannot play it."
+        },
+        {
+          "title": "Hardening & release",
+          "when": "Aug 14 – 18",
+          "status": "pending",
+          "progress": 0,
+          "note": "Connect’s closing checklist, reapplied: a paging proof against fifteen hundred leads, a storage audit, a cross-platform check, and the signed release build."
+        },
+        {
+          "title": "CRM v1.0",
+          "when": "Aug 18",
+          "status": "pending",
+          "progress": 0,
+          "note": "The finished team app — and the schema the web CRM is then built onto."
+        }
+      ]
+    },
+    {
+      "key": "crmweb",
+      "name": "CRM Web Dashboard",
+      "deliverable": 3,
+      "icon": "🖥️",
+      "tagline": "The same CRM, full-screen in the browser",
+      "status": "pending",
+      "progress": 0,
+      "when": "Starts Aug 18, 2026 · through mid-September",
+      "pill": "🔒 Starts Aug 18, 2026",
+      "kind": "queued",
+      "blurb": "The desk half of the CRM — the work a phone is genuinely the wrong shape for. It is the only product still unstarted, and it stays that way on purpose: it will be built against a database that eight mobile modules have already beaten on, reusing their pipeline rules rather than restating them, so nothing here is a second implementation of anything.",
+      "measure": "",
+      "unit": "Modules",
+      "target": "",
+      "left": [
+        "spreadsheet import with column mapping, duplicate detection and reversible batches (the one contracted job that genuinely needs a desk)",
+        "bulk assignment and tagging at desk density",
+        "tag and stage management for a whole workspace",
+        "the reporting dashboards, including live visibility of contacts as they arrive from Connect",
+        "the customer status link (a public per-deal page a customer can open without an account)",
+        "the email rail (due-date reminders and templates, which is also what closes the CRM's last mobile gap)"
+      ]
+    },
+    {
+      "key": "admin",
+      "name": "Admin Console",
+      "deliverable": 4,
+      "icon": "🛡️",
+      "tagline": "Members, organizations, spend, storage and every action taken",
+      "status": "progress",
+      "progress": 96,
+      "when": "Aug 7 – Aug 12",
+      "pill": "Built · deploying · 96%",
+      "kind": "built",
+      "blurb": "The platform control plane, brought forward ahead of the web CRM: thirteen screens and five drill-down pages over members, organizations, subscriptions, AI spend, storage, support, broadcasts, system health, the audit trail, security and staff roles. One rule shapes all of it — staff see the ACCOUNT, staff do not read the ADDRESS BOOK — and it is enforced by the database rather than by which screens were built.",
+      "measure": "Every figure on every screen is read from live production data, and each screen was reviewed from both an Admin and a Staff account before it counted as built. The screens below 100 are the ones whose numbers are real but incomplete because something outside the code is missing — a read-only analytics token, a payment provider. Putting it on a public address is a fifteen-minute panel job plus DNS, so it is listed rather than scored.",
+      "unit": "Screens",
+      "target": "Aug 12",
+      "left": [
+        "point admin.objectivedone.com at the Node app and issue its certificate (the console runs on localhost until then; everything works, it just cannot be opened from a phone or handed to anyone)",
+        "read true storage bytes and object sizes from the file store itself instead of counting database rows",
+        "show real AI spend instead of an estimate built from published prices (needs a read-only analytics token)",
+        "reconcile subscriptions against actual payments (Razorpay, plus the Apple and Google store-billing APIs — until then a plan is granted by hand from a button)",
+        "two-step sign-in for staff accounts",
+        "daily rollups so the analytics can answer questions older than 90 days",
+        "a dark theme (every colour already goes through a token, so this is a stylesheet rather than an audit of 18 screens)"
+      ],
+      "modules": [
+        {
+          "key": "dashboard",
+          "title": "Dashboard",
+          "status": "done",
+          "progress": 100,
+          "feats": "The platform on one screen over any dates you choose: what needs attention, headline figures that open into their own constituents, the signup trend, where contacts came from, and org seat usage."
+        },
+        {
+          "key": "members",
+          "title": "Members",
+          "status": "done",
+          "progress": 100,
+          "feats": "Every account, filterable, with per-feature AI columns — then one member’s page: the facts, their plan, their counts, their cards’ metadata, their devices, their organizations, their event trail, an export, and both kinds of deletion. Never their contacts."
+        },
+        {
+          "key": "organizations",
+          "title": "Organizations",
+          "status": "done",
+          "progress": 100,
+          "feats": "Every workspace and, inside one, its seats, its roster with each person’s workload, open invites, pipeline totals, the shape of its stages and whether adoption is rising."
+        },
+        {
+          "key": "subscriptions",
+          "title": "Subscriptions",
+          "status": "progress",
+          "progress": 85,
+          "feats": "Plans and their lifecycle, the tester allowlist with each address’s confirmation state, and the free daily allowances. Grants are made by hand from a button until a payment provider is connected."
+        },
+        {
+          "key": "ai",
+          "title": "AI Usage",
+          "status": "progress",
+          "progress": 90,
+          "feats": "Calls per feature, a trend with the quiet days filled in, the heaviest users and what it cost. The rupee figures are estimated from published prices and labelled as such until an analytics token lands."
+        },
+        {
+          "key": "storage",
+          "title": "Storage",
+          "status": "progress",
+          "progress": 90,
+          "feats": "What the deletion worker is doing right now, what actually holds each reason for deletion, the review queue, the master switch scoped to the one thing it genuinely guards, and any object drilled down to its own removal timeline."
+        },
+        {
+          "key": "support",
+          "title": "Support",
+          "status": "done",
+          "progress": 100,
+          "feats": "The request queue, and the register of consented, scoped, expiring access to one member’s content — the only door to member data, opened by the member, closing by itself."
+        },
+        {
+          "key": "broadcast",
+          "title": "Broadcast",
+          "status": "done",
+          "progress": 100,
+          "feats": "An announcement to a chosen segment, previewed as it will appear on a lock screen, sent down the notification spine the apps already use."
+        },
+        {
+          "key": "health",
+          "title": "System Health",
+          "status": "done",
+          "progress": 100,
+          "feats": "The background jobs, with run-now, edit-schedule and pause, each carrying its last twenty outcomes and a stated likely cause when one fails. Plus table sizes and the console’s own failures."
+        },
+        {
+          "key": "audit",
+          "title": "Audit Log",
+          "status": "done",
+          "progress": 100,
+          "feats": "What staff did and what the platform did, side by side. Every mutation writes its row before it acts, and anything dangerous carries the reason somebody typed."
+        },
+        {
+          "key": "security",
+          "title": "Security",
+          "status": "progress",
+          "progress": 90,
+          "feats": "Who holds privilege, the authentication events, the device locks, and the register of exceptions. Two-step sign-in for staff is the next iteration."
+        },
+        {
+          "key": "staff",
+          "title": "Staff & Roles",
+          "status": "done",
+          "progress": 100,
+          "feats": "Grant and revoke console access by email, and the full role-by-permission matrix. Deliberately separate from the platform-wide flag, which is a cross-tenant key and is never handed out as a side effect of hiring somebody."
+        },
+        {
+          "key": "settings",
+          "title": "Configuration",
+          "status": "progress",
+          "progress": 92,
+          "feats": "Platform settings, the free daily allowances, and every integration with the consequence of it being absent spelled out. A couple of limits are shown but not editable here on purpose."
+        }
+      ],
+      "milestones": [
+        {
+          "title": "Scope derived, not given",
+          "when": "Aug 7",
+          "status": "done",
+          "progress": 100,
+          "note": "Nobody specified what an admin console contains, so it was reasoned out of the schema, both proposals, the contracted annexures and what a service of this kind is expected to have — then written down as scope before any screen existed."
+        },
+        {
+          "title": "Roles, permissions & the safe reads",
+          "when": "Aug 7",
+          "status": "done",
+          "progress": 100,
+          "note": "Staff roles as rows rather than a flag, twenty-nine named permissions, and read functions with hand-written projections — so “staff cannot read the address book” is a property of the database, not of which screens were built."
+        },
+        {
+          "title": "Thirteen screens, built and looked at",
+          "when": "Aug 7",
+          "status": "done",
+          "progress": 100,
+          "note": "Every screen driven in a real browser at 2× and reviewed as a designer, an owner and a tired user. That pass caught invisible avatars, a header sitting over row one, and initials rendered from a bracket — none of which a type check can see."
+        },
+        {
+          "title": "Actions, support & broadcast",
+          "when": "Aug 7",
+          "status": "done",
+          "progress": 100,
+          "note": "The things staff can DO: grants, device-lock clearing, deletion approvals, allowance edits — each writing its audit row before it acts, and the dangerous ones asking for a typed reason. Plus a consented, expiring door to a member’s content instead of impersonation."
+        },
+        {
+          "title": "Founder review rework",
+          "when": "Aug 8",
+          "status": "done",
+          "progress": 100,
+          "note": "A day of corrections after the founder used it. The Storage screen was describing the wrong safety catch as engaged; every headline number became a door into what makes it up; staff and roles were rebuilt; and account deletion now shows exactly what it destroys, inside a window that can still be reversed."
+        },
+        {
+          "title": "Live at admin.objectivedone.com",
+          "when": "Aug 9 – 10",
+          "status": "pending",
+          "progress": 0,
+          "note": "A Node app on the host, a subdomain pointed at it and a certificate issued. Fifteen minutes plus DNS, and the only thing between “it runs” and “you can open it from your phone”."
+        },
+        {
+          "title": "Real spend, real bytes",
+          "when": "Aug 11 – 12",
+          "status": "pending",
+          "progress": 0,
+          "note": "Two read-only credentials turn two estimates into facts: what the AI actually cost, and what the stored files actually weigh."
+        },
+        {
+          "title": "Admin console v1.0",
+          "when": "Aug 12",
+          "status": "pending",
+          "progress": 0,
+          "note": "The control plane, live — with the payment reconciliation waiting on the provider rather than on code."
+        }
+      ]
+    }
+  ],
   "project": {
     "started": "2026-07-24",
-    "lastUpdated": "2026-08-04",
+    "lastUpdated": "2026-08-08",
     "overall": 98,
     "aspects": [
       {
@@ -167,9 +547,10 @@ window.OD_DATA = {
         "pct": 96
       }
     ],
-    "currentMilestone": "M10 · Home, follow-up reminders & polish",
-    "targetV1": "Aug 12, 2026",
+    "currentMilestone": "Polish, release prep & the iPhone block",
+    "targetV1": "Aug 15, 2026",
     "note": "Every screen is built. Voice memos record, play back and transcribe on request — verified on the phone — and you can speak a question to the concierge instead of typing it. The concierge answers for real, grounded only in your own contacts and notes, and says plainly when your notes do not hold the answer. Home opens on who needs you today: follow-ups you set in two taps, pushed by the server so they reach the phone with the app closed. What remains is polish, a handful of decisions, and verification on iPhone.",
+    "rightNow": "Started <b>Jul 24, 2026</b>. Every screen is built, the release APK is with the client, and the app also runs on a real iPhone. Voice memos, transcripts and dictation are done; the concierge answers for real, grounded only in the member’s own contacts and notes — and since 8 Aug it searches for what a question is about rather than reading only the most recent contacts. Home opens on who needs you today, with follow-up reminders sent by the server so they arrive with the app closed.<br /><br /><b>Why the last date moved out three days.</b> Eleven milestones landed in the first nine days, and that pace held — but 2–8 August went to the <b>CRM mobile app</b> and the <b>admin console</b>, both pulled forward, rather than to Connect’s tail. So v1 now targets <b>Aug 15, 2026</b>, and what is left here is the iPhone block plus items waiting on third-party accounts (a release signing key for Google sign-in, the wallet issuer accounts, a payment provider) rather than unfinished features.",
     "platformNote": "Every feature is built and verified on Android, and these percentages measure that. iPhone work is listed in each module’s “Things to do” but is deliberately excluded from the progress bars — the code is already written and accommodated for iOS, so what remains is a scheduled block of building and testing on a Mac rather than unfinished work."
   },
   "moduleOrder": [
@@ -412,10 +793,10 @@ window.OD_DATA = {
     },
     {
       "title": "Polish & release prep",
-      "when": "Aug 2 – 7",
+      "when": "Aug 2 – 8",
       "status": "progress",
-      "progress": 85,
-      "note": "The long tail: the open items on each module’s list, a brand polish pass, and everything needed to hand over v1. Under way now."
+      "progress": 95,
+      "note": "The long tail: the open items on each module’s list, a brand polish pass, and everything needed to hand over v1. Nearly closed — the release build is already with the client, and what is still moving is polish found on the phone."
     },
     {
       "title": "Premium & the paywall",
@@ -425,18 +806,25 @@ window.OD_DATA = {
       "note": "The paid features now know who has paid for them. Reading business cards stays free five times a day; voice transcripts and the concierge are part of the plan; everything else in the app — cards, contacts, sharing, reminders, and recording a memo — stays free for everyone. Test accounts get full access from a list you edit yourself, with no new build."
     },
     {
+      "title": "Concierge search & per-product threads",
+      "when": "Aug 7 – 8",
+      "status": "done",
+      "progress": 100,
+      "note": "The concierge stopped depending on how recently you met somebody: it now works out what a question is about and searches the whole book for it, including company names spelt loosely. And conversations are properly separated per product — a member who also holds a CRM seat had been seeing their sales chats inside Connect."
+    },
+    {
       "title": "iPhone verification",
-      "when": "Aug 8 – 10",
+      "when": "Aug 12 – 14",
       "status": "pending",
       "progress": 0,
-      "note": "The first build on a Mac already happened — the app compiles, installs and runs on a real iPhone, and most of it was checked there. What is left is closing the card-reading gap and confirming push, NFC and the widget, which need the paid Apple membership. iPhone items are listed but never counted against progress."
+      "note": "The first build on a Mac already happened — the app compiles, installs and runs on a real iPhone, and most of it was checked there. What is left is closing the card-reading gap and confirming push, NFC and the widget, which need the paid Apple membership. It moved a few days out because 2–8 August went to the CRM app and the admin console instead. iPhone items are listed but never counted against progress."
     },
     {
       "title": "Connect v1.0",
-      "when": "Aug 12",
+      "when": "Aug 15",
       "status": "pending",
       "progress": 0,
-      "note": "The finished app — the CRM foundation."
+      "note": "The finished app — the platform’s foundation, and the spine the other three products are built on. The release build is already in the client’s hands; this date is when the last open items close, and those are third-party accounts rather than unwritten features."
     }
   ]
 };
