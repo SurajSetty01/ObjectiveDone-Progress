@@ -20,7 +20,7 @@
     <div class="nav-links">
       <a href="../index.html#modules" class="keep">All modules</a>
       <a href="../pricing/index.html">Pricing</a>
-      <a href="notifications.html">← Previous</a>
+      <a href="meeting-recorder.html">← Previous</a>
       <a href="../index.html#timeline" class="accent keep">Next →</a>
     </div>
   </nav>
@@ -29,7 +29,7 @@
     <div class="wrap">
       <div class="crumb"><a href="../index.html">Portal</a> / <a href="../index.html#modules">Modules</a> / Profile &amp; Account</div>
       <div class="head-row rv">
-        <span class="badge">Module 11</span>
+        <span class="badge">Module 12</span>
         <h1>Profile &amp; Account</h1>
         <span class="pill progress">In progress</span>
       </div>
@@ -43,10 +43,10 @@
       </div>
 
       <div class="tabbar rv" style="--i:3">
-        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">2</span></button>
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
-        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do <span class="cnt">2</span></button>
       </div>
 
       <div class="legend">
@@ -123,6 +123,29 @@ flowchart LR
             </script>
           </div>
         </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">03</span><h3>Activity Log · App Usage · Credit Usage</h3><span class="pill done">Built · runs on live data</span></div>
+          <p class="f-note">Three real settings pages now sit under the account block. The Activity Log lists your sign-ins, sign-outs, phone moves and follow-up events, read through a sealed account record built so it can never show an IP address. App Usage shows the time you spend in the app as a fourteen-day trend — counted on your phone only and never uploaded anywhere. Credit Usage, for Premium members, shows what each day's AI features used, worded so a change of provider never reshapes your history. The Premium plan page itself now leads with the ObjectiveDone mark on the same glossy gold card — gold gradient, white lettering — that the Home pill and the Profile card wear.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  PRO([Profile hub]):::screen --> ALOG([Activity Log]):::screen
+  ALOG -->|sign-ins · sign-outs<br/>phone moves · follow-ups| SEAL[[Sealed account record<br/>built so it can never<br/>show an IP address]]:::backend
+  PRO --> USE([App Usage]):::screen
+  USE --> CNT[Time in the app<br/>counted on this phone only]:::action
+  CNT --> TREND([14-day trend<br/>never uploaded anywhere]):::state
+  PRO --> CRED([Credit Usage<br/>Premium members only]):::screen
+  CRED --> ROWS([What each day's AI features used<br/>counted per feature]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
       </div>
 
       <!-- ═══ TAB · ARCHITECTURE ═══ -->
@@ -185,23 +208,22 @@ flowchart LR
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">Grouped by the kind of work left — the honest list. The database side went live on 27 July, and the paid-logo question was closed on 31 July: the free finder reads the company website's own artwork, which is good enough that a subscription buys nothing. The "use my website to auto-detect the company logo" setting was removed with it — the card builder simply offers it, so there is no preference to find first.</p>
-
-          <h4 class="cat">Testing <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Switch-phones check</b><span>Sign in on a second phone and confirm your details arrive intact and the first phone is signed out — the one-phone-at-a-time lock and the cloud profile both went live on the same day and should be exercised together on real hardware</span></li>
-          </ul></div>
+          <p class="f-note">FAQs, the privacy policy, the terms and About are written and live in the app — every row opens real reading. And the German translation is finished, all of it: every screen, alert, toast and placeholder across the entire app, plus all four legal documents, each opening with a note that the English text prevails. A check now fails the build if any wording is ever added without its German. Two items remain.</p>
 
           <h4 class="cat">Polish <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>FAQs, Privacy policy and Terms</b><span>The words still have to be written — those three rows open tidy coming-soon screens today</span></li>
-            
+            <li><b>Point “Follow us” at the real pages</b><span>The row hides itself until there is somewhere to send people, so there are no dead buttons. Give us the LinkedIn, Instagram and WhatsApp addresses and it comes back.</span></li>
+          </ul></div>
+
+          <h4 class="cat">Backend <span class="n">1 item</span></h4>
+          <div class="list-card"><ul>
+            <li><b>Connect a payment provider</b><span>The plan, the allowances and the paywall are built and enforced. What is missing is the money: a provider (Razorpay suits India), a webhook that marks an account paid, and the GST treatment. Until then a plan is switched on by hand, and the app does not pretend to take a card.</span></li>
           </ul></div>
         </section>
       </div>
 
       <div class="pn">
-        <a href="notifications.html"><span>← Previous</span><b>Notifications</b></a>
+        <a href="meeting-recorder.html"><span>← Previous</span><b>Meeting Recorder</b></a>
         <a class="next" href="../index.html#timeline"><span>Next →</span><b>Back to the timeline</b></a>
       </div>
     </div>

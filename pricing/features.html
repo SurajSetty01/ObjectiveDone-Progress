@@ -40,7 +40,8 @@
         <a href="index.html">Overview</a>
         <a href="features.html" class="here">Features &amp; tools</a>
         <a href="costs.html">What each use costs</a>
-        <a href="plans.html">Basic &amp; Pro plans</a>
+        <a href="plans.html">Free &amp; Premium</a>
+        <a href="ai-architecture.html">AI architecture</a>
       </div>
     </div>
   </header>
@@ -171,14 +172,14 @@
               <td><b>Free</b> — account setup only</td>
             </tr>
             <tr>
-              <td><b>Where we met — place &amp; map</b><br /><span class="src">Basic live · map planned</span></td>
-              <td colspan="2">Phone GPS is free; place names and map thumbnails use Google Maps Platform</td>
-              <td>Per place lookup / per map image</td>
+              <td><b>Where we met — place &amp; map</b><br /><span class="src">Live</span></td>
+              <td colspan="2">Phone GPS (fused provider) is free; place names come from <b>Mapbox Search Box</b>, inside its free tier</td>
+              <td><b>Free</b> at current volume</td>
             </tr>
             <tr>
-              <td><b>Photos attached to a contact</b><br /><span class="src">Planned</span></td>
-              <td colspan="2">Same cloud storage as card media</td>
-              <td>Per GB stored + delivered</td>
+              <td><b>Photos attached to a contact</b><br /><span class="src">Live · <b>Premium</b></span></td>
+              <td colspan="2">Same cloud storage as card media (Cloudflare R2). Profile, card and contact photo uploads all require Premium and route to the plan page before the picker opens</td>
+              <td>₹1.44 per GB per month, nothing to serve back</td>
             </tr>
           </tbody>
         </table>
@@ -190,19 +191,19 @@
           <thead><tr><th>Feature</th><th>Android</th><th>iPhone</th><th>Billed as</th></tr></thead>
           <tbody>
             <tr>
-              <td><b>Recording the conversation</b><br /><span class="src">UI live · real capture with the voice milestone</span></td>
-              <td colspan="2">The phone's own microphone</td>
-              <td><b>Free</b> to record · per GB to keep</td>
+              <td><b>Recording the conversation</b><br /><span class="src">Live</span></td>
+              <td colspan="2">The phone's own microphone. <b>Free tier stops at 1 minute per take</b> and saves what was recorded; Premium runs to 2 hours</td>
+              <td><b>Free</b> to record · ₹1.44 per GB to keep</td>
             </tr>
             <tr>
               <td><b>Transcription, on request</b><br /><span class="src">Live</span></td>
-              <td colspan="2">Whisper on the club’s own AI allowance, called from our server — never from the phone. Each memo transcribes when you ask it to, so recording stays free</td>
-              <td>Per minute of audio</td>
+              <td colspan="2"><b>Whisper large-v3-turbo</b> on Cloudflare Workers AI, called from our server — never from the phone. Each memo transcribes when you ask it to, so recording stays free. <b>Premium only</b></td>
+              <td>₹0.048 per minute of audio</td>
             </tr>
             <tr>
-              <td><b>Summary &amp; action items</b><br /><span class="src">Planned</span></td>
-              <td colspan="2">One AI call per recording, on the transcript</td>
-              <td>Per recording (AI tokens)</td>
+              <td><b>Summary &amp; action items</b><br /><span class="src">Live · <b>Premium</b></span></td>
+              <td colspan="2">One <b>Qwen3-30B</b> call per recording, on the transcript</td>
+              <td>₹0.013 per recording</td>
             </tr>
             <tr>
               <td><b>Playback &amp; full transcript</b><br /><span class="src">UI live</span></td>

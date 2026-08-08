@@ -28,19 +28,23 @@
       <div class="crumb" style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:12px">
         <a href="../index.html">Portal</a> / <a href="index.html">Pricing</a> / What each use costs
       </div>
-      <span class="badge rv">Step 2 of 3</span>
+      <span class="badge rv">Step 2 of 4</span>
       <h1 class="rv" style="--i:1">The real numbers, straight from the vendors.</h1>
       <p class="lead rv" style="--i:2">
-        Every figure below is a published list price, checked on <b>27 July 2026</b>, with its source
-        linked. Rupee figures convert at <b>₹96 to the dollar</b> — the one assumption on this page,
-        and one that moves. Where a vendor's own page was unclear, it says so rather than guessing.
+        <b>These are the models ObjectiveDone actually runs</b>, not a shortlist. The stack was
+        chosen on 5 Aug 2026 and the arithmetic below uses the prompt sizes measured from the
+        shipping code — not estimates. Every figure is a published list price, re-checked on
+        <b>5 August 2026</b>, with its source linked. Rupee figures convert at <b>₹96 to the
+        dollar</b> — the one assumption on this page, and one that moves. Alternatives we rejected
+        are kept at the bottom, with their prices, so this stays useful when it is time to revisit.
       </p>
 
       <div class="subnav rv" style="--i:3">
         <a href="index.html">Overview</a>
         <a href="features.html">Features &amp; tools</a>
         <a href="costs.html" class="here">What each use costs</a>
-        <a href="plans.html">Basic &amp; Pro plans</a>
+        <a href="plans.html">Free &amp; Premium</a>
+        <a href="ai-architecture.html">AI architecture</a>
       </div>
     </div>
   </header>
@@ -53,51 +57,56 @@
       <div class="costs rv">
         <div class="cost">
           <h4>💬 One concierge question</h4>
-          <div class="big">₹0.31</div>
-          <div class="unit">on the fast model (Claude Haiku 4.5)</div>
+          <div class="big">₹0.38</div>
+          <div class="unit">Claude Haiku 4.5 <b>with prompt caching</b> — as shipped</div>
           <p class="math">
-            1,500 tokens in × $1.00/M = $0.00150<br />
-            350 tokens out × $5.00/M = $0.00175<br />
-            <b>= $0.00325 → ₹0.31</b>
-          </p>
-        </div>
-        <div class="cost">
-          <h4>💬 The same question, smarter model</h4>
-          <div class="big">₹0.63</div>
-          <div class="unit">Claude Sonnet 5 (intro rate to 31 Aug 2026)</div>
-          <p class="math">
-            1,500 × $2.00/M = $0.00300<br />
-            350 × $10.00/M = $0.00350<br />
-            <b>= $0.0065 → ₹0.63</b> · rises to <b>₹0.94</b> from 1 Sep
-          </p>
-        </div>
-        <div class="cost">
-          <h4>🎙️ One minute transcribed</h4>
-          <div class="big">₹0.29</div>
-          <div class="unit">cheapest officially-priced option</div>
-          <p class="math">
-            gpt-4o-mini-transcribe $0.003/min → ₹0.29<br />
-            gpt-4o-transcribe $0.006/min → ₹0.58<br />
-            Deepgram Nova-3 $0.0048–0.0077/min → ₹0.46–0.74
+            2,000 cached in × $0.10/M = $0.00020<br />
+            2,000 fresh in × $1.00/M = $0.00200<br />
+            350 out × $5.00/M = $0.00175<br />
+            <b>= $0.00395 → ₹0.38</b><br />
+            <span class="src">Without caching the same call is ₹0.55. The system prompt is
+            byte-identical every time and is ~half the input, so caching cuts ~31% for nothing.</span>
           </p>
         </div>
         <div class="cost">
           <h4>📇 One paper card read</h4>
-          <div class="big">₹0.00</div>
-          <div class="unit">on-device (ML Kit / Apple Vision)</div>
+          <div class="big">₹0.08</div>
+          <div class="unit">on-device OCR + Llama 4 Scout reading the card image</div>
           <p class="math">
-            Cloud fallback: $1.50 per 1,000 images = $0.0015 → <b>₹0.14</b><br />
-            First 1,000 images every month are free.
+            OCR is free — ML Kit / Apple Vision, on the phone.<br />
+            Measured on a real scan, 7 Aug 2026:<br />
+            3,161 in + 82 out = <b>83.9 neurons</b><br />
+            × $0.011 / 1,000 neurons = <b>$0.00092 → ₹0.08</b> (₹77 per 1,000)<br />
+            <span class="src"><b>Was ₹0.01 on text-only Qwen3-30B (7.2 neurons) —
+            this is 11.6× that.</b> The image is ~2,000 of the 3,161 input tokens
+            and is exactly what the increase buys: sending the card itself fixed
+            the address, the name-with-initials and the phone/website fields that
+            the text-only pipeline got wrong on every test card (ADR-041). Still a
+            rounding error next to the ₹0.38 a Concierge question costs, and the
+            10,000 free neurons/day cover ~119 scans before anything is billed.
+            The dial, if it ever matters: the image is downscaled to 1400px before
+            sending, and input tokens fall roughly with the pixel count.</span>
+          </p>
+        </div>
+        <div class="cost">
+          <h4>🎙️ One minute transcribed</h4>
+          <div class="big">₹0.05</div>
+          <div class="unit">Whisper large-v3-turbo on Workers AI</div>
+          <p class="math">
+            $0.0005 per audio minute → <b>₹0.048</b><br />
+            <span class="src">Deepgram Nova-3 is ₹0.74/min — 15× more. Worth it only if
+            accuracy complaints appear, and if those are about Kannada/Hindi code-switching
+            the right answer is an Indic-first provider, not Deepgram.</span>
           </p>
         </div>
         <div class="cost">
           <h4>🧾 Summary + action items</h4>
-          <div class="big">₹0.15</div>
-          <div class="unit">per recording, on the fast model</div>
+          <div class="big">₹0.01</div>
+          <div class="unit">per recording, Qwen3-30B</div>
           <p class="math">
-            ~600 tokens in × $1/M = $0.0006<br />
-            ~200 tokens out × $5/M = $0.0010<br />
-            <b>= $0.0016 → ₹0.15</b>
+            ~1,100 in × $0.051/M = $0.000056<br />
+            ~250 out × $0.335/M = $0.000084<br />
+            <b>= $0.00014 → ₹0.013</b>
           </p>
         </div>
         <div class="cost">
@@ -120,27 +129,49 @@
         </div>
         <div class="cost">
           <h4>📍 One "where we met" place lookup</h4>
-          <div class="big">₹0.27</div>
-          <div class="unit">Google Places autocomplete request</div>
+          <div class="big">₹0.00</div>
+          <div class="unit">Mapbox Search Box — free tier, as shipped</div>
           <p class="math">
-            $2.83 per 1,000 requests → $0.00283 → ₹0.27<br />
-            First 10,000 requests a month are free.
+            One <code>/forward</code> call per settled query, not per keystroke.<br />
+            <span class="src">Google Places (₹0.27/request) is materially better on Indian
+            residential addresses and is the switch to make if accuracy stays poor.</span>
           </p>
         </div>
       </div>
 
       <!-- ═══ AI PRICE TABLE ═══ -->
-      <div class="sec-title rv" style="margin-top:30px"><h2>AI, voice &amp; vision — published rates</h2></div>
+      <div class="sec-title rv" style="margin-top:30px"><h2>AI, voice &amp; vision — published rates</h2><span class="sub">✅ = in production · the rest are reference</span></div>
       <div class="tablewrap rv">
         <table class="t">
           <thead><tr><th>Service</th><th>Official price</th><th>Unit</th><th>Free tier</th><th>Source</th></tr></thead>
           <tbody>
             <tr>
-              <td><b>Claude Haiku 4.5</b><br /><span class="src">the concierge's fast model</span></td>
+              <td><b>Claude Haiku 4.5</b> ✅<br /><span class="src">SHIPPED — the concierge, with prompt caching</span></td>
               <td class="num">$1.00 in<br />$5.00 out</td>
               <td>per million tokens</td>
               <td>Trial credits only</td>
               <td class="src"><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Anthropic</a></td>
+            </tr>
+            <tr>
+              <td><b>Qwen3-30B-A3B</b> ✅<br /><span class="src">SHIPPED — card fields &amp; recording summaries</span></td>
+              <td class="num">$0.051 in<br />$0.335 out</td>
+              <td>per million tokens</td>
+              <td>10,000 neurons/day free</td>
+              <td class="src"><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/" target="_blank" rel="noopener">Cloudflare</a></td>
+            </tr>
+            <tr>
+              <td><b>Whisper large-v3-turbo</b> ✅<br /><span class="src">SHIPPED — all transcription</span></td>
+              <td class="num">$0.0005</td>
+              <td>per audio minute</td>
+              <td>10,000 neurons/day free</td>
+              <td class="src"><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/" target="_blank" rel="noopener">Cloudflare</a></td>
+            </tr>
+            <tr>
+              <td><b>Llama 3.3-70B fp8 fast</b><br /><span class="src">replaced 5 Aug 2026 — kept as the rollback</span></td>
+              <td class="num">$0.293 in<br />$2.253 out</td>
+              <td>per million tokens</td>
+              <td>10,000 neurons/day free</td>
+              <td class="src"><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/" target="_blank" rel="noopener">Cloudflare</a></td>
             </tr>
             <tr>
               <td><b>Claude Sonnet 5</b><br /><span class="src">smarter, for harder questions</span></td>
@@ -210,22 +241,80 @@
       </div>
 
       <div class="note rv">
-        <b>The single biggest lever on the AI side:</b> the concierge model. Haiku 4.5 answers a
-        question for ₹0.31; Sonnet 5 costs ₹0.63 today and <b>₹0.94 from 1 September 2026</b> —
-        triple. The plan maths on the next page assumes Haiku for everyday questions, which is the
-        right default for "who did I meet at that event" lookups. Keep Sonnet for genuinely hard
-        reasoning only.
+        <b>The concierge is the whole cost story, and it is the one place we did not take the
+        cheapest option.</b> At ₹0.38 a question it is <b>5× a card read</b> and <b>8× a minute of
+        transcription</b>. Qwen3-30B would answer for ₹0.03 and Gemini Flash-Lite for ₹0.05 — but
+        the concierge is the only feature where the model's <i>tone</i> is the product, and a card
+        parser that is slightly worse produces a wrong phone number you can fix, while a concierge
+        that is slightly worse just feels cheap. Prompt caching was taken instead: ~31% off, no
+        quality change at all. If cost ever forces the issue, Gemini 2.5 Flash-Lite is the first
+        thing to try, and the swap is a config change rather than a rewrite.
       </div>
 
       <div class="note warn rv">
-        <b>Three things a vendor page would not confirm, stated plainly:</b><br />
-        • The classic <b>Whisper</b> model no longer appears on OpenAI's price list at all. Its last
-        sourceable rate is $0.006/min from third parties — so the plans use the officially-priced
-        <b>gpt-4o-mini-transcribe</b> instead.<br />
-        • <b>Deepgram</b> publishes $0.0048 and $0.0077 per minute but its table's column order for
-        streaming versus pre-recorded is ambiguous. Budget the higher figure.<br />
-        • <b>logo.dev</b>'s $33.33 tier appears to be an annual-billing rate; month-to-month is not
-        shown publicly. The free tier covers our volume for a long time regardless.
+        <b>Where this could still bite, stated plainly:</b><br />
+        • <b>A very heavy concierge user is unprofitable at ₹400.</b> 750 questions in a month costs
+        ₹285 against a ₹400 price. Two hundred questions — a genuinely heavy month — costs ₹76 and
+        is comfortable. If the top 1% start living in the chat, cap it or price a tier above it;
+        `feature_usage` already records exactly who they are.<br />
+        • <b>Qwen3 is a hybrid reasoning model.</b> It narrates inside <code>&lt;think&gt;</code>
+        tags unless told not to, and thinking tokens are billed as output. Both prompts send
+        <code>/no_think</code> and the JSON parser strips any that survives — but a future model
+        swap must re-check this, or output cost can quietly multiply.<br />
+        • <b>Mapbox's Indian address data is the known weak spot.</b> It is free and it is fine for
+        POIs; house-number lookups in Bengaluru are not its strength. Google Places or Ola Maps is
+        the upgrade, at ₹0.27 a request.
+      </div>
+
+      <!-- ═══ WHAT WE DID NOT PICK ═══ -->
+      <div class="sec-title rv" style="margin-top:30px" id="alternatives"><h2>The options we rejected</h2><span class="sub">kept with prices, so revisiting this is cheap</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Job</th><th>Shipped</th><th>Per 1,000 uses</th><th>Runner-up</th><th>Why not</th></tr></thead>
+          <tbody>
+            <tr>
+              <td rowspan="2"><b>Card fields</b></td>
+              <td><b>Qwen3-30B</b> <span class="src">@cf/qwen/qwen3-30b-a3b-fp8</span></td>
+              <td class="num"><b>₹8.88</b></td>
+              <td>Llama 3.3-70B</td>
+              <td>₹57.3 per 1,000 — 6.4× the price for a job that is now classification against an explicit layout, not inference from a blob of text.</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="src">also considered</td>
+              <td>Gemini 2.5 Flash-Lite</td>
+              <td>₹12.5 per 1,000, and true vision OCR. The one to reach for if on-device OCR proves the bottleneck rather than the field mapping.</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><b>Concierge</b></td>
+              <td><b>Claude Haiku 4.5</b> + prompt caching</td>
+              <td class="num"><b>₹379</b></td>
+              <td>Gemini 2.5 Flash-Lite</td>
+              <td>₹51.8 per 1,000 — 7× cheaper, and the first candidate if cost forces a change. Tone is the reason it did not win now.</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="src">also considered</td>
+              <td>DeepSeek-V4-Flash</td>
+              <td>₹63.2 per 1,000. Strong and very cheap; data residency is the open question for enterprise CRM seats.</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="src">also considered</td>
+              <td>Qwen3-30B</td>
+              <td>₹30.8 per 1,000 — the cheapest of all, and already on our Workers AI account. Rejected on tone, not capability.</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><b>Transcription</b></td>
+              <td><b>Whisper large-v3-turbo</b></td>
+              <td class="num"><b>₹144</b> <span class="src">(1,000 × 3-min)</span></td>
+              <td>Deepgram Nova-3</td>
+              <td>₹2,218 per 1,000 three-minute recordings — 15×. Better on accents; not 15× better.</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="src">also considered</td>
+              <td>Sarvam AI</td>
+              <td>Indian provider, built for Indic languages and code-switching. The right upgrade if the complaints are about Kannada/Hindi mixing rather than accuracy in general.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <!-- ═══ PLATFORM TABLE (filled after infra research) ═══ -->
@@ -335,7 +424,7 @@
 
       <div class="pn">
         <a href="features.html"><span>← Previous</span><b>Features &amp; tools</b></a>
-        <a class="next" href="plans.html"><span>Next →</span><b>Basic &amp; Pro plans</b></a>
+        <a class="next" href="plans.html"><span>Next →</span><b>Free &amp; Premium</b></a>
       </div>
     </div>
   </section>

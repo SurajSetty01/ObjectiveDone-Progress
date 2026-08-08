@@ -37,9 +37,11 @@
         A private concierge you chat with about the people you meet — every conversation keeps its
         own thread, with a drawer to search, pin and rename them. Your chats live in your own
         cloud account, and the concierge now answers for real, on the club's own AI allowance —
-        grounded only in your own contacts, notes and memo transcripts. When the notes hold no
-        answer, it says so plainly instead of inventing one. A paid Claude key remains a one-line
-        upgrade to answer quality, not a prerequisite.
+        grounded in everything you have stored: your contacts, notes, dated memories, every memo's
+        title, summary and spoken commitments, and the Meeting Recorder's transcripts. It opens in
+        about two seconds, your conversation already remembered. When your notes hold no answer,
+        it says so plainly instead of inventing one. A paid Claude key remains a one-line upgrade
+        to answer quality, not a prerequisite.
       </p>
       <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
         <!-- Filled from data.js by site.js — never hand-write these numbers. -->
@@ -50,7 +52,7 @@
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
-        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do <span class="cnt">2</span></button>
       </div>
 
       <div class="legend">
@@ -67,7 +69,7 @@
 
         <section class="feature">
           <div class="f-head"><span class="f-num">01</span><h3>Ask about someone</h3><span class="pill done">Built · answers for real</span></div>
-          <p class="f-note">From tapping the AI tab to a real answer in the thread — every question is saved to your account the moment you send it, and the reply draws only on your own contacts, notes and memo transcripts. Asked for something the notes do not hold, it says so plainly rather than making one up — that refusal has been checked on a real question.</p>
+          <p class="f-note">From tapping the AI tab to a real answer in the thread — every question is saved to your account the moment you send it, and the reply draws on everything you have stored: your contacts, notes, dated memories, every memo's title, summary and spoken commitments, and the Meeting Recorder's transcripts. The chat itself opens in about two seconds, your conversation already remembered. Asked for something your notes do not hold, it says so plainly rather than making one up — that refusal has been checked on a real question.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -79,7 +81,7 @@ flowchart LR
   THR --> ASK
   ASK --> ECHO[Your words appear<br/>thinking dots below]:::action
   ECHO --> SAVE[[Saved to your account<br/>in the cloud]]:::backend
-  SAVE --> MODEL[[The concierge reads only<br/>your contacts and notes]]:::backend
+  SAVE --> MODEL[[The concierge reads everything<br/>you have stored — contacts, notes,<br/>memories, memos, recordings]]:::backend
   MODEL --> Q2{Do your notes<br/>hold the answer?}:::decision
   Q2 -->|Yes| ANS([A real answer<br/>in the thread]):::state
   Q2 -->|No| HON([It says so plainly<br/>rather than inventing]):::state
@@ -149,7 +151,7 @@ flowchart LR
       <div class="tabpanel" id="tab-arch">
         <section class="feature">
           <div class="f-head"><span class="f-num">A</span><h3>How the concierge is wired</h3><span class="pill done">Live · answering on the club's own allowance</span></div>
-          <p class="f-note">The chat plugs into one switchboard — your threads and messages are kept in the cloud, and the concierge's service reads only your own contacts, notes and memo transcripts before it answers. The answering model runs on the club's own AI allowance — the same one that reads cards and transcribes memos, so no second vendor and no new bill. A paid Claude key upgrades answer quality without touching the app.</p>
+          <p class="f-note">The chat plugs into one switchboard — your threads and messages are kept in the cloud, and the concierge's service reads everything you have stored before it answers: your contacts, notes, dated memories, every memo's title, summary and spoken commitments, and the Meeting Recorder's transcripts — always only your own. It opens in about two seconds because your conversation is remembered and fetched ahead. The answering model runs on the club's own AI allowance — the same one that reads cards and transcribes memos, so no second vendor and no new bill. A paid Claude key upgrades answer quality without touching the app.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -160,14 +162,14 @@ flowchart LR
   subgraph CLOUD [Supabase cloud]
     TBL[(ai_threads and ai_messages<br/>live · private to you)]:::backend
     FN[[ai-chat cloud function<br/>deployed and answering]]:::backend
-    MEM[(Your contacts, notes and<br/>memo transcripts<br/>the concierge memory)]:::backend
+    MEM[(Everything you have stored<br/>contacts · notes · dated memories<br/>memo summaries · recording transcripts<br/>the concierge memory)]:::backend
     MOD[[The answering model<br/>on the club's own allowance]]:::backend
     CLA[[Claude<br/>optional quality upgrade]]:::pending
   end
   SCR --> AL
   AL -->|every thread and message| TBL
   AL -->|each question| FN
-  FN -->|reads only your own notes| MEM
+  FN -->|reads only your own data| MEM
   FN --> MOD
   MOD -->|the answer flows back into the thread| AL
   FN -.->|one paid key, no app change| CLA
@@ -186,7 +188,7 @@ flowchart LR
       <div class="tabpanel" id="tab-states">
         <section class="feature">
           <div class="f-head"><span class="f-num">S</span><h3>A message's journey</h3><span class="pill done">Built</span></div>
-          <p class="f-note">What happens to a single message from typing it to seeing an answer — your words are saved to your account before anything else happens, so nothing you send is ever lost. The reply is drawn only from your own contacts, notes and transcripts; when they hold no answer, you get a plain admission instead of a guess.</p>
+          <p class="f-note">What happens to a single message from typing it to seeing an answer — your words are saved to your account before anything else happens, so nothing you send is ever lost. The reply is drawn from everything you have stored — your contacts, notes, dated memories, memos and recordings, and nobody else's; when they hold no answer, you get a plain admission instead of a guess.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 stateDiagram-v2
@@ -194,7 +196,7 @@ stateDiagram-v2
   Composing --> Sending: gold send tapped
   Sending --> Saved: your words stored in your account
   Sending --> Composing: send failed · text restored
-  Saved --> Thinking: the concierge reads your own notes
+  Saved --> Thinking: the concierge reads everything you have stored
   Thinking --> Replied: a real answer, grounded in what it found
   Thinking --> Candid: your notes hold no answer · it says so
   Replied --> Composing: ask a follow-up
@@ -213,7 +215,7 @@ stateDiagram-v2
             <li><b>Threaded chat experience</b><span>React Native 0.80 (New Architecture) + TypeScript · thread drawer with search, pin, rename, delete · a new chat auto-titles itself from your first message — all built</span></li>
             <li><b>Chat data</b><span>LIVE on Supabase PostgreSQL — ai_threads + ai_messages (migration 0004, applied and verified 2026-07-27) · the app now runs on supabaseAiRepository, so threads and messages persist to the account rather than the phone</span></li>
             <li><b>Chat privacy</b><span>Owner-only row-level security on both tables and, unlike cards or contacts, no administrator read path at all · isolation proven with two live signed-in sessions</span></li>
-            <li><b>Concierge service</b><span>Supabase Edge Function ai-chat — deployed and ANSWERING · verifies a genuine signed-in user (an anon key is rejected) and reads the caller's own contacts, notes and memo transcripts under their own credentials to ground the answer, replaying the recent turns of the thread</span></li>
+            <li><b>Concierge service</b><span>Supabase Edge Function ai-chat — deployed and ANSWERING · verifies a genuine signed-in user (an anon key is rejected) and reads the caller's own contacts, notes, dated memories, every memo's title, summary and spoken commitments, and the Meeting Recorder's transcripts under their own credentials to ground the answer, replaying the recent turns of the thread · it previously received only raw memo transcripts, which is why saved memories were ignored · the chat now opens in about two seconds — the conversation is remembered and fetched ahead</span></li>
             <li><b>Answering model</b><span>llama-3.3-70b on Cloudflare Workers AI — the club's existing allowance, the same vendor that reads cards and transcribes memos, so no new account and no new bill · instructed to answer only from the member's own data and to refuse to invent — verified by asking for an email the notes do not hold; it said so plainly</span></li>
             <li><b>Claude upgrade path</b><span>Setting ANTHROPIC_API_KEY as a Supabase secret switches ai-chat to Anthropic Claude in place — no app change, no rebuild · an answer-quality upgrade, not a prerequisite; the concierge answers today without it</span></li>
             <li><b>Crash safety in the composer</b><span>A focused text field surviving a screen closing tripped an unguarded null inside React Native's scroll-view focus search and crashed the app natively · found, fixed and applied across every screen carrying a text field, this composer included · verified on a real device</span></li>
@@ -226,21 +228,16 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">What is left on the concierge, grouped by the kind of work. Connecting the model, dictation and memo-fed answers all came off this list on 1 August — the concierge answers today on the club's own allowance.</p>
+          <p class="f-note">The concierge answers for real, grounded in everything the member has stored — contacts, notes, dated memories, memos and recordings — and it answers questions about ObjectiveDone itself from the app’s own documentation instead of inventing them. Two items remain.</p>
 
           <h4 class="cat">AI <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Upgrade the concierge to Claude<span class="tag-undecided">optional</span></b><span>One paid key, set as a server secret — answer quality improves in place, no app change, no rebuild · not a blocker: the concierge already answers on the club's own AI allowance</span></li>
+            <li><b>Upgrade the answers to Claude</b><span>One paid key and no rebuild. It runs on the club’s free allowance today, which is why answers are good rather than excellent.</span></li>
           </ul></div>
 
-          <h4 class="cat">Testing <span class="n">1 item</span></h4>
+          <h4 class="cat">Backend <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Grounded-answer pass at scale</b><span>The first checks pass — asked for an email the notes do not hold, it said so plainly · the wider pass confirms it only ever cites the asker's own contacts, admits what it does not know, and stays coherent on long threads · the database side of that isolation is already proven with two live signed-in sessions</span></li>
-          </ul></div>
-
-          <h4 class="cat">Decisions <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>How to search a large contact book<span class="tag-undecided">revisit at scale</span></b><span>Today every contact is handed to the model directly, which is cheaper and simpler · a search index (pgvector plus an embeddings provider) is only worth its complexity once a member passes roughly 200 contacts</span></li>
+            <li><b>Check the plan on the server as well as in the app</b><span>The paid features are gated in the app and every use is metered in the database. The three AI services should refuse a call themselves as well, so the gate is a lock rather than a sign.</span></li>
           </ul></div>
         </section>
       </div>

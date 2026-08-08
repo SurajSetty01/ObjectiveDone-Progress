@@ -50,7 +50,7 @@
         <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">2</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
-        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do <span class="cnt">1</span></button>
       </div>
 
       <div class="legend">
@@ -67,13 +67,13 @@
 
         <section class="feature">
           <div class="f-head"><span class="f-num">01</span><h3>The daily landing</h3><span class="pill done">Built · runs on live data</span></div>
-          <p class="f-note">Open the app and Home answers one question — who needs you today. Overdue follow-ups sit at the top in red, due-today rows carry a gold dot, and each clears with a single tap. When nothing is due, it says so honestly.</p>
+          <p class="f-note">Open the app and Home answers one question — who needs you today. Overdue follow-ups sit at the top in red, due-today rows carry a gold dot, and each clears with a single tap. When nothing is due, it says so honestly. And it opens honestly offline too — with no connection at all, a cold start reaches your saved cards in about three seconds with a plain "Offline — showing your saved cards" notice, instead of a long wait ending in an error.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   OPEN[Open the app]:::action --> HOME([Home]):::screen
   HOME --> GREET[Greeting with the date<br/>met this week and total contacts]:::action
-  HOME --> QA[Quick actions<br/>My card · Scan]:::action
+  HOME --> QA[Quick actions<br/>My card · Scan · Record]:::action
   HOME --> NEED[Needs you today<br/>overdue in red · due today in gold]:::action
   NEED -->|tap a row| DET([The contact]):::screen
   NEED -->|one tap Done| DONE([Follow-up completed]):::state
@@ -96,7 +96,7 @@ flowchart LR
 
         <section class="feature">
           <div class="f-head"><span class="f-num">02</span><h3>Setting a follow-up</h3><span class="pill done">Built · runs on live data</span></div>
-          <p class="f-note">Two taps, no date-picker wheel. Pick a preset time, add a note if you like, and forget about it — the server watches the clock, so the phone buzzes when the reminder falls due even if the app has been closed all day. Tapping the alert opens the person it is about.</p>
+          <p class="f-note">Two taps, no date-picker wheel. Pick a preset time, add a note if you like, and forget about it — the server watches the clock, so the phone buzzes when the reminder falls due even if the app has been closed all day. Tapping the alert opens the person it is about. Typing that note no longer fights the keyboard either — any field the keys would cover now lifts itself into view, verified on the phone.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -119,15 +119,17 @@ flowchart LR
 
         <section class="feature">
           <div class="f-head"><span class="f-num">03</span><h3>The app's chrome</h3><span class="pill done">Built · runs on live data</span></div>
-          <p class="f-note">The frame around every screen — profile circle and bell up top, the gold Scan dock below, and how the bar knows when to disappear. The name, initials and unread count behind it all come from the cloud.</p>
+          <p class="f-note">The frame around every screen — profile circle, mic and bell up top, the gold Scan dock below, and how the bar knows when to disappear. The mic opens the new Meeting Recorder. The name, initials and unread count behind it all come from the cloud.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   subgraph TOPG [Top bar · on every tab]
     AV[Profile circle<br/>photo or initials]:::action
+    MIC[Mic]:::action
     BELL[Bell with a gold<br/>unread badge]:::action
   end
   AV -->|tap| PROF([Profile]):::screen
+  MIC -->|tap| REC([Meeting Recorder]):::screen
   BELL -->|tap| NOTI([Notifications]):::screen
   subgraph BOTG [Bottom tab bar]
     DOCK[Raised gold<br/>Scan dock]:::action
@@ -233,16 +235,11 @@ flowchart LR
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">The list collapsed from "decide everything" to two lines — one check on a real phone, one idea for later.</p>
+          <p class="f-note">One item, and it needs a phone rather than a keyboard.</p>
 
-          <h4 class="cat">Verification <span class="n">1 item</span></h4>
+          <h4 class="cat">Testing <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Verify the due-time push on a phone</b><span>Set a reminder for a few minutes ahead, close the app and lock the phone — it should buzz the lock screen when the time comes, and tapping it should open the right contact. Every link in the chain is live and the server job is running; this one real-world proof is what the module still owes.</span></li>
-          </ul></div>
-
-          <h4 class="cat">Later ideas <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>A weekly follow-up digest</b><span>One summary of the week's follow-ups — completed, snoozed, still open. A later idea, noted here so it is not forgotten; not promised for v1.</span></li>
+            <li><b>Watch a reminder arrive on a locked phone</b><span>Set a follow-up a few minutes ahead, close the app, and confirm the lock screen lights up. The server side is live and sweeping; this is the confirmation on real hardware.</span></li>
           </ul></div>
         </section>
       </div>

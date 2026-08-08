@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>AI architecture · ObjectiveDone Pricing</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b28c48'/%3E%3Cpath d='M18 34l10 10 18-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="mark">OD</span>
+      <span>ObjectiveDone<small>Build portal</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#modules">Modules &amp; diagrams</a>
+      <a href="index.html" class="accent keep">Pricing</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <div class="crumb" style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:12px">
+        <a href="../index.html">Portal</a> / <a href="index.html">Pricing</a> / AI architecture
+      </div>
+      <span class="badge rv">Technical reference · 5 Aug 2026</span>
+      <h1 class="rv" style="--i:1">How one subscription pays for four different AI vendors.</h1>
+      <p class="lead rv" style="--i:2">
+        This is the architecture as <b>implemented</b>, not as proposed. It exists because the
+        question "if a member pays ₹400, how does that reach Anthropic and Cloudflare?" has a
+        specific answer, and the answer determines how billing, metering and provider choice are
+        built. Read it before changing any of the three.
+      </p>
+
+      <div class="subnav rv" style="--i:3">
+        <a href="index.html">Overview</a>
+        <a href="features.html">Features &amp; tools</a>
+        <a href="costs.html">What each use costs</a>
+        <a href="plans.html">Free &amp; Premium</a>
+        <a href="ai-architecture.html" class="here">AI architecture</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+
+      <!-- ═══ THE CENTRAL IDEA ═══ -->
+      <div class="sec-title rv"><h2>The one idea everything else follows from</h2></div>
+      <div class="note rv">
+        <b>The providers are invisible to the subscription.</b> We do not resell tokens. We sell
+        <i>outcomes</i> — a card read, a question answered, a minute transcribed — and the provider
+        mix behind each outcome is an internal cost decision that can change in a week without
+        touching billing, the app, or anything the member sees. Notion AI, Grammarly, Superhuman and
+        Raycast are all built this way, and it is the only shape that survives a provider price
+        change.
+      </div>
+
+      <div class="note rv">
+        <b>Nobody's ₹400 is split into envelopes.</b> We hold one account with each vendor and pay
+        them from it. No member gets their own API key and no key is ever put on a phone — anything
+        shipped inside an app can be extracted from it, and an extracted key is billed to whoever
+        owns it at whatever rate the finder likes. Pooling is also the entire margin: most members
+        will not use their allowance, a few will use a lot, and a price is set against the average.
+        Ten separate ₹40 wallets cannot average out; one pool does.
+      </div>
+
+      <!-- ═══ REQUEST FLOW ═══ -->
+      <div class="sec-title rv" style="margin-top:30px"><h2>What happens on one request</h2><span class="sub">identical for all three paid features</span></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>#</th><th>Step</th><th>Where</th><th>Why it is there and not elsewhere</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>App calls <b>our</b> edge function with the member's JWT</td><td>phone</td><td>The app never calls a vendor directly and holds no vendor key.</td></tr>
+            <tr><td class="num">2</td><td>Authenticate — a real signed-in user, not the anon key</td><td>edge function</td><td>The anon key is itself a valid JWT; verifying only that would let anybody through.</td></tr>
+            <tr><td class="num">3</td><td><b>Check entitlement and spend one use</b> (<code>consume_feature</code>)</td><td>Postgres, security definer</td><td>The meter lives on the side the metered person cannot edit. It used to run in the app, which metered the app rather than the account.</td></tr>
+            <tr><td class="num">4</td><td>Route to a provider — primary, then fallback</td><td>edge function</td><td>Concierge falls back Anthropic → Workers AI; the others are single-provider today.</td></tr>
+            <tr><td class="num">5</td><td>Record the real cost — tokens or audio seconds</td><td><code>feature_usage</code></td><td>What the member sees (uses) and what we pay (tokens) are deliberately two different numbers.</td></tr>
+            <tr><td class="num">6</td><td>Return the outcome, or <b>402 PREMIUM_REQUIRED</b></td><td>edge function</td><td>Fails closed. A 402 sends the app to the plan page, never to a silent failure.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note warn rv">
+        <b>The gate sits after everything free and immediately before the one line that costs money.</b>
+        Auth, empty input and oversize input all refuse without spending a use — so a malformed
+        request never burns a member's allowance. And a refusal is not a broken feature: card
+        reading still returns the on-device extraction, so the member gets a filled-in form and an
+        upsell rather than an error.
+      </div>
+
+      <!-- ═══ THE STACK ═══ -->
+      <div class="sec-title rv" style="margin-top:30px"><h2>The stack, as shipped</h2></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Feature</th><th>Model</th><th>Provider</th><th>Cost per 1,000</th><th>Why this one</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>Card fields</b><br /><span class="src">card-extract</span></td>
+              <td><code>@cf/qwen/qwen3-30b-a3b-fp8</code></td>
+              <td>Cloudflare Workers AI</td>
+              <td class="num">₹8.88</td>
+              <td>6.4× cheaper than Llama 3.3-70B for a job that is now classification against an explicit layout rather than inference from a blob of text.</td>
+            </tr>
+            <tr>
+              <td><b>Card OCR</b><br /><span class="src">on device</span></td>
+              <td>ML Kit · Apple Vision</td>
+              <td>the phone</td>
+              <td class="num">₹0.00</td>
+              <td>The image never leaves the device. Only the recognised text and its geometry are sent.</td>
+            </tr>
+            <tr>
+              <td><b>AI Concierge</b><br /><span class="src">ai-chat</span></td>
+              <td><code>claude-haiku-4-5</code> + prompt caching</td>
+              <td>Anthropic <span class="src">(fallback: Workers AI Llama 3.3)</span></td>
+              <td class="num">₹379</td>
+              <td>The only feature where the model's tone is the product. Caching takes ~31% off with no quality change.</td>
+            </tr>
+            <tr>
+              <td><b>Transcription</b><br /><span class="src">transcribe-memo</span></td>
+              <td><code>@cf/openai/whisper-large-v3-turbo</code></td>
+              <td>Cloudflare Workers AI</td>
+              <td class="num">₹144 <span class="src">(3-min)</span></td>
+              <td>15× cheaper than Deepgram Nova-3 and good enough on Indian English.</td>
+            </tr>
+            <tr>
+              <td><b>Summaries</b><br /><span class="src">transcribe-memo</span></td>
+              <td><code>@cf/qwen/qwen3-30b-a3b-fp8</code></td>
+              <td>Cloudflare Workers AI</td>
+              <td class="num">₹13</td>
+              <td>Same text model as card fields, so there is one model to reason about, not two.</td>
+            </tr>
+            <tr>
+              <td><b>Place search</b><br /><span class="src">where we met</span></td>
+              <td>Search Box <code>/forward</code></td>
+              <td>Mapbox</td>
+              <td class="num">₹0.00</td>
+              <td>Free tier covers current volume. Weak on Indian house-number addresses — see the open questions below.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══ METERING ═══ -->
+      <div class="sec-title rv" style="margin-top:30px"><h2>Metering: two numbers, on purpose</h2></div>
+      <div class="costs rv">
+        <div class="cost">
+          <h4>What the member sees</h4>
+          <div class="big">Uses</div>
+          <div class="unit">business units, never tokens</div>
+          <p class="math">
+            "5 card reads a day." A member cannot reason about tokens, and exposing them invites
+            gaming. Free limits live in <code>feature_limits</code>; the daily counter lives in
+            <code>feature_usage</code>.
+          </p>
+        </div>
+        <div class="cost">
+          <h4>What we see</h4>
+          <div class="big">Tokens</div>
+          <div class="unit">per call, per provider, per model</div>
+          <p class="math">
+            The real cost of every request. This is how margin gets measured and how abuse is
+            spotted. It is related to the member-facing number only at design time, when allowances
+            are set so worst-case cost stays well under the price.
+          </p>
+        </div>
+      </div>
+
+      <div class="tablewrap rv" style="margin-top:14px">
+        <table class="t">
+          <thead><tr><th>Free daily allowance</th><th>Enforced where</th><th>On exhaustion</th></tr></thead>
+          <tbody>
+            <tr><td><b>Card reading</b> — 5 a day</td><td><code>consume_feature</code></td><td>402 → plan page; on-device extraction still fills the form</td></tr>
+            <tr><td><b>Transcription</b> — 0 (Premium only)</td><td><code>consume_feature</code></td><td>402 → plan page</td></tr>
+            <tr><td><b>AI Concierge</b> — 0 (Premium only)</td><td><code>consume_feature</code></td><td>402 → plan page</td></tr>
+            <tr><td><b>Recording</b> — 1 minute per take</td><td>app, at record time</td><td>Auto-stops, <b>saves</b>, then offers the plan</td></tr>
+            <tr><td><b>Photo uploads</b> — none</td><td>app, before the picker opens</td><td>Plan page — checked before choosing, not after</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note rv">
+        <b>Why the recording and photo caps are enforced in the app while the AI caps are enforced
+        on the server.</b> They are different risks. Spending our money at a vendor must be gated
+        where the member cannot reach it. A recording length and a photo picker cost us nothing
+        until the bytes are uploaded — and the upload path is itself authenticated and keyed to the
+        member. Client-side is the right place for a limit whose only job is to shape behaviour;
+        server-side is the only place for a limit whose job is to protect a bill.
+      </div>
+
+      <!-- ═══ GUARDRAILS ═══ -->
+      <div class="sec-title rv" style="margin-top:30px"><h2>Guardrails</h2></div>
+      <div class="tablewrap rv">
+        <table class="t">
+          <thead><tr><th>Guardrail</th><th>Value</th><th>What it prevents</th></tr></thead>
+          <tbody>
+            <tr><td>Max output tokens — concierge</td><td class="num">700</td><td>One runaway answer costing more than a month's subscription</td></tr>
+            <tr><td>Max output tokens — card fields</td><td class="num">400</td><td>Same, on the highest-volume feature</td></tr>
+            <tr><td>Max OCR text accepted</td><td class="num">4,000 chars</td><td>A photograph of a page being billed as a business card</td></tr>
+            <tr><td>Layout lines sent to the model</td><td class="num">60</td><td>An unbounded prompt on a metered model</td></tr>
+            <tr><td>Model timeout</td><td class="num">8 s</td><td>A hung provider holding the scan open</td></tr>
+            <tr><td>Replayed conversation turns</td><td class="num">20</td><td>Input cost growing without bound as a thread ages</td></tr>
+            <tr><td>Recording length — free / Premium</td><td class="num">1 min / 2 h</td><td>Storage and transcription cost, and the upgrade prompt</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══ CHANGING A PROVIDER ═══ -->
+      <div class="sec-title rv" style="margin-top:30px"><h2>Changing a model</h2><span class="sub">what it takes today, and what it should take</span></div>
+      <div class="note rv">
+        Every model id reads from an environment variable — <code>WORKERS_AI_MODEL</code>,
+        <code>WORKERS_AI_STT_MODEL</code> — so switching is a <b>dashboard change and a function
+        restart</b>, not a redeploy and never an app release. That is also the rollback: setting
+        <code>WORKERS_AI_MODEL</code> back to <code>@cf/meta/llama-3.3-70b-instruct-fp8-fast</code>
+        undoes the Qwen3 move entirely.
+        <br /><br />
+        <b>The next step, not yet built:</b> a <code>feature_models</code> table holding
+        (feature, priority, provider, model, unit cost) so routing is data rather than
+        configuration, and a provider can be added without editing a function at all. That is the
+        point at which "the providers are invisible to the subscription" becomes literally true
+        rather than merely true in effect.
+      </div>
+
+      <!-- ═══ OPEN QUESTIONS ═══ -->
+      <div class="sec-title rv" style="margin-top:30px"><h2>Open questions, stated rather than buried</h2></div>
+      <div class="note warn rv">
+        • <b>A very heavy concierge user is unprofitable.</b> 750 questions a month costs ₹285
+        against a ₹400 price. <code>feature_usage</code> already records who they are; decide
+        between a fair-use cap and a tier above before it matters.<br />
+        • <b>The concierge cannot answer aggregate questions.</b> It is retrieval-based — it sees a
+        shortlist of contacts, never a COUNT — so "how many contacts have a +91 number" is
+        unanswerable and it will guess rather than decline. Fix is a precomputed stats block in the
+        system prompt, then tool-calling for arbitrary aggregates. <b>Not yet built.</b><br />
+        • <b>Mapbox's Indian address data</b> is the known weak spot. Google Places or Ola Maps is
+        the upgrade at ₹0.27 a request.<br />
+        • <b>Payments are not wired.</b> Plans are granted by hand until Razorpay and its webhook
+        exist; see <code>docs/payments-integration.md</code>.
+      </div>
+
+      <div class="pager rv">
+        <a href="plans.html"><span>← Back to</span><b>Free &amp; Premium</b></a>
+        <a class="next" href="index.html"><span>Back to →</span><b>Pricing overview</b></a>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

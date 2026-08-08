@@ -44,7 +44,7 @@
       </div>
 
       <div class="tabbar rv" style="--i:3">
-        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">4</span></button>
+        <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">5</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
@@ -65,13 +65,13 @@
 
         <section class="feature">
           <div class="f-head"><span class="f-num">01</span><h3>Find anyone</h3><span class="pill done">Built · live on the cloud</span></div>
-          <p class="f-note">Search, sort and filter by tag; every row shows where the contact came from, and a swipe on a row deletes or tags them. Every one of those rows is now read and saved in the cloud.</p>
+          <p class="f-note">Search, sort and filter by tag; a swipe on a row deletes or tags them, and every row is read and saved in the cloud. The list itself got a quieter, cleaner face today: where a contact came from is now a small mark on their photo instead of a labelled row, how long ago you met sits softly at the right ("2w", "3mo"), the dividers between rows are clearer, and a scanned contact's photo appears instantly once the app has seen it before.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
   TAB([Contacts tab]):::screen --> Q1{Anyone<br/>saved yet?}:::decision
   Q1 -->|No| EMP([Empty state<br/>add or import]):::screen
-  Q1 -->|Yes| LIST[Rolodex rows<br/>source badges]:::action
+  Q1 -->|Yes| LIST[Rolodex rows<br/>origin mark on the photo<br/>quiet met-ago at the right]:::action
   LIST --> FIND[Search bar<br/>name company or role]:::action
   LIST --> SORT[Sort menu<br/>name or newest first]:::action
   LIST --> CHIPS[Tag chips<br/>long-press deletes a tag]:::action
@@ -94,7 +94,7 @@ flowchart LR
 
         <section class="feature">
           <div class="f-head"><span class="f-num">02</span><h3>A contact's page</h3><span class="pill done">Built · live on the cloud</span></div>
-          <p class="f-note">One page per person — details, a FOLLOW-UP section, memories, voice memos and where you met. Every edit saves straight to the cloud. The follow-up section sets a reminder against this person in two taps, and snoozes or completes it later; the phone is nudged when one falls due, even with the app closed — the deeper story is on the <a href="home.html">Home</a> page.</p>
+          <p class="f-note">One page per person — details, a FOLLOW-UP section, memories, voice notes and where you met. Every edit saves straight to the cloud. Memories, voice and tags now live together in one section: written memories sit on a dated timeline, the voice-note recorder is right beside them, and the tag sheet is one tap away — the full story is feature 05 below. The follow-up section sets a reminder against this person in two taps, and snoozes or completes it later; the phone is nudged when one falls due, even with the app closed — the deeper story is on the <a href="home.html">Home</a> page.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -103,8 +103,8 @@ flowchart LR
   DET --> FUPS[FOLLOW-UP section<br/>set snooze or complete]:::action
   FUPS --> REM([Reminder saved<br/>a nudge arrives when due]):::state
   DET --> TAGS[Tag chip opens<br/>the tag sheet]:::action
-  DET --> NOTE[Memories note<br/>edit in place]:::action
-  DET --> MEMO[Voice memo rows<br/>record play transcribe]:::action
+  DET --> NOTE[Memories timeline<br/>dated entries newest first]:::action
+  DET --> MEMO[Voice notes recorded<br/>right on this page]:::action
   DET --> MET[Where we met card]:::action
   MET --> MAPS([Opens in Maps]):::state
   DET --> MENU{More menu<br/>which action?}:::decision
@@ -172,6 +172,34 @@ flowchart LR
   FILE --> PREV
   PREV --> DUP[Duplicate guard<br/>skips people you have]:::action
   DUP --> DONE([In the rolodex]):::state
+  classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
+  classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
+  classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
+  classDef backend fill:#ecf3fe,stroke:#2f6fd6,stroke-width:1.5px,color:#1d4d9e
+  classDef state fill:#e9f8f1,stroke:#0a8a5f,stroke-width:1.5px,color:#0a6a4a
+  classDef pending fill:#f8fafc,stroke:#8b93a5,stroke-width:1.6px,color:#5d6575,stroke-dasharray:6 4
+            </script>
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="f-head"><span class="f-num">05</span><h3>Memories pinned to a day, tags that don't multiply</h3><span class="pill done">Built · live on the cloud</span></div>
+          <p class="f-note">A memory can now carry its date: pick the calendar day it belongs to and it takes its place on the contact's timeline, newest first, editable and deletable like any entry. The voice-note recorder sits right beside the written memory — no detour to record — and tags are one tap away in the same section. The tags themselves stay tidy: start typing "10xn" and the "10xnetworking" you already have offers itself in both tag sheets instead of a fresh duplicate, and a tag that differs only in capital letters can no longer be created twice.</p>
+          <div class="diagram-container">
+            <script type="text/plain" class="chart-src">
+flowchart LR
+  DET([Contact page]):::screen --> MEMS[Memories section<br/>written · voice · tags together]:::action
+  MEMS --> ADDM[Add a memory<br/>pick its calendar day]:::action
+  ADDM --> PICK([Date picker]):::screen
+  PICK --> TL([Timeline on the contact<br/>newest first]):::state
+  TL --> ED[Edit or delete<br/>any entry]:::action
+  MEMS --> VN[Record a voice note<br/>right beside the written memory]:::action
+  VN --> ROW([Voice-note row<br/>joins the page]):::state
+  MEMS --> TAG[Tags one tap away]:::action
+  TAG --> SHEET([Tag sheet<br/>typing surfaces tags you have]):::screen
+  SHEET --> Q{Already have<br/>this tag?}:::decision
+  Q -->|Yes even in other capitals| REUSE([Existing tag reused<br/>no duplicate made]):::state
+  Q -->|Genuinely new| NEW([New tag created]):::state
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -258,11 +286,13 @@ stateDiagram-v2
           <div class="f-head"><span class="f-num">T</span><h3>What powers this module</h3></div>
           <p class="f-note">Feature by feature — what each moving part actually runs on.</p>
           <div class="list-card"><ul>
-            <li><b>List & filters</b><span>Search, name/newest sort and tag-chip filters backed by the contact_tags registry · swipe a row left to delete, right to tag</span></li>
+            <li><b>List & filters</b><span>Search, name/newest sort and tag-chip filters backed by the contact_tags registry · swipe a row left to delete, right to tag · redesigned 4 Aug: origin shows as a small mark on the photo, met-ago sits quietly at the right, dividers are clearer, and scanned photos are cached on the phone so they appear instantly after first sight</span></li>
+            <li><b>Reusable tags</b><span>Both tag sheets look the typed text up against the tags you already have and offer the match — "10xn" surfaces "10xnetworking" — and the registry treats capitals as the same tag, so a case-only duplicate can no longer be created</span></li>
+            <li><b>Dated memories</b><span>A date picker pins each written memory to the calendar day it belongs to · entries save with the contact in the cloud and render as a timeline on the page, newest first, each one editable and deletable</span></li>
             <li><b>Shared grouped fields</b><span>The create/edit form reuses the Card Builder's FieldGroupsEditor — one grouped-fields component across both modules · every exit from the form now routes through leaveScreen(), the fix for the native save-crash found and closed on 27 July</span></li>
             <li><b>Where-we-met</b><span>@react-native-community/geolocation stamps coordinates plus free-text place · opens in Maps from the contact page</span></li>
             <li><b>Imports</b><span>Phone book via react-native-contacts (runtime permission both platforms) · CSV / vCard via @react-native-documents/picker with in-app parsers · duplicate guard skips people already saved</span></li>
-            <li><b>Voice memos</b><span>react-native-audio-recorder-player, patched at source for a defect that killed the microphone app-wide after one take, plus a self-healing retry · recording duration measured by wall clock, so a quick second take is no longer rejected as too short · verified back-to-back on the device</span></li>
+            <li><b>Voice memos</b><span>react-native-audio-recorder-player, patched at source for a defect that killed the microphone app-wide after one take, plus a self-healing retry · recording duration measured by wall clock, so a quick second take is no longer rejected as too short · verified back-to-back on the device · the recorder now sits directly on the contact page beside the written memory, and these memos also appear in the Meeting Recorder's all-app history</span></li>
             <li><b>Transcription</b><span>The transcribe-memo edge function on Cloudflare Workers AI — Whisper large v3 turbo turns speech into text; llama-3.3-70b writes the one-paragraph summary and pulls out action items · runs per memo, on request, keys stay server-side</span></li>
             <li><b>Follow-up reminders</b><span>The reminders table from migration 0011 with owner-only security on every verb · a pg_cron job sweeps every five minutes and sends the reminder.due push · set/snooze/complete from this page's FOLLOW-UP section or from Home</span></li>
             <li><b>Where the data lives</b><span>Live on Supabase PostgreSQL — the contacts and contact_tags tables plus the tags, met_location and recordings columns from migration 0004, applied and verified 27 July · owner-only row security, proven with two separate signed-in sessions</span></li>
@@ -276,17 +306,9 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">What is left, grouped by the kind of work it is. The whole voice pipeline — recording, upload, playback, on-request transcription — is done and off this list.</p>
+          <p class="f-note">Nothing outstanding. Google Contacts import turned out to be working already — on Android they sync into the phone book, which the importer reads — so the card now says so plainly. Share-backs have their own standing inbox, reachable from Contacts with a count of what is waiting.</p>
 
-          <h4 class="cat">APIs <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Google Contacts import</b><span>Google People API — needs the Google Cloud OAuth setup from the accounts phase (the same credentials as Google sign-in) · the button is already in the app, marked as coming with that phase</span></li>
-          </ul></div>
-
-          <h4 class="cat">Polish <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>A standing inbox for share-backs</b><span>Details shared back to you arrive as a notification today, and only as a notification — a small standing list would hold them until you review them, so a missed notification is not a missed contact</span></li>
-          </ul></div>
+          <h4 class="cat none">Nothing outstanding</h4>
         </section>
       </div>
 

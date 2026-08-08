@@ -21,7 +21,7 @@
       <a href="../index.html#modules" class="keep">All modules</a>
       <a href="../pricing/index.html">Pricing</a>
       <a href="ai-concierge.html">← Previous</a>
-      <a href="profile.html" class="accent keep">Next →</a>
+      <a href="meeting-recorder.html" class="accent keep">Next →</a>
     </div>
   </nav>
 
@@ -48,7 +48,7 @@
         <button class="tabbtn active" data-tab="tab-flows">User flows <span class="cnt">3</span></button>
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
-        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do <span class="cnt">1</span></button>
       </div>
 
       <div class="legend">
@@ -194,24 +194,18 @@ flowchart LR
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">The cloud store went live on 27 July, lock-screen pushes were proven on 28 July, and follow-up reminder pushes joined them on 1 August — all off this list. What remains is grouped by the kind of work it is. Nothing in this module is undecided.</p>
+          <p class="f-note">Notifications arrive on the lock screen with the app closed, and the unread badge is now correct the moment you come back to the app — which was the one thing wrong with it.</p>
 
-          <h4 class="cat">Backend <span class="n">1 item</span></h4>
+          <h4 class="cat">Testing <span class="n">1 item</span></h4>
           <div class="list-card"><ul>
-            <li><b>Instant badge updates</b><span>Turn on Supabase Realtime for the notifications table so the gold count changes the moment a note arrives, instead of when the next screen opens. One dashboard switch — deliberately still off, because nothing listens to it yet</span></li>
-            
-          </ul></div>
-
-          <h4 class="cat">Integrations <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Verify alerts on iPhone<span class="tag-ios">iPhone · not counted</span></b><span>Lock-screen delivery is live and proven on Android, and since 1 August the app itself builds and runs on a real iPhone. Push there still needs the Apple push key, which comes with the paid developer account — the code is written and platform-guarded, it has simply never fired on an iPhone, which is why it is listed but excluded from the percentage above</span></li>
+            <li><b><b>[iPhone]</b> Confirm delivery</b><span>Firebase messaging is configured for both platforms; iOS additionally needs the APNs key uploaded.</span></li>
           </ul></div>
         </section>
       </div>
 
       <div class="pn">
         <a href="ai-concierge.html"><span>← Previous</span><b>AI Concierge</b></a>
-        <a class="next" href="profile.html"><span>Next →</span><b>Profile & Account</b></a>
+        <a class="next" href="meeting-recorder.html"><span>Next →</span><b>Meeting Recorder</b></a>
       </div>
     </div>
   </header>

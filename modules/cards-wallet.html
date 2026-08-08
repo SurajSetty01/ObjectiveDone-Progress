@@ -48,7 +48,7 @@
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
-        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do <span class="cnt">3</span></button>
       </div>
 
       <div class="legend">
@@ -272,13 +272,13 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">The big items that sat here have shipped: the public card page is live, the wallet-pass flow is built into the app, a card can be pinned to the home screen, and as of today every contact records how it was acquired — numbers Home now shows. What is left is one business step and the two iPhone checks, which are listed but not counted.</p>
+          <p class="f-note">Nothing here is code. The wallet, sharing, the public card page and the home-screen widget are all finished on Android, and a shared link now opens the app itself.</p>
 
           <h4 class="cat">Integrations <span class="n">3 items</span></h4>
           <div class="list-card"><ul>
-            <li><b>Wallet issuer accounts</b><span>The in-app flow is done and the pass endpoint is live. What remains is a business registration, not engineering: Google states its Wallet API is unavailable to India-registered businesses, and Apple Wallet needs a developer account and a signing certificate. Until those exist the button opens an honest "not configured yet" page rather than failing silently</span></li>
-            <li><b>NFC tag writing on iPhone<span class="tag-ios">iPhone · not counted</span></b><span>Needs the paid Apple developer membership — the free account cannot grant the NFC capability. Android writes real tags today; iPhone shows a graceful message until then</span></li>
-            <li><b>The iPhone home-screen widget<span class="tag-ios">iPhone · not counted</span></b><span>Android's home-screen widget ships and shows the code with no signal needed. The iPhone equivalent is written but needs its own build target plus the paid Apple membership for the data sharing it relies on</span></li>
+            <li><b>Wallet issuer accounts</b><span>Adding a card to a phone wallet needs an issuer certificate from Apple. Google’s equivalent is closed to Indian businesses. A registration, not engineering.</span></li>
+            <li><b><b>[iPhone]</b> NFC writing</b><span>The code is shared and written; iOS additionally needs the Tag Reading capability switched on in Xcode.</span></li>
+            <li><b><b>[iPhone]</b> Home-screen widget</b><span>The Android widget ships. The iPhone equivalent can only be added on a Mac.</span></li>
           </ul></div>
         </section>
       </div>

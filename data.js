@@ -12,39 +12,15 @@
 
    Site-wide overall is weighted by where the remaining WORK is:
      UI 20% · Backend 35% · Device integrations 30% · AI 15%
-     = 0.20(97) + 0.35(98) + 0.30(96) + 0.15(90) = 96.0 → 96
+     = 0.20(99) + 0.35(99) + 0.30(98) + 0.15(96) = 98.3 → 98
    The generator refuses to write this file if that arithmetic breaks. */
 window.OD_DATA = {
   "todos": [
     {
-      "module": "splash",
-      "moduleTitle": "Splash & App Boot",
+      "module": "auth",
+      "moduleTitle": "Authentication",
       "aspect": "integrations",
-      "label": "deep link into a shared card",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "splash",
-      "moduleTitle": "Splash & App Boot",
-      "aspect": "ui",
-      "label": "cold-start timing on low-end Android",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "splash",
-      "moduleTitle": "Splash & App Boot",
-      "aspect": "backend",
-      "label": "two-phone check of the one-phone lock",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "splash",
-      "moduleTitle": "Splash & App Boot",
-      "aspect": "ui",
-      "label": "launching with no signal",
+      "label": "Google sign-in (blocked, not unbuilt: needs a Google Cloud OAuth client registered against a release signing key, and release still signs with the debug keystore)",
       "iphone": false,
       "decision": false
     },
@@ -52,7 +28,7 @@ window.OD_DATA = {
       "module": "auth",
       "moduleTitle": "Authentication",
       "aspect": "integrations",
-      "label": "Google sign-in",
+      "label": "codes by SMS (the provider answer is written — SmartPing via a Supabase Send-SMS hook; waiting on the client's DLT template and API details)",
       "iphone": false,
       "decision": false
     },
@@ -60,23 +36,7 @@ window.OD_DATA = {
       "module": "auth",
       "moduleTitle": "Authentication",
       "aspect": "integrations",
-      "label": "codes by SMS (decision)",
-      "iphone": false,
-      "decision": true
-    },
-    {
-      "module": "auth",
-      "moduleTitle": "Authentication",
-      "aspect": "integrations",
-      "label": "codes over WhatsApp (decision)",
-      "iphone": false,
-      "decision": true
-    },
-    {
-      "module": "auth",
-      "moduleTitle": "Authentication",
-      "aspect": "backend",
-      "label": "harden where the sign-in token is kept",
+      "label": "codes over WhatsApp (separate, longer: needs WhatsApp Business API and Meta approval)",
       "iphone": false,
       "decision": false
     },
@@ -89,22 +49,6 @@ window.OD_DATA = {
       "decision": false
     },
     {
-      "module": "onboarding",
-      "moduleTitle": "Select Your Canvas",
-      "aspect": "ui",
-      "label": "your own details on the sample cards",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "builder",
-      "moduleTitle": "Card Builder",
-      "aspect": "ui",
-      "label": "brand polish pass",
-      "iphone": false,
-      "decision": false
-    },
-    {
       "module": "home",
       "moduleTitle": "Home",
       "aspect": "integrations",
@@ -113,18 +57,18 @@ window.OD_DATA = {
       "decision": false
     },
     {
-      "module": "home",
-      "moduleTitle": "Home",
-      "aspect": "backend",
-      "label": "a weekly follow-up digest (later idea, not promised)",
+      "module": "ai",
+      "moduleTitle": "AI Concierge",
+      "aspect": "ai",
+      "label": "teach the concierge to read the new memory records (memories written from 5 Aug are rows in their own table; the older ones are still text inside a contact's notes, which is what the concierge reads today. It must learn the new source before the two are ever merged)",
       "iphone": false,
       "decision": false
     },
     {
-      "module": "cards",
-      "moduleTitle": "Cards Wallet & Sharing",
+      "module": "recorder",
+      "moduleTitle": "Meeting Recorder",
       "aspect": "ui",
-      "label": "surface the \"where my contacts came from\" numbers on Home",
+      "label": "full device pass on the new surfaces (record, pause, resume, auto-stop at the cap, rename from History, transcribe a standalone recording)",
       "iphone": false,
       "decision": false
     },
@@ -132,7 +76,7 @@ window.OD_DATA = {
       "module": "cards",
       "moduleTitle": "Cards Wallet & Sharing",
       "aspect": "integrations",
-      "label": "Wallet issuer accounts (Apple certificate; Google is closed to Indian businesses)",
+      "label": "Wallet issuer accounts (Apple certificate; Google is closed to Indian businesses — a business registration, not engineering)",
       "iphone": false,
       "decision": false
     },
@@ -161,50 +105,18 @@ window.OD_DATA = {
       "decision": false
     },
     {
-      "module": "contacts",
-      "moduleTitle": "Contacts",
-      "aspect": "integrations",
-      "label": "Google Contacts import",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "contacts",
-      "moduleTitle": "Contacts",
-      "aspect": "ui",
-      "label": "a standing inbox for share-backs (today they arrive by notification only)",
+      "module": "ai",
+      "moduleTitle": "AI Concierge",
+      "aspect": "ai",
+      "label": "upgrade the concierge to Claude (one paid key — `supabase secrets set ANTHROPIC_API_KEY=…`, no rebuild; it answers on the free tier today)",
       "iphone": false,
       "decision": false
     },
     {
       "module": "ai",
       "moduleTitle": "AI Concierge",
-      "aspect": "ai",
-      "label": "grounded-answer pass",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "ai",
-      "moduleTitle": "AI Concierge",
-      "aspect": "ai",
-      "label": "how to search a large contact book (decision)",
-      "iphone": false,
-      "decision": true
-    },
-    {
-      "module": "ai",
-      "moduleTitle": "AI Concierge",
-      "aspect": "ai",
-      "label": "upgrade the concierge to Claude (one paid key — it answers on the free tier today)",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "notifications",
-      "moduleTitle": "Notifications",
       "aspect": "backend",
-      "label": "instant badge updates",
+      "label": "have the AI functions check entitlement server-side as well as in the app",
       "iphone": false,
       "decision": false
     },
@@ -219,56 +131,40 @@ window.OD_DATA = {
     {
       "module": "profile",
       "moduleTitle": "Profile & Account",
+      "aspect": "ui",
+      "label": "point \"Follow us\" at the real LinkedIn, Instagram and WhatsApp pages (the row hides itself until there is a URL, so there are no dead buttons)",
+      "iphone": false,
+      "decision": false
+    },
+    {
+      "module": "profile",
+      "moduleTitle": "Profile & Account",
       "aspect": "backend",
-      "label": "switch-phones check",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "profile",
-      "moduleTitle": "Profile & Account",
-      "aspect": "ui",
-      "label": "FAQs, Privacy and Terms",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "profile",
-      "moduleTitle": "Profile & Account",
-      "aspect": "ui",
-      "label": "point \"Follow us\" at the real LinkedIn, Instagram and WhatsApp pages (the buttons are in, each opens an honest \"goes live with the public launch\" note until the pages exist)",
-      "iphone": false,
-      "decision": false
-    },
-    {
-      "module": "profile",
-      "moduleTitle": "Profile & Account",
-      "aspect": "ui",
-      "label": "finish the German translation (the switch works and Profile, Home and the tab bar are translated; the remaining screens fall back to English until their turn)",
+      "label": "connect a payment provider for Premium (Razorpay: a webhook writing `subscriptions`, plus GST treatment. Until then the plan is granted by hand from the dashboard and the app does not pretend to take a payment)",
       "iphone": false,
       "decision": false
     }
   ],
   "project": {
     "started": "2026-07-24",
-    "lastUpdated": "2026-08-01",
-    "overall": 96,
+    "lastUpdated": "2026-08-04",
+    "overall": 98,
     "aspects": [
       {
         "key": "UI & experience",
-        "pct": 97
+        "pct": 99
       },
       {
         "key": "Backend & data",
-        "pct": 98
+        "pct": 99
       },
       {
         "key": "Device integrations",
-        "pct": 96
+        "pct": 98
       },
       {
         "key": "AI & automation",
-        "pct": 90
+        "pct": 96
       }
     ],
     "currentMilestone": "M10 · Home, follow-up reminders & polish",
@@ -287,6 +183,7 @@ window.OD_DATA = {
     "contacts",
     "ai",
     "notifications",
+    "recorder",
     "profile"
   ],
   "modules": {
@@ -306,11 +203,11 @@ window.OD_DATA = {
       "title": "Authentication",
       "page": "modules/authentication.html",
       "status": "progress",
-      "progress": 84,
+      "progress": 92,
       "aspects": {
         "ui": 100,
-        "backend": 98,
-        "integrations": 55
+        "backend": 100,
+        "integrations": 78
       },
       "feats": "Email code + password live; the one-phone-per-account lock is ACTIVE, and signing out now properly releases the phone. Apple & Google sign-in and SMS / WhatsApp still to come."
     },
@@ -329,12 +226,12 @@ window.OD_DATA = {
     "builder": {
       "title": "Card Builder",
       "page": "modules/card-builder.html",
-      "status": "progress",
-      "progress": 97,
+      "status": "done",
+      "progress": 99,
       "aspects": {
-        "ui": 96,
+        "ui": 100,
         "backend": 98,
-        "integrations": 96
+        "integrations": 99
       },
       "feats": "Identity, photo & logo, grouped fields, preview, cloud saving — and images now really upload to cloud storage, so a card survives a reinstall. The logo finder reads your company website’s own artwork, and anything missing when you save is now named at the top of the form instead of hidden below it."
     },
@@ -342,11 +239,11 @@ window.OD_DATA = {
       "title": "Home",
       "page": "modules/home.html",
       "status": "progress",
-      "progress": 88,
+      "progress": 98,
       "aspects": {
-        "ui": 90,
-        "backend": 95,
-        "integrations": 80
+        "ui": 99,
+        "backend": 97,
+        "integrations": 97
       },
       "feats": "The day’s first screen, built around who needs you: overdue and due follow-ups with one-tap done and snooze, introductions waiting for approval, the people you met most recently with a one-tap Remind, and how your whole network was built. Set a follow-up on anyone in two taps — the phone buzzes when it falls due, even with the app closed."
     },
@@ -354,11 +251,11 @@ window.OD_DATA = {
       "title": "Cards Wallet & Sharing",
       "page": "modules/cards-wallet.html",
       "status": "progress",
-      "progress": 97,
+      "progress": 98,
       "aspects": {
         "ui": 99,
-        "backend": 96,
-        "integrations": 95
+        "backend": 98,
+        "integrations": 97
       },
       "feats": "The public card page is LIVE — a permanent short link per card, rendered fresh on every open, so an edit reaches everyone you already shared with. Cards go into the phone’s wallet and onto the home screen, the QR shares as a branded picture, the card shares as a contact file, and the share row reaches WhatsApp, LinkedIn, X, Instagram, Facebook, Telegram, Messenger, email and SMS directly."
     },
@@ -369,7 +266,7 @@ window.OD_DATA = {
       "progress": 99,
       "aspects": {
         "ui": 99,
-        "backend": 98,
+        "backend": 99,
         "integrations": 99
       },
       "feats": "The camera is live. QR codes decode by themselves — from the lens or from a photo — and a photographed paper card reads its own name, company, job title, department, address, phone, email, website and social links straight into the contact form. Reading quality has been tuned against real cards, including more than one card in a single photo."
@@ -378,49 +275,61 @@ window.OD_DATA = {
       "title": "Contacts",
       "page": "modules/contacts.html",
       "status": "progress",
-      "progress": 98,
+      "progress": 99,
       "aspects": {
-        "ui": 99,
+        "ui": 100,
         "backend": 99,
-        "integrations": 96
+        "integrations": 99
       },
-      "feats": "Live in the cloud with tags, search, imports and contact photos, and every contact records how it was acquired. Voice memos now really record: play one back on a second phone, and read the transcript, the summary and the commitments it picked out. Google Contacts import is the remaining gap."
+      "feats": "Live in the cloud with tags, search, imports and contact photos, and every contact records how it was acquired — as a small mark on the avatar since the 4 Aug redesign. Tags are reusable identifiers (typing offers the existing tag instead of creating a duplicate), memories can be pinned to a calendar date, and voice notes record directly on the contact page beside the written memory."
     },
     "ai": {
       "title": "AI Concierge",
       "page": "modules/ai-concierge.html",
       "status": "progress",
-      "progress": 92,
+      "progress": 96,
       "aspects": {
-        "ui": 95,
-        "backend": 94,
-        "integrations": 88
+        "ui": 98,
+        "backend": 97,
+        "integrations": 93
       },
-      "feats": "The concierge answers for real — grounded in your own contacts, notes and memo transcripts, and it says plainly when your notes don’t hold the answer instead of inventing one. Speak your question instead of typing it. It runs on the club’s own AI allowance; a paid Claude key is a one-line upgrade for answer quality."
+      "feats": "The concierge answers for real — grounded in everything you stored: contacts, notes, dated memories, every memo’s title, summary and spoken commitments, and the Meeting Recorder’s transcripts. It says plainly when your notes don’t hold the answer instead of inventing one, opens in about two seconds, and you can speak your question instead of typing it. A paid Claude key is a one-line upgrade for answer quality."
     },
     "notifications": {
       "title": "Notifications",
       "page": "modules/notifications.html",
       "status": "progress",
-      "progress": 94,
+      "progress": 97,
       "aspects": {
-        "ui": 96,
-        "backend": 97,
-        "integrations": 90
+        "ui": 98,
+        "backend": 98,
+        "integrations": 95
       },
       "feats": "Lock-screen delivery is LIVE and proven on a real phone: the app writes a notification, the server pushes it, and the phone that caused it is deliberately skipped. Tapping one opens what it is about. iPhone delivery is the remaining piece."
+    },
+    "recorder": {
+      "title": "Meeting Recorder",
+      "page": "modules/meeting-recorder.html",
+      "status": "progress",
+      "progress": 97,
+      "aspects": {
+        "ui": 98,
+        "backend": 98,
+        "integrations": 96
+      },
+      "feats": "The Meeting Recorder is its own page, opened from Home: record meetings or standalone voice notes with pause, resume and a live waveform, give every recording an editable title, and browse the complete history of every recording in the app — contact memos included — searchable, filterable by origin and sortable, with play, rename, transcribe and delete on every row. Free: 10 minutes a take, 60 minutes kept. Premium: up to 2 hours a recording."
     },
     "profile": {
       "title": "Profile & Account",
       "page": "modules/profile.html",
       "status": "progress",
-      "progress": 96,
+      "progress": 99,
       "aspects": {
-        "ui": 100,
-        "backend": 96,
-        "integrations": 92
+        "ui": 99,
+        "backend": 99,
+        "integrations": 98
       },
-      "feats": "Identity, avatar and logo controls sync to the cloud, and the avatar image itself now really uploads. Signing out clears cached media so the next account never sees the last one’s photos. The logo auto-detect preference is gone — the card builder simply offers it, with one fewer setting to find first."
+      "feats": "Identity, avatar and logo controls sync to the cloud. Three real settings pages arrived 4 Aug: an Activity Log of sign-ins, devices and security events; App Usage counted on the phone only and never uploaded; and a Premium-only Credit Usage history. German is complete across the whole app, including the four legal documents. The plan page is a glossy gold card led by the ObjectiveDone mark."
     }
   },
   "milestones": [
@@ -505,8 +414,15 @@ window.OD_DATA = {
       "title": "Polish & release prep",
       "when": "Aug 2 – 7",
       "status": "progress",
-      "progress": 20,
+      "progress": 85,
       "note": "The long tail: the open items on each module’s list, a brand polish pass, and everything needed to hand over v1. Under way now."
+    },
+    {
+      "title": "Premium & the paywall",
+      "when": "Aug 4",
+      "status": "done",
+      "progress": 100,
+      "note": "The paid features now know who has paid for them. Reading business cards stays free five times a day; voice transcripts and the concierge are part of the plan; everything else in the app — cards, contacts, sharing, reminders, and recording a memo — stays free for everyone. Test accounts get full access from a list you edit yourself, with no new build."
     },
     {
       "title": "iPhone verification",

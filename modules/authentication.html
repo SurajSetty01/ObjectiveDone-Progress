@@ -37,7 +37,9 @@
         Getting in takes an email and thirty seconds — a six-digit code in a branded email, or a
         password for returning members, live on the cloud today. The one-phone-per-account lock is
         now active: signing in on a new phone quietly retires the old one, so two people can never
-        share an account. Apple and Google sign-in and the SMS / WhatsApp channels join later.
+        share an account. Email is the only channel for now — the client's call. The SMS path is
+        built and kept switched off until his provider paperwork comes through; Apple and Google
+        sign-in and WhatsApp codes join later.
       </p>
       <div class="progress-box rv" style="--i:2" aria-label="Module progress" data-module-progress>
         <!-- Filled from data.js by site.js — never hand-write these numbers. -->
@@ -48,7 +50,7 @@
         <button class="tabbtn" data-tab="tab-arch">Architecture & backend <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-states">States <span class="cnt">1</span></button>
         <button class="tabbtn" data-tab="tab-stack">Tech stack</button>
-        <button class="tabbtn" data-tab="tab-pending">Things to do</button>
+        <button class="tabbtn" data-tab="tab-pending">Things to do <span class="cnt">4</span></button>
       </div>
 
       <div class="legend">
@@ -65,7 +67,7 @@
 
         <section class="feature">
           <div class="f-head"><span class="f-num">01</span><h3>Signing in</h3><span class="pill done">Built · live on the cloud</span></div>
-          <p class="f-note">From a cold open to being inside the app — both the email-code path and the password path, with every retry loop.</p>
+          <p class="f-note">From a cold open to being inside the app — both the email-code path and the password path, with every retry loop. Email is the only channel for now, by the client's decision; the SMS path is built but sits switched off.</p>
           <div class="diagram-container">
             <script type="text/plain" class="chart-src">
 flowchart LR
@@ -87,6 +89,7 @@ flowchart LR
   Q4 -->|No| PWD
   Q4 -->|Forgot · email me a code| SEND
   Q4 -->|Yes| INB
+  Q2 -.->|Code by SMS · switched off for now| SMS([Built and waiting on the<br/>client's SMS paperwork]):::pending
   classDef screen fill:#fdf8ec,stroke:#b28c48,stroke-width:2px,color:#5c471f
   classDef action fill:#ffffff,stroke:#c9d0dd,stroke-width:1.5px,color:#10162a
   classDef decision fill:#fdf1f7,stroke:#d23f7d,stroke-width:1.5px,color:#8d2a56
@@ -220,23 +223,14 @@ stateDiagram-v2
       <div class="tabpanel" id="tab-pending">
         <section class="feature">
           <div class="f-head"><span class="f-num">P</span><h3>Things to do</h3></div>
-          <p class="f-note">The honest list, grouped by the kind of work. The backend side of sign-in is finished — everything below waits on an outside account, a choice, or a hardening pass.</p>
+          <p class="f-note">Four items, and every one waits on an outside account or approval rather than on code. Signing in by email — one-time code or password — is the live path today, and email-only is the client's own call.</p>
 
-          <h4 class="cat">Integrations <span class="n">2 items</span></h4>
+          <h4 class="cat">Integrations <span class="n">4 items</span></h4>
           <div class="list-card"><ul>
-            <li><b>Apple sign-in<span class="tag-ios">iPhone · not counted</span></b><span>Required before the app can ship on the App Store at all. Needs an Apple Developer account and the Sign in with Apple capability. The sign-in seam already accepts additional providers, so this is account setup on a Mac rather than app work — listed here, excluded from the percentage above.</span></li>
-            <li><b>Google sign-in</b><span>Needs a Google Cloud OAuth client. The button is already in the app marked as coming later, and the same setup also unlocks importing contacts from Google.</span></li>
-          </ul></div>
-
-          <h4 class="cat">Decisions <span class="n">2 items</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Codes by SMS<span class="tag-undecided">provider undecided</span></b><span>MSG91, Twilio or another sender — the choice waits on comparing price and real Indian delivery rates, and Indian rules also require registering the sender before the first message can go out.</span></li>
-            <li><b>Codes over WhatsApp<span class="tag-undecided">approach undecided</span></b><span>Would use the WhatsApp Business API for codes and alerts. Needs a business account decision before any work starts.</span></li>
-          </ul></div>
-
-          <h4 class="cat">Polish <span class="n">1 item</span></h4>
-          <div class="list-card"><ul>
-            <li><b>Harden where the sign-in token is kept</b><span>The token that keeps you signed in currently sits in the app's fast on-device store. Before public release it moves into the phone's own secure vault — Keychain on iPhone, Keystore on Android.</span></li>
+            <li><b>Google sign-in <span class="tag-undecided">blocked on a signing key</span></b><span>The app side is written and waiting. What it needs is a Google Cloud sign-in client registered against the RELEASE signing key — and the release build is still signed with a development key, so that key does not exist yet. Until it does, the button is hidden rather than shown and failing.</span></li>
+            <li><b>Codes by SMS <span class="tag-undecided">built · switched off</span></b><span>The flow itself is finished and sits dormant in the app — the client chose to launch with email only. Switching it on waits on him: his SmartPing account will carry the codes through a small server hook, and what we need is his approved message template (the telecom paperwork known as DLT) and the API details. That approval has a queue in front of it, so it is the thing to start first.</span></li>
+            <li><b>Codes over WhatsApp</b><span>A separate and much longer path: it needs a WhatsApp Business account and a message template approved by Meta. Recommended after launch, not before.</span></li>
+            <li><b><b>[iPhone]</b> Sign in with Apple</b><span>Needs an Apple Developer account and a Mac to configure. The sign-in seam already accepts additional providers.</span></li>
           </ul></div>
         </section>
       </div>
